@@ -54,20 +54,46 @@
 		</compilers>
 	</system.codedom>
 
-	<!-- Proteger las páginas dentro de Pages (requieren autenticación) -->
-	<location path="Pages">
+	<!-- Permitir acceso público a Login -->
+	<location path="Login.aspx">
 		<system.web>
 			<authorization>
-				<deny users="?" />
+				<allow users="*" />
 			</authorization>
 		</system.web>
 	</location>
 
-	<!-- Proteger Default.aspx (requiere autenticación) -->
-	<location path="Default.aspx">
+	<!-- Permitir acceso público a Content (CSS, imágenes) -->
+	<location path="Content">
 		<system.web>
 			<authorization>
-				<deny users="?" />
+				<allow users="*" />
+			</authorization>
+		</system.web>
+	</location>
+
+	<!-- Permitir acceso público a Scripts (JavaScript) -->
+	<location path="Scripts">
+		<system.web>
+			<authorization>
+				<allow users="*" />
+			</authorization>
+		</system.web>
+	</location>
+
+	<!-- Permitir acceso público a páginas de error -->
+	<location path="AccesoDenegado.aspx">
+		<system.web>
+			<authorization>
+				<allow users="*" />
+			</authorization>
+		</system.web>
+	</location>
+
+	<location path="Error.aspx">
+		<system.web>
+			<authorization>
+				<allow users="*" />
 			</authorization>
 		</system.web>
 	</location>
