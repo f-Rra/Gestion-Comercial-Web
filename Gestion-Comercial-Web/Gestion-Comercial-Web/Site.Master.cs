@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using Gestion_Comercial_Web.Helpers;
 
 namespace Gestion_Comercial_Web
 {
@@ -11,7 +8,23 @@ namespace Gestion_Comercial_Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (!SessionManager.EstaLogueado)
+                {
+                    Response.Redirect("~/Login.aspx");
+                    return;
+                }
 
+                lblUsuario.Text = SessionManager.UsuarioActual.NombreUsuario;
+                menuAdmin.Visible = SessionManager.EsAdministrador;
+            }
+        }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            SessionManager.CerrarSesion();
+            Response.Redirect("~/Login.aspx");
         }
     }
 }
