@@ -17,5 +17,17 @@ namespace Gestion_Comercial_Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        void Session_Start(object sender, EventArgs e)
+        {
+            // Configurar timeout de sesión
+            Session.Timeout = 60; // 60 minutos
+        }
+
+        void Session_End(object sender, EventArgs e)
+        {
+            // Limpieza cuando finaliza la sesión
+            // (Solo funciona con InProc session state)
+        }
     }
 }
