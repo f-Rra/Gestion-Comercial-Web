@@ -1,21 +1,44 @@
-﻿/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    margin-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+﻿/* ========================================
+   Paleta de Colores - Sistema Gestión Comercial
+   Extraída de la aplicación Desktop WinForms
+   ======================================== */
+
+:root {
+    --color-primary-dark: #012E40;
+    --color-background: #024959;
+    --color-secondary: #026773;
+    --color-accent: #3CA6A6;
+    --color-light: #F2E3D5;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
+/* ========================================
+   Estilos Globales
+   ======================================== */
+
+body {
+    background-color: var(--color-background);
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-    .body-content {
-        padding: 0;
-    }
+/* ========================================
+   Clases de Utilidad
+   ======================================== */
+
+.bg-primary-dark {
+    background-color: var(--color-primary-dark) !important;
+}
+
+.bg-secondary-custom {
+    background-color: var(--color-secondary) !important;
+}
+
+.bg-accent {
+    background-color: var(--color-accent) !important;
+}
+
+.text-light-custom {
+    color: var(--color-light) !important;
+}
+
+.text-primary-dark {
+    color: var(--color-primary-dark) !important;
 }
