@@ -203,6 +203,11 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Articulo.cs" />
+    <Compile Include="Dominio\Categoria.cs" />
+    <Compile Include="Dominio\Marca.cs" />
+    <Compile Include="Dominio\Usuario.cs" />
+    <Compile Include="Dominio\Venta.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,7 +230,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
-    <Folder Include="Dominio\" />
     <Folder Include="Helpers\" />
     <Folder Include="Negocio\" />
     <Folder Include="Pages\Admin\" />
