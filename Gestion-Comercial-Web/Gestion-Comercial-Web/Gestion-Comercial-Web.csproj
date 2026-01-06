@@ -233,6 +233,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SessionManager.cs" />
     <Compile Include="Negocio\AccesoDatos.cs" />
     <Compile Include="Negocio\ArticuloNegocio.cs" />
     <Compile Include="Negocio\CategoriaNegocio.cs" />
@@ -258,7 +259,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Articulos\" />
     <Folder Include="Pages\Reportes\" />
