@@ -211,6 +211,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Negocio\AccesoDatos.cs" />
+    <Compile Include="Negocio\ArticuloNegocio.cs" />
+    <Compile Include="Negocio\CategoriaNegocio.cs" />
+    <Compile Include="Negocio\MarcaNegocio.cs" />
+    <Compile Include="Negocio\ReporteNegocio.cs" />
+    <Compile Include="Negocio\UsuarioNegocio.cs" />
+    <Compile Include="Negocio\VentaNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -231,7 +238,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Negocio\" />
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Articulos\" />
     <Folder Include="Pages\Reportes\" />
