@@ -224,6 +224,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
+    <Folder Include="Dominio\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Negocio\" />
+    <Folder Include="Pages\Admin\" />
+    <Folder Include="Pages\Articulos\" />
+    <Folder Include="Pages\Reportes\" />
+    <Folder Include="Pages\Stock\" />
+    <Folder Include="Pages\Ventas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
