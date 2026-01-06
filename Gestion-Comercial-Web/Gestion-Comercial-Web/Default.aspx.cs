@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gestion_Comercial_Web.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,12 @@ namespace Gestion_Comercial_Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionManager.ValidarSesion();
 
+            if (!IsPostBack)
+            {
+                
+            }
         }
     }
 }
