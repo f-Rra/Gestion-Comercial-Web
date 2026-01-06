@@ -123,6 +123,12 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Images\login.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logo_datos.png" />
+    <Content Include="Content\Images\logo_detalles.png" />
+    <Content Include="Content\Images\logo_principal.png" />
+    <Content Include="Content\Images\not-available.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -236,7 +242,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
     <Folder Include="Helpers\" />
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Articulos\" />
