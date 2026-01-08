@@ -45,44 +45,76 @@
                 </div>
             </div>
 
-            <!-- Card 2: Ventas -->
+            <!-- Card 2: Marcas -->
             <div class="col">
                 <div class="card shadow-sm border-0 mb-3" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
-                    <a href="~/Pages/Ventas/NuevaVenta.aspx" runat="server" class="text-decoration-none">
+                    <a href="~/Pages/Admin/Marcas.aspx" runat="server" class="text-decoration-none">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-shopping-cart fa-4x mb-3" style="color: #F0E5D8;"></i>
-                            <h4 class="card-title fw-bold text-light">Ventas</h4>
+                            <i class="fas fa-tag fa-4x mb-3" style="color: #F0E5D8;"></i>
+                            <h4 class="card-title fw-bold text-light">Marcas</h4>
                         </div>
                     </a>
                 </div>
                 <!-- Card de items -->
                 <div class="card border-0 shadow-sm align-items-start" style="background-color: var(--color-light);">
                     <div class="card-body p-3">
-                        <p class="mb-2 fw-semibold">Registrar nuevas ventas</p>
+                        <p class="mb-2 fw-semibold">Gestión de marcas</p>
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex mb-2">
                                 <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
-                                <span>Nueva venta rápida</span>
+                                <span>Alta y baja de marcas</span>
                             </li>
                             <li class="d-flex mb-2">
                                 <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
-                                <span>Historial de ventas</span>
+                                <span>Modificación de datos</span>
                             </li>
                             <li class="d-flex mb-0">
                                 <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
-                                <span>Generar tickets PDF</span>
+                                <span>Listado completo</span>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 3: Stock -->
+            <!-- Card 3: Categorías -->
+            <div class="col">
+                <div class="card shadow-sm border-0 mb-3" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <a href="~/Pages/Admin/Categorias.aspx" runat="server" class="text-decoration-none">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-th-large fa-4x mb-3" style="color: #EDDFD0;"></i>
+                            <h4 class="card-title fw-bold text-light">Categorías</h4>
+                        </div>
+                    </a>
+                </div>
+                <!-- Card de items -->
+                <div class="card border-0 shadow-sm align-items-start" style="background-color: var(--color-light);">
+                    <div class="card-body p-3">
+                        <p class="mb-2 fw-semibold">Gestión de categorías</p>
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex mb-2">
+                                <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
+                                <span>Alta y baja de categorías</span>
+                            </li>
+                            <li class="d-flex mb-2">
+                                <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
+                                <span>Edición de nombres</span>
+                            </li>
+                            <li class="d-flex mb-0">
+                                <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
+                                <span>Organización jerárquica</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Stock -->
             <div class="col">
                 <div class="card shadow-sm border-0 mb-3" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
                     <a href="~/Pages/Stock/ControlStock.aspx" runat="server" class="text-decoration-none">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-boxes fa-4x mb-3" style="color: #EDDFD0;"></i>
+                            <i class="fas fa-boxes fa-4x mb-3" style="color: #F8F0E5;"></i>
                             <h4 class="card-title fw-bold text-light">Stock</h4>
                         </div>
                     </a>
@@ -109,12 +141,12 @@
                 </div>
             </div>
 
-            <!-- Card 4: Reportes -->
+            <!-- Card 5: Reportes -->
             <div class="col">
                 <div class="card shadow-sm border-0 mb-3" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
                     <a href="~/Pages/Reportes/Reportes.aspx" runat="server" class="text-decoration-none">
                         <div class="card-body text-center p-4">
-                            <i class="fas fa-chart-bar fa-4x mb-3" style="color: #F8F0E5;"></i>
+                            <i class="fas fa-chart-bar fa-4x mb-3" style="color: #F2E3D5;"></i>
                             <h4 class="card-title fw-bold text-light">Reportes</h4>
                         </div>
                     </a>
@@ -126,11 +158,11 @@
                         <ul class="list-unstyled mb-0">
                             <li class="d-flex mb-2">
                                 <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
-                                <span>Ventas por período</span>
+                                <span>Artículos por categoría</span>
                             </li>
                             <li class="d-flex mb-2">
                                 <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
-                                <span>Productos más vendidos</span>
+                                <span>Stock bajo mínimo</span>
                             </li>
                             <li class="d-flex mb-0">
                                 <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
@@ -141,39 +173,26 @@
                 </div>
             </div>
 
-            <!-- Card 5: Admin -->
-            <div class="col">
-                <div class="card shadow-sm border-0 mb-3" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
-                    <a href="~/Pages/Admin/Usuarios.aspx" runat="server" class="text-decoration-none">
-                        <div class="card-body text-center p-4">
-                            <i class="fas fa-cog fa-4x mb-3" style="color: #F2E3D5;"></i>
-                            <h4 class="card-title fw-bold text-light">Admin</h4>
-                        </div>
-                    </a>
-                </div>
-                <!-- Card de items -->
-                <div class="card border-0 shadow-sm align-items-start" style="background-color: var(--color-light);">
-                    <div class="card-body p-3">
-                        <p class="mb-2 fw-semibold">Administración de usuarios</p>
-                        <ul class="list-unstyled mb-0">
-                            <li class="d-flex mb-2">
-                                <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
-                                <span>Gestión de usuarios</span>
-                            </li>
-                            <li class="d-flex mb-2">
-                                <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
-                                <span>Categorías y marcas</span>
-                            </li>
-                            <li class="d-flex mb-0">
-                                <i class="fas fa-check-circle me-2 mt-1" style="color: var(--color-primary-dark);"></i>
-                                <span>Configuración sistema</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <!-- Footer -->
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-6 d-flex align-items-center">
+                <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> - Sistema de Gestion Comercial</span>
+            </div>
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3">
+                    <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub" style="color: var(--color-primary-dark);">
+                        <i class="fab fa-github" style="font-size: 24px;"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn" style="color: var(--color-primary-dark);">
+                        <i class="fab fa-linkedin" style="font-size: 24px;"></i>
+                    </a>
+                </li>
+            </ul>
+        </footer>
     </div>
 
     <style>

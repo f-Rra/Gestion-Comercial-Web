@@ -78,11 +78,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Footer del Login -->
-                    <div class="text-center mt-3">
-                        <small class="text-light-custom">&copy; <%: DateTime.Now.Year %> - @f-Rra</small>
-                    </div>
                 </div>
             </div>
         </div>
