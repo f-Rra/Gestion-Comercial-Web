@@ -16,7 +16,25 @@
    ======================================== */
 
 body {
-    background-color: var(--color-background);
+    background-color: var(--color-light);
+}
+
+/* ========================================
+   Página de Login
+   ======================================== */
+
+body.login-page {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%);
+    min-height: 100vh;
+}
+
+/* ========================================
+   Página Default
+   ======================================== */
+
+body.default-page {
+    background: linear-gradient(135deg, var(--color-light) 0%, #ffffff 50%, var(--color-light) 100%);
+    min-height: 100vh;
 }
 
 /* ========================================

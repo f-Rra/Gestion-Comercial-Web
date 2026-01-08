@@ -8,13 +8,13 @@
     <title>Login - Sistema Gestión Comercial</title>
     
     <!-- Bootstrap CSS -->
-    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- FontAwesome -->
-    <link href="Content/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="Content/Site.css" rel="stylesheet" />
 </head>
-<body>
+<body class="login-page">
     <form id="form1" runat="server">
         <div class="container">
             <div class="row justify-content-center align-items-center" style="min-height: 100vh; font-size: 18px;">

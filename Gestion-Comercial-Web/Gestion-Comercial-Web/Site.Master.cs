@@ -17,7 +17,6 @@ namespace Gestion_Comercial_Web
                 }
 
                 lblUsuario.Text = SessionManager.UsuarioActual.NombreUsuario;
-                menuAdmin.Visible = SessionManager.EsAdministrador;
             }
         }
 
