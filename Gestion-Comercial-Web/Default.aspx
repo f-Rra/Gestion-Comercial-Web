@@ -1,18 +1,21 @@
 ﻿<%@ Page Title="Dashboard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Gestion_Comercial_Web._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    
-    <div class="container mt-5">
-        <!-- Encabezado de bienvenida -->
-        <div class="row mb-5">
-            <div class="col-md-8 col-xl-6 text-center mx-auto">
-                <h2 class="text-primary-dark fw-bold">Panel de Administrador</h2>
-            </div>
-        </div>
 
+    <!-- Jumbotron -->
+    <div class="container my-3">
+        <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
+            <h1 style="color: var(--color-primary-dark);">Panel de Administrador</h1>
+            <p class="lead mb-0">
+                Gestione todos los módulos del sistema desde aquí
+            </p>
+        </div>
+    </div>
+
+    <div class="container mt-4">
         <!-- Grid de Cards de navegación -->
         <div class="row gy-4 row-cols-1 row-cols-md-5 align-items-start">
-            
+
             <!-- Card 1: Artículos -->
             <div class="col">
                 <div class="card shadow-sm border-0 mb-3" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
@@ -202,11 +205,11 @@
             box-shadow: 0 1rem 3rem rgba(0,0,0,.3) !important;
         }
 
-        .card:hover i {
-            transform: scale(1.15);
-            transition: transform 0.3s;
-            filter: brightness(1.2);
-        }
+            .card:hover i {
+                transform: scale(1.15);
+                transition: transform 0.3s;
+                filter: brightness(1.2);
+            }
     </style>
 
 </asp:Content>
