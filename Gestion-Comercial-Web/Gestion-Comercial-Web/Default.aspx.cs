@@ -18,11 +18,12 @@ namespace Gestion_Comercial_Web
             if (!IsPostBack)
             {
                 // Si es vendedor, redirigir directamente a Ventas
-                if (!SessionManager.EsAdministrador)
-                {
-                    Response.Redirect("~/Pages/Ventas/NuevaVenta.aspx");
-                    return;
-                }
+                // TEMPORALMENTE COMENTADO: La página NuevaVenta.aspx no existe aún
+                //if (!SessionManager.EsAdministrador)
+                //{
+                //    Response.Redirect("~/Pages/Ventas/NuevaVenta.aspx");
+                //    return;
+                //}
             }
         }
     }
