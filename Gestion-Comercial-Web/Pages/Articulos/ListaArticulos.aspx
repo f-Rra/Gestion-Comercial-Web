@@ -3,10 +3,13 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <!-- Jumbotron -->
-    <div class="container my-2 my-md-3">
-        <div class="p-3 p-md-4 p-lg-5 text-center bg-body-tertiary rounded-3 border shadow">
-            <h1 class="fs-3 fs-md-2 fs-lg-1" style="color: var(--color-primary-dark);">Gestión de Artículos</h1>
-            <p class="lead mb-0 d-none d-md-block">
+    <div class="container my-3">
+        <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
+            <div class="d-inline-block">
+                <h1 style="color: var(--color-primary-dark);">Gestión de Artículos</h1>
+                <hr style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
+            </div>
+            <p class="lead mb-0">
                 Administre el inventario de productos del sistema
             </p>
         </div>
@@ -14,16 +17,16 @@
 
     <!-- Grid principal: 3/4 izquierda - 1/4 derecha -->
     <div class="container-fluid pb-3">
-        <div class="row g-3 align-items-stretch">
+        <div class="row g-3 align-items-stretch justify-content-center">
             
             <!-- Panel Izquierdo (3/4) -->
-            <div class="col-12 col-lg-9">
-                <div class="bg-body-secondary rounded-3 p-3 p-md-4 border shadow d-flex flex-column h-100" style="background-color: var(--color-background) !important; min-height: 400px; min-height: 520px;">
+            <div class="col-12 col-lg-7">
+                <div class="bg-body-secondary rounded-3 p-3 p-md-4 border shadow d-flex flex-column h-100" style="background-color: var(--color-background) !important; min-height: 450px;">
                     
                     <!-- Filtros de búsqueda -->
-                    <div class="row mb-3 g-2">
-                        <div class="col-12 col-12 col-md-4">
-                            <label class="form-label text-light fw-semibold">Campo:</label>
+                    <div class="row mb-3 g-2 ms-3">
+                        <div class="col-12 col-md-2">
+                            <label class="form-label text-light fw-semibold mb-1">Campo:</label>
                             <asp:DropDownList ID="ddlCampo" runat="server" CssClass="form-select">
                                 <asp:ListItem Selected="True" Value="Nombre">Nombre</asp:ListItem>
                                 <asp:ListItem Value="Codigo">Código</asp:ListItem>
@@ -31,16 +34,16 @@
                                 <asp:ListItem Value="Marca">Marca</asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label class="form-label text-light fw-semibold">Criterio:</label>
+                        <div class="col-12 col-md-2">
+                            <label class="form-label text-light fw-semibold mb-1">Criterio:</label>
                             <asp:DropDownList ID="ddlCriterio" runat="server" CssClass="form-select">
                                 <asp:ListItem Selected="True" Value="Comienza">Comienza con</asp:ListItem>
                                 <asp:ListItem Value="Termina">Termina con</asp:ListItem>
                                 <asp:ListItem Value="Contiene">Contiene</asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label class="form-label text-light fw-semibold">Filtro:</label>
+                        <div class="col-12 col-md-2">
+                            <label class="form-label text-light fw-semibold mb-1">Filtro:</label>
                             <div class="input-group">
                                 <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control" placeholder="Buscar..."></asp:TextBox>
                                 <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-light" OnClick="btnBuscar_Click" />
@@ -48,8 +51,11 @@
                         </div>
                     </div>
 
+                    <!-- Línea separadora superior -->
+                    <hr style="border-color: var(--color-light); opacity: 0.3; filter: blur(0.5px);" />
+
                     <!-- GridView -->
-                    <div class="table-responsive mb-3" style="height: 330px; overflow-y: auto;">
+                    <div class="table-responsive mb-3" style="height: 280px; overflow-y: auto;">
                         <asp:GridView ID="dgvArticulos" runat="server" 
                             CssClass="table table-striped table-hover" 
                             AutoGenerateColumns="False"
@@ -78,17 +84,20 @@
                         </asp:GridView>
                     </div>
 
+                    <!-- Línea separadora inferior -->
+                    <hr style="border-color: var(--color-light); opacity: 0.3; filter: blur(0.5px);" />
+
                     <!-- Botones de acción -->
                     <div class="d-flex flex-column flex-md-row justify-content-between mt-auto gap-2">
                         <div class="d-flex gap-2">
-                            <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-light flex-fill flex-md-grow-0" 
+                            <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-light flex-fill flex-md-grow-0 px-4" 
                                 style="color: var(--color-primary-dark);" OnClick="btnEditar_Click" />
-                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-light flex-fill flex-md-grow-0" 
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-light flex-fill flex-md-grow-0 px-4" 
                                 style="color: var(--color-primary-dark);" OnClick="btnEliminar_Click" 
                                 OnClientClick="return confirm('¿Está seguro de eliminar este artículo?');" />
                         </div>
                         <div>
-                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-light w-100" 
+                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-light w-100 px-4" 
                                 style="color: var(--color-primary-dark);" OnClick="btnAgregar_Click" />
                         </div>
                     </div>
@@ -98,7 +107,7 @@
 
             <!-- Panel Derecho (1/4) -->
             <div class="col-12 col-lg-3">
-                <div class="rounded-3 p-3 p-md-4 text-center border shadow d-flex flex-column h-100" style="background-color: var(--color-background) !important; min-height: 300px; min-height: 520px;">
+                <div class="rounded-3 p-3 p-md-4 text-center border shadow d-flex flex-column h-100" style="background-color: var(--color-background) !important; min-height: 450px;">
                     
                     <!-- Imagen del artículo -->
                     <div class="mb-3 p-3 rounded flex-grow-1 d-flex align-items-center justify-content-center" style="background-color: var(--color-accent);">
@@ -118,5 +127,26 @@
 
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid">
+        <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+            <div class="col-md-6 d-flex align-items-center">
+                <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> - Sistema de Gestion Comercial</span>
+            </div>
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3">
+                    <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub" style="color: var(--color-primary-dark);">
+                        <i class="fab fa-github" style="font-size: 24px;"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn" style="color: var(--color-primary-dark);">
+                        <i class="fab fa-linkedin" style="font-size: 24px;"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
 
 </asp:Content>
