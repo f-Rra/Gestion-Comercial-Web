@@ -39,7 +39,11 @@ namespace Gestion_Comercial_Web.Pages.Articulos
 
         protected void btnDetalles_Click(object sender, EventArgs e)
         {
-            // TODO: Implementar detalles
+            if (dgvArticulos.SelectedIndex >= 0)
+            {
+                int id = Convert.ToInt32(dgvArticulos.SelectedDataKey.Value);
+                Response.Redirect("DetallesArticulos.aspx?id=" + id);
+            }
         }
 
         protected void dgvArticulos_SelectedIndexChanged(object sender, EventArgs e)
