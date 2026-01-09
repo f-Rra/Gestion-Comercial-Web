@@ -5,7 +5,10 @@
     <!-- Jumbotron -->
     <div class="container my-3">
         <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
-            <h1 style="color: var(--color-primary-dark);">Panel de Administrador</h1>
+            <div class="d-inline-block">
+                <h1 style="color: var(--color-primary-dark);">Panel de Administrador</h1>
+                <hr style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
+            </div>
             <p class="lead mb-0">
                 Gestione todos los módulos del sistema desde aquí
             </p>
