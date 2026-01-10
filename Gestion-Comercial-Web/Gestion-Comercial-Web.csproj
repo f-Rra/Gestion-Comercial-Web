@@ -139,6 +139,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Pages\Articulos\DetallesArticulos.aspx" />
     <Content Include="Pages\Articulos\ListaArticulos.aspx" />
+    <Content Include="Pages\Ventas\NuevaVenta.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -265,6 +266,13 @@
     <Compile Include="Pages\Articulos\ListaArticulos.aspx.designer.cs">
       <DependentUpon>ListaArticulos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Ventas\NuevaVenta.aspx.cs">
+      <DependentUpon>NuevaVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Ventas\NuevaVenta.aspx.designer.cs">
+      <DependentUpon>NuevaVenta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -286,7 +294,6 @@
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Reportes\" />
     <Folder Include="Pages\Stock\" />
-    <Folder Include="Pages\Ventas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
