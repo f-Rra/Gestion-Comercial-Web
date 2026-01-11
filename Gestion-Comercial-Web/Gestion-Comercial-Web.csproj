@@ -137,6 +137,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
+    <Content Include="Pages\Admin\Catalogos.aspx" />
     <Content Include="Pages\Articulos\DetallesArticulos.aspx" />
     <Content Include="Pages\Articulos\ListaArticulos.aspx" />
     <Content Include="Pages\Reportes\ReporteInventario.aspx" />
@@ -254,6 +255,13 @@
     <Compile Include="Negocio\ReporteNegocio.cs" />
     <Compile Include="Negocio\UsuarioNegocio.cs" />
     <Compile Include="Negocio\VentaNegocio.cs" />
+    <Compile Include="Pages\Admin\Catalogos.aspx.cs">
+      <DependentUpon>Catalogos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\Catalogos.aspx.designer.cs">
+      <DependentUpon>Catalogos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Articulos\DetallesArticulos.aspx.cs">
       <DependentUpon>DetallesArticulos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -304,10 +312,7 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Pages\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
