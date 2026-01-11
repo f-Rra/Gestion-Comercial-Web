@@ -100,10 +100,11 @@
 
 - **Mensaje de commit sugerido**
   - feat(reportes): crear interfaz de reporte de inventario
-    - Parrilla de acciones con botones `outline`
-    - Bloque de filtros con `bg-body-secondary` y botón Exportar
-    - Tabla de resultados con totales destacados
-    - Footer unificado y accesibilidad básica
+    - Dashboard de accesos directos con cards, iconos y gradientes
+    - Filtros de fecha y exportación a PDF
+    - Tabla de resultados con estilos y EmptyDataTemplate
+    - Configuración de ResponseEncoding="utf-8" para caracteres especiales
+    - Footer unificado y estilos hover personalizados
 
 ---
 

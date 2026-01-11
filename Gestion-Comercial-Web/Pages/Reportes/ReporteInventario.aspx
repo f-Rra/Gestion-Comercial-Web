@@ -1,0 +1,258 @@
+<%@ Page Title="Reporte de Inventario" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ReporteInventario.aspx.cs" Inherits="Gestion_Comercial_Web.Pages.Reportes.ReporteInventario" ResponseEncoding="utf-8" %>
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+
+    <!-- Jumbotron -->
+    <div class="container my-3">
+        <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
+            <div class="d-inline-block">
+                <h1 style="color: var(--color-primary-dark);">Reportes y Estadísticas</h1>
+                <hr style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
+            </div>
+            <p class="lead mb-0">
+                Genere informes detallados del inventario y analice estadísticas
+            </p>
+        </div>
+    </div>
+
+    <!-- Parrilla de Reportes Disponibles (1 fila de 12) -->
+    <div class="container mt-4 mb-4">
+        <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-12 g-3">
+            
+            <!-- Card: Por Categorías -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnPorCategorias" runat="server" CssClass="text-decoration-none" OnClick="btnPorCategorias_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-chart-bar fa-2x mb-1" style="color: #F5EBE0;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Por Categorías</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Por Marcas -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnPorMarcas" runat="server" CssClass="text-decoration-none" OnClick="btnPorMarcas_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-tags fa-2x mb-1" style="color: #F0E5D8;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Por Marcas</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Stock por Marcas -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnStockPorMarcas" runat="server" CssClass="text-decoration-none" OnClick="btnStockPorMarcas_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-boxes fa-2x mb-1" style="color: #EDDFD0;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Stock por Marcas</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Stock por Categorías -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnStockPorCategorias" runat="server" CssClass="text-decoration-none" OnClick="btnStockPorCategorias_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-box fa-2x mb-1" style="color: #F8F0E5;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Stock por Categorías</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Ventas Detalladas -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnVentasDetalladas" runat="server" CssClass="text-decoration-none" OnClick="btnVentasDetalladas_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-clipboard-list fa-2x mb-1" style="color: #F2E3D5;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Ventas Detalladas</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Top Vendedores -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnTopVendedores" runat="server" CssClass="text-decoration-none" OnClick="btnTopVendedores_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-trophy fa-2x mb-1" style="color: #E8DCC8;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Top Vendedores</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Sin Stock -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnSinStock" runat="server" CssClass="text-decoration-none" OnClick="btnSinStock_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-times-circle fa-2x mb-1" style="color: #F5EBE0;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Sin Stock</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Bajo Stock -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnBajoStock" runat="server" CssClass="text-decoration-none" OnClick="btnBajoStock_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-exclamation-triangle fa-2x mb-1" style="color: #F0E5D8;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Bajo Stock</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Más Vendidos -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnMasVendidos" runat="server" CssClass="text-decoration-none" OnClick="btnMasVendidos_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-fire fa-2x mb-1" style="color: #EDDFD0;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Más Vendidos</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Ventas por Fecha -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnVentasPorFecha" runat="server" CssClass="text-decoration-none" OnClick="btnVentasPorFecha_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-calendar-alt fa-2x mb-1" style="color: #F8F0E5;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Ventas por Fecha</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Inventario Completo -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnInventarioCompleto" runat="server" CssClass="text-decoration-none" OnClick="btnInventarioCompleto_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-clipboard-list fa-2x mb-1" style="color: #F2E3D5;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Inventario Completo</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+            <!-- Card: Resumen Diario -->
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
+                    <asp:LinkButton ID="btnResumenDiario" runat="server" CssClass="text-decoration-none" OnClick="btnResumenDiario_Click">
+                        <div class="card-body text-center p-2">
+                            <i class="fas fa-calendar-day fa-2x mb-1" style="color: #E8DCC8;"></i>
+                            <h6 class="card-title fw-bold text-light mb-0" style="font-size: 0.75rem;">Resumen Diario</h6>
+                        </div>
+                    </asp:LinkButton>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Panel de Filtros y Resultados -->
+    <div class="container-fluid pb-3">
+        <div class="row g-3 justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="rounded-3 p-3 p-md-4 border shadow" style="background-color: var(--color-background) !important;">
+                    
+                    <!-- Filtros de Fecha y Exportar -->
+                    <div class="row mb-3 align-items-end">
+                        <div class="col-12 col-md-3">
+                            <label class="form-label fw-semibold" style="color: var(--color-light);">Desde:</label>
+                            <asp:TextBox ID="txtFechaDesde" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label class="form-label fw-semibold" style="color: var(--color-light);">Hasta:</label>
+                            <asp:TextBox ID="txtFechaHasta" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-12 col-md-6 text-end">
+                            <asp:Button ID="btnExportarPDF" runat="server" Text="Exportar PDF" CssClass="btn bg-primary-dark text-light-custom fw-semibold" OnClick="btnExportarPDF_Click" />
+                        </div>
+                    </div>
+
+                    <!-- Línea separadora superior -->
+                    <hr style="border-color: var(--color-light); opacity: 0.3; filter: blur(0.5px);" />
+
+                    <!-- Título del Reporte Actual -->
+                    <div class="mb-3">
+                        <h4 class="fw-bold" style="color: var(--color-light);">
+                            <asp:Label ID="lblTituloReporte" runat="server" Text="Inventario Completo"></asp:Label>
+                        </h4>
+                    </div>
+
+                    <!-- GridView de Resultados -->
+                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                        <asp:GridView ID="gvReporte" runat="server" 
+                            CssClass="table table-striped table-hover w-100" 
+                            AutoGenerateColumns="True"
+                            EmptyDataText="No hay datos para mostrar"
+                            HeaderStyle-BackColor="#012E40"
+                            HeaderStyle-ForeColor="White"
+                            Style="background-color: var(--color-light);">
+                            <EmptyDataTemplate>
+                                <div class="text-center text-muted py-4">
+                                    <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
+                                    <p class="mb-0">No hay datos para mostrar. Seleccione un reporte.</p>
+                                </div>
+                            </EmptyDataTemplate>
+                        </asp:GridView>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid">
+        <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+            <div class="col-md-6 d-flex align-items-center">
+                <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> - Sistema de Gestión Comercial</span>
+            </div>
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3">
+                    <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub" style="color: var(--color-primary-dark);">
+                        <i class="fab fa-github" style="font-size: 24px;"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn" style="color: var(--color-primary-dark);">
+                        <i class="fab fa-linkedin" style="font-size: 24px;"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Estilos para hover de cards -->
+    <style>
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 1rem 3rem rgba(0,0,0,.3) !important;
+        }
+
+        .card:hover i {
+            transform: scale(1.1);
+            transition: transform 0.3s;
+            filter: brightness(1.2);
+        }
+    </style>
+
+</asp:Content>
