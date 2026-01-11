@@ -99,7 +99,7 @@
                 <div class="col">
                     <div class="card shadow-sm border-0 mb-3"
                         style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
-                        <a href="~/Pages/Stock/ControlStock.aspx" runat="server" class="text-decoration-none">
+                        <a href="~/Pages/Stock/GestionStock.aspx" runat="server" class="text-decoration-none">
                             <div class="card-body text-center p-4">
                                 <i class="fas fa-boxes fa-4x mb-3" style="color: #F8F0E5;"></i>
                                 <h4 class="card-title fw-bold text-light">Stock</h4>
