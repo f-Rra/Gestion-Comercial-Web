@@ -4,7 +4,7 @@
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server" />
+    <asp:ScriptManager ID="smMain" runat="server" />
 
     <div class="container-xxl py-3">
         <div class="bg-primary-subtle border rounded-3 p-3 p-md-4 mb-4 d-flex align-items-center gap-3">
