@@ -150,7 +150,7 @@
             <!-- Card 5: Reportes -->
             <div class="col">
                 <div class="card shadow-sm border-0 mb-3" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
-                    <a href="~/Pages/Reportes/Reportes.aspx" runat="server" class="text-decoration-none">
+                    <a href="~/Pages/Reportes/ReporteInventario.aspx" runat="server" class="text-decoration-none">
                         <div class="card-body text-center p-4">
                             <i class="fas fa-chart-bar fa-4x mb-3" style="color: #F2E3D5;"></i>
                             <h4 class="card-title fw-bold text-light">Reportes</h4>
