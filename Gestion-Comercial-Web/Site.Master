@@ -20,25 +20,31 @@
 <body class="default-page">
     <form id="form1" runat="server">
         <!-- Navbar simplificado -->
-        <nav class="navbar" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%);">
+        <nav class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%);">
             <div class="container-fluid">
                 <!-- Logo y Título -->
                 <a class="navbar-brand d-flex align-items-center text-light" href="~/Default.aspx" runat="server">
                     <img src="~/Content/Images/logo_principal.png" alt="Logo" width="64" height="64" class="me-2" runat="server" />
-                    <span class="fs-2">Gestion Comercial</span>
+                    <span class="fs-2">Gestión Comercial</span>
                 </a>
 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border-color: var(--color-light);">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+
                 <!-- Usuario y Botón Salir -->
-                <div class="d-flex align-items-center">
-                    <span class="navbar-text me-3 fs-5 text-light">
-                        <i class="fas fa-user-circle"></i> 
-                        <asp:Label ID="lblUsuario" runat="server" Text="Usuario"></asp:Label>
-                    </span>
-                    <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="btn fs-5 text-light" 
-                                    style="background-color: var(--color-accent); border-color: var(--color-accent);" 
-                                    OnClick="btnCerrarSesion_Click">
-                        <i class="fas fa-sign-out-alt"></i> Salir
-                    </asp:LinkButton>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <div class="d-flex align-items-center">
+                        <span class="navbar-text me-3 fs-5 text-light">
+                            <i class="fas fa-user-circle"></i> 
+                            <asp:Label ID="lblUsuario" runat="server" Text="Usuario"></asp:Label>
+                        </span>
+                        <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="btn fs-5 text-light" 
+                                        style="background-color: var(--color-accent); border-color: var(--color-accent);" 
+                                        OnClick="btnCerrarSesion_Click">
+                            <i class="fas fa-sign-out-alt"></i> Salir
+                        </asp:LinkButton>
+                    </div>
                 </div>
             </div>
         </nav>

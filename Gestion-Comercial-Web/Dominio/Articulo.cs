@@ -10,34 +10,34 @@ namespace Dominio
 {
     public class Articulo
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Codigo")]
-        public string codigo { get; set;}
+        public string Codigo { get; set;}
 
         [DisplayName(" Nombre")]
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
 
-        public string descripcion { get; set; }
+        public string Descripcion { get; set; }
 
         [DisplayName(" Categoria")]
-        public Categoria categoria { get; set; }
+        public Categoria Categoria { get; set; }
 
         [DisplayName(" Marca")]
-        public Marca marca { get; set; }
+        public Marca Marca { get; set; }
 
-        public string urlImagen { get; set; }
+        public string UrlImagen { get; set; }
 
         private decimal _precio;
 
-        public decimal precio 
+        public decimal Precio 
         {
             get { return _precio; }
             set { _precio = value; }
         }
 
         [DisplayName(" Precio")]
-        public string precioF
+        public string PrecioF
         {
             get { return _precio.ToString("C", CultureInfo.CreateSpecificCulture("es-AR"));}
         }
@@ -45,7 +45,7 @@ namespace Dominio
         private int _stock;
 
         [DisplayName(" Stock")]
-        public int stock
+        public int Stock
         {
             get { return _stock; }
             set { _stock = value; }

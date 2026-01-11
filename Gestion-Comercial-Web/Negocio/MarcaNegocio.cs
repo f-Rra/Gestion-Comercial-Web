@@ -21,8 +21,8 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                    Marca aux = new Marca();
-                    aux.id = (int)datos.Lector["Id"];
-                    aux.descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
                     lista.Add(aux);
                 }
 
@@ -45,7 +45,7 @@ namespace Negocio
             datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
             try
             {
-                datos.setearParametro("@Descripcion", nueva.descripcion);
+                datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -65,8 +65,8 @@ namespace Negocio
             datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
             try
             {
-                datos.setearParametro("@Id", existente.id);
-                datos.setearParametro("@Descripcion", existente.descripcion);
+                datos.setearParametro("@Id", existente.Id);
+                datos.setearParametro("@Descripcion", existente.Descripcion);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
