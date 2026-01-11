@@ -70,8 +70,16 @@
                                 <Columns>
                                     <asp:BoundField DataField="Codigo" HeaderText="Código" />
                                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                                    <asp:BoundField DataField="Categoria.Descripcion" HeaderText="Categoría" />
-                                    <asp:BoundField DataField="Marca.Descripcion" HeaderText="Marca" />
+                                    <asp:TemplateField HeaderText="Categoría">
+                                        <ItemTemplate>
+                                            <%# Eval("Categoria.Descripcion") %>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Marca">
+                                        <ItemTemplate>
+                                            <%# Eval("Marca.Descripcion") %>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C2}" />
                                     <asp:BoundField DataField="Stock" HeaderText="Stock" />
                                     <asp:BoundField DataField="Activo" HeaderText="Estado" />
@@ -102,7 +110,7 @@
                                     OnClientClick="return confirm('¿Está seguro de eliminar este artículo?');" />
                             </div>
                             <div>
-                                <asp:Button ID="btnAgregar" runat="server" Text="Agregar Articulo"
+                                <asp:Button ID="btnAgregar" runat="server" Text="Agregar Artículo"
                                     CssClass="btn bg-primary-dark text-light-custom fw-semibold w-100 px-4"
                                     OnClick="btnAgregar_Click" />
                             </div>
@@ -140,7 +148,7 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
                 <div class="col-md-6 d-flex align-items-center">
                     <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> -
-                            Sistema de Gestion Comercial</span>
+                            Sistema de Gestión Comercial</span>
                 </div>
                 <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
                     <li class="ms-3">

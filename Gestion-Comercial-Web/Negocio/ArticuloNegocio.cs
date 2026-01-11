@@ -21,19 +21,19 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Articulo aux = new Articulo();
-                    aux.id = (int)datos.Lector["Id"]; 
-                    aux.codigo = (string)datos.Lector["Codigo"];
-                    aux.nombre = (string)datos.Lector["Nombre"];
-                    aux.descripcion = (string)datos.Lector["Descripcion"];
-                    aux.marca = new Marca();
-                    aux.marca.id = (int)datos.Lector["IdMarca"];
-                    aux.marca.descripcion = (string)datos.Lector["Marca"];
-                    aux.categoria = new Categoria();
-                    aux.categoria.id = (int)datos.Lector["IdCategoria"];
-                    aux.categoria.descripcion = (string)datos.Lector["Categoria"];
-                    aux.urlImagen = (string)datos.Lector["ImagenUrl"];
-                    aux.precio = (decimal)datos.Lector["Precio"];
-                    aux.stock = (int)datos.Lector["Stock"];
+                    aux.Id = (int)datos.Lector["Id"]; 
+                    aux.Codigo = (string)datos.Lector["Codigo"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Marca = new Marca();
+                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                    aux.Marca.Descripcion = (string)datos.Lector["Marca"];
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+                    aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
+                    aux.Precio = (decimal)datos.Lector["Precio"];
+                    aux.Stock = (int)datos.Lector["Stock"];
                     lista.Add(aux);
                 }
                 return lista;
@@ -55,14 +55,14 @@ namespace Negocio
             datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
             try
             {
-                datos.setearParametro("@Codigo", nuevo.codigo);
-                datos.setearParametro("@Nombre", nuevo.nombre);
-                datos.setearParametro("@Descripcion", nuevo.descripcion);
-                datos.setearParametro("@IdMarca", nuevo.marca.id);
-                datos.setearParametro("@IdCategoria", nuevo.categoria.id);
-                datos.setearParametro("@ImagenUrl", nuevo.urlImagen);
-                datos.setearParametro("@Precio", nuevo.precio);
-                datos.setearParametro("@Stock", nuevo.stock);
+                datos.setearParametro("@Codigo", nuevo.Codigo);
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Descripcion", nuevo.Descripcion);
+                datos.setearParametro("@IdMarca", nuevo.Marca.Id);
+                datos.setearParametro("@IdCategoria", nuevo.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", nuevo.UrlImagen);
+                datos.setearParametro("@Precio", nuevo.Precio);
+                datos.setearParametro("@Stock", nuevo.Stock);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -82,15 +82,15 @@ namespace Negocio
             datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
             try
             {
-                datos.setearParametro("@Codigo", existente.codigo);
-                datos.setearParametro("@Nombre", existente.nombre);
-                datos.setearParametro("@Descripcion", existente.descripcion);
-                datos.setearParametro("@IdMarca", existente.marca.id);
-                datos.setearParametro("@IdCategoria", existente.categoria.id);
-                datos.setearParametro("@ImagenUrl", existente.urlImagen);
-                datos.setearParametro("@Precio", existente.precio);
-                datos.setearParametro("@Stock", existente.stock);
-                datos.setearParametro("@Id", existente.id); 
+                datos.setearParametro("@Codigo", existente.Codigo);
+                datos.setearParametro("@Nombre", existente.Nombre);
+                datos.setearParametro("@Descripcion", existente.Descripcion);
+                datos.setearParametro("@IdMarca", existente.Marca.Id);
+                datos.setearParametro("@IdCategoria", existente.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", existente.UrlImagen);
+                datos.setearParametro("@Precio", existente.Precio);
+                datos.setearParametro("@Stock", existente.Stock);
+                datos.setearParametro("@Id", existente.Id); 
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -150,19 +150,19 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Articulo aux = new Articulo();
-                    aux.id = Convert.ToInt32(datos.Lector["Id"]);
-                    aux.codigo = datos.Lector["Codigo"].ToString();
-                    aux.nombre = datos.Lector["Nombre"].ToString();
-                    aux.descripcion = datos.Lector["Descripcion"].ToString();
-                    aux.marca = new Marca();
-                    aux.marca.id = Convert.ToInt32(datos.Lector["IdMarca"]);
-                    aux.marca.descripcion = datos.Lector["Marca"].ToString();
-                    aux.categoria = new Categoria();
-                    aux.categoria.id = Convert.ToInt32(datos.Lector["IdCategoria"]);
-                    aux.categoria.descripcion = datos.Lector["Categoria"].ToString();
-                    aux.urlImagen = datos.Lector["ImagenUrl"].ToString();
-                    aux.precio = Convert.ToDecimal(datos.Lector["Precio"]);
-                    aux.stock = Convert.ToInt32(datos.Lector["Stock"]);
+                    aux.Id = Convert.ToInt32(datos.Lector["Id"]);
+                    aux.Codigo = datos.Lector["Codigo"].ToString();
+                    aux.Nombre = datos.Lector["Nombre"].ToString();
+                    aux.Descripcion = datos.Lector["Descripcion"].ToString();
+                    aux.Marca = new Marca();
+                    aux.Marca.Id = Convert.ToInt32(datos.Lector["IdMarca"]);
+                    aux.Marca.Descripcion = datos.Lector["Marca"].ToString();
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Id = Convert.ToInt32(datos.Lector["IdCategoria"]);
+                    aux.Categoria.Descripcion = datos.Lector["Categoria"].ToString();
+                    aux.UrlImagen = datos.Lector["ImagenUrl"].ToString();
+                    aux.Precio = Convert.ToDecimal(datos.Lector["Precio"]);
+                    aux.Stock = Convert.ToInt32(datos.Lector["Stock"]);
                     lista.Add(aux);
                 }
                 return lista;
@@ -293,14 +293,14 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Articulo aux = new Articulo();
-                    aux.id = Convert.ToInt32(datos.Lector["Id"]);
-                    aux.codigo = datos.Lector["Codigo"].ToString();
-                    aux.nombre = datos.Lector["Nombre"].ToString();
-                    aux.marca = new Marca();
-                    aux.marca.descripcion = datos.Lector["Marca"].ToString();
-                    aux.categoria = new Categoria();
-                    aux.categoria.descripcion = datos.Lector["Categoria"].ToString();
-                    aux.stock = Convert.ToInt32(datos.Lector["Stock"]);
+                    aux.Id = Convert.ToInt32(datos.Lector["Id"]);
+                    aux.Codigo = datos.Lector["Codigo"].ToString();
+                    aux.Nombre = datos.Lector["Nombre"].ToString();
+                    aux.Marca = new Marca();
+                    aux.Marca.Descripcion = datos.Lector["Marca"].ToString();
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Descripcion = datos.Lector["Categoria"].ToString();
+                    aux.Stock = Convert.ToInt32(datos.Lector["Stock"]);
                     lista.Add(aux);
                 }
                 return lista;
@@ -328,14 +328,14 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Articulo aux = new Articulo();
-                    aux.id = Convert.ToInt32(datos.Lector["Id"]);
-                    aux.codigo = datos.Lector["Codigo"].ToString();
-                    aux.nombre = datos.Lector["Nombre"].ToString();
-                    aux.marca = new Marca();
-                    aux.marca.descripcion = datos.Lector["Marca"].ToString();
-                    aux.categoria = new Categoria();
-                    aux.categoria.descripcion = datos.Lector["Categoria"].ToString();
-                    aux.stock = Convert.ToInt32(datos.Lector["Stock"]);
+                    aux.Id = Convert.ToInt32(datos.Lector["Id"]);
+                    aux.Codigo = datos.Lector["Codigo"].ToString();
+                    aux.Nombre = datos.Lector["Nombre"].ToString();
+                    aux.Marca = new Marca();
+                    aux.Marca.Descripcion = datos.Lector["Marca"].ToString();
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Descripcion = datos.Lector["Categoria"].ToString();
+                    aux.Stock = Convert.ToInt32(datos.Lector["Stock"]);
                     lista.Add(aux);
                 }
                 return lista;

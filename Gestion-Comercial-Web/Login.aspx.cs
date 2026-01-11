@@ -56,8 +56,15 @@ namespace Gestion_Comercial_Web
                     // Crear cookie de autenticación
                     FormsAuthentication.SetAuthCookie(usuario.NombreUsuario, false);
 
-                    // Redirigir a página principal
-                    Response.Redirect("Default.aspx");
+                    // Redirigir según rol
+                    if (usuario.EsAdministrador)
+                    {
+                        Response.Redirect("Default.aspx", false);
+                    }
+                    else
+                    {
+                        Response.Redirect("Pages/Ventas/NuevaVenta.aspx", false);
+                    }
                 }
                 else
                 {

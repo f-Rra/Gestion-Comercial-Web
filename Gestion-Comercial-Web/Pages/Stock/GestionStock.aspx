@@ -89,7 +89,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="MainContent_txtArticuloSeleccionado" class="form-label fw-semibold"
-                                    style="color: var(--color-light);">Articulo Seleccionado</label>
+                                    style="color: var(--color-light);">Artículo Seleccionado</label>
                                 <asp:TextBox ID="txtArticuloSeleccionado" runat="server" CssClass="form-control">
                                 </asp:TextBox>
                             </div>
@@ -146,7 +146,7 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
                 <div class="col-md-6 d-flex align-items-center">
                     <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> -
-                            Sistema de Gestion Comercial</span>
+                            Sistema de Gestión Comercial</span>
                 </div>
                 <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
                     <li class="ms-3">

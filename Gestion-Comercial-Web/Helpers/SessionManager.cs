@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +16,7 @@ namespace Gestion_Comercial_Web.Helpers
         {
             get
             {
-                return Articulo != null ? Articulo.precio * Cantidad : 0;
+                return Articulo != null ? Articulo.Precio * Cantidad : 0;
             }
         }
     }
@@ -111,7 +111,7 @@ namespace Gestion_Comercial_Web.Helpers
                 return;
 
             var carrito = Carrito;
-            var itemExistente = carrito.FirstOrDefault(x => x.Articulo.id == articulo.id);
+            var itemExistente = carrito.FirstOrDefault(x => x.Articulo.Id == articulo.Id);
 
             if (itemExistente != null)
             {
@@ -132,7 +132,7 @@ namespace Gestion_Comercial_Web.Helpers
         public static void EliminarDelCarrito(int articuloId)
         {
             var carrito = Carrito;
-            var itemAEliminar = carrito.FirstOrDefault(x => x.Articulo.id == articuloId);
+            var itemAEliminar = carrito.FirstOrDefault(x => x.Articulo.Id == articuloId);
 
             if (itemAEliminar != null)
             {

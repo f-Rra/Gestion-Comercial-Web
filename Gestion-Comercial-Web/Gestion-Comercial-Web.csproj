@@ -341,6 +341,7 @@
           <DevelopmentServerPort>1945</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44367/</IISUrl>
+          <StartPage>Login.aspx</StartPage>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
