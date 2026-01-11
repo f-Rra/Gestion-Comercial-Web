@@ -25,7 +25,7 @@
                     
                     <!-- Filtros de búsqueda -->
                     <div class="row mb-3 g-2 ms-3">
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-3">
                             <label class="form-label text-light fw-semibold mb-1">Campo:</label>
                             <asp:DropDownList ID="ddlCampo" runat="server" CssClass="form-select">
                                 <asp:ListItem Selected="True" Value="Nombre">Nombre</asp:ListItem>
@@ -34,7 +34,7 @@
                                 <asp:ListItem Value="Marca">Marca</asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-3">
                             <label class="form-label text-light fw-semibold mb-1">Criterio:</label>
                             <asp:DropDownList ID="ddlCriterio" runat="server" CssClass="form-select">
                                 <asp:ListItem Selected="True" Value="Comienza">Comienza con</asp:ListItem>
@@ -42,11 +42,11 @@
                                 <asp:ListItem Value="Contiene">Contiene</asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-5">
                             <label class="form-label text-light fw-semibold mb-1">Filtro:</label>
                             <div class="input-group">
-                                <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control" placeholder="Buscar..."></asp:TextBox>
-                                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-light" OnClick="btnBuscar_Click" />
+                                <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control flex-grow-1" placeholder="Buscar..."></asp:TextBox>
+                                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn bg-primary-dark text-light-custom fw-semibold" OnClick="btnBuscar_Click" />
                             </div>
                         </div>
                     </div>
@@ -56,11 +56,11 @@
 
                     <!-- GridView -->
                     <div class="table-responsive mb-3" style="height: 280px; overflow-y: auto;">
-                        <asp:GridView ID="dgvArticulos" runat="server" 
+                        <asp:GridView ID="gvArticulos" runat="server" 
                             CssClass="table table-striped table-hover" 
                             AutoGenerateColumns="False"
                             DataKeyNames="Id"
-                            OnSelectedIndexChanged="dgvArticulos_SelectedIndexChanged"
+                            OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged"
                             EmptyDataText="No hay artículos para mostrar"
                             HeaderStyle-BackColor="#012E40"
                             HeaderStyle-ForeColor="White"
@@ -90,15 +90,11 @@
                     <!-- Botones de acción -->
                     <div class="d-flex flex-column flex-md-row justify-content-between mt-auto gap-2">
                         <div class="d-flex gap-2">
-                            <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-light flex-fill flex-md-grow-0 px-4" 
-                                style="color: var(--color-primary-dark);" OnClick="btnEditar_Click" />
-                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-light flex-fill flex-md-grow-0 px-4" 
-                                style="color: var(--color-primary-dark);" OnClick="btnEliminar_Click" 
-                                OnClientClick="return confirm('¿Está seguro de eliminar este artículo?');" />
+                            <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn bg-primary-dark text-light-custom fw-semibold flex-fill flex-md-grow-0 px-4" OnClick="btnEditar_Click" />
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn bg-primary-dark text-light-custom fw-semibold flex-fill flex-md-grow-0 px-4" OnClick="btnEliminar_Click" OnClientClick="return confirm('¿Está seguro de eliminar este artículo?');" />
                         </div>
                         <div>
-                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-light w-100 px-4" 
-                                style="color: var(--color-primary-dark);" OnClick="btnAgregar_Click" />
+                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar Articulo" CssClass="btn bg-primary-dark text-light-custom fw-semibold w-100 px-4" OnClick="btnAgregar_Click" />
                         </div>
                     </div>
 
@@ -119,8 +115,7 @@
                     </div>
 
                     <!-- Botón Detalles -->
-                    <asp:Button ID="btnDetalles" runat="server" Text="Detalles del Artículo" CssClass="btn btn-light w-100" 
-                        style="color: var(--color-primary-dark);" OnClick="btnDetalles_Click" />
+                    <asp:Button ID="btnDetalles" runat="server" Text="Detalles del Artículo" CssClass="btn bg-primary-dark text-light-custom fw-semibold w-100" OnClick="btnDetalles_Click" />
 
                 </div>
             </div>

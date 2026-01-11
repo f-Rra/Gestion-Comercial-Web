@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -39,14 +36,14 @@ namespace Gestion_Comercial_Web.Pages.Articulos
 
         protected void btnDetalles_Click(object sender, EventArgs e)
         {
-            if (dgvArticulos.SelectedIndex >= 0)
+            if (gvArticulos != null && gvArticulos.SelectedIndex >= 0)
             {
-                int id = Convert.ToInt32(dgvArticulos.SelectedDataKey.Value);
+                int id = Convert.ToInt32(gvArticulos.SelectedDataKey.Value);
                 Response.Redirect("DetallesArticulos.aspx?id=" + id);
             }
         }
 
-        protected void dgvArticulos_SelectedIndexChanged(object sender, EventArgs e)
+        protected void gvArticulos_SelectedIndexChanged(object sender, EventArgs e)
         {
             // TODO: Implementar selección de artículo
         }
