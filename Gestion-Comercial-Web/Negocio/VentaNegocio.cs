@@ -7,29 +7,7 @@ namespace Negocio
 {
     public class VentaNegocio
     {
-        public DataTable buscarArticulosParaVenta(string filtro = "")
-        {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
-            {
-                datos.setearConsulta("SP_BuscarArticulosParaVenta");
-                datos.setearTipoComando(CommandType.StoredProcedure);
-                datos.setearParametro("@Filtro", filtro ?? "");
-                datos.ejecutarLectura();
-                tabla.Load(datos.Lector);
-                return tabla;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-        
+        #region Ventas
         public void registrarVenta(Venta venta)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -53,7 +31,6 @@ namespace Negocio
                     idVenta = Convert.ToInt32(datos.Lector[0]);
                 }
                 
-                // IMPORTANTE: Cerrar el lector para poder ejecutar el siguiente comando
                 datos.Lector.Close();
 
                 if (idVenta == 0)
@@ -62,9 +39,6 @@ namespace Negocio
                 // 2. Registrar cada detalle
                 foreach (var detalle in venta.Detalles)
                 {
-                    // Limpiamos los parámetros del comando anterior antes de setear los nuevos
-                    // NOTA: En AccesoDatos ya se hace Clear en ejecutarAccion, 
-                    // pero aquí usamos ejecutarLectura arriba, así que hay que limpiar.
                     datos.setearConsulta("SP_RegistrarDetalleVenta");
                     datos.setearTipoComando(CommandType.StoredProcedure);
                     datos.setearParametro("@IdVenta", idVenta);
@@ -89,7 +63,6 @@ namespace Negocio
             }
         }
 
-
         public DataTable obtenerVentasPorVendedor(string vendedor)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -99,6 +72,31 @@ namespace Negocio
                 datos.setearConsulta("SP_ObtenerVentasPorVendedor");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Vendedor", vendedor);
+                datos.ejecutarLectura();
+                tabla.Load(datos.Lector);
+                return tabla;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        #endregion
+
+        #region Carrito y Stock
+        public DataTable buscarArticulosParaVenta(string filtro = "")
+        {
+            AccesoDatos datos = new AccesoDatos();
+            DataTable tabla = new DataTable();
+            try
+            {
+                datos.setearConsulta("SP_BuscarArticulosParaVenta");
+                datos.setearTipoComando(CommandType.StoredProcedure);
+                datos.setearParametro("@Filtro", filtro ?? "");
                 datos.ejecutarLectura();
                 tabla.Load(datos.Lector);
                 return tabla;
@@ -139,7 +137,9 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
 
+        #region Detalles
         public DataTable obtenerDetallesVenta(int idVenta)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -162,5 +162,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
     }
 }

@@ -9,6 +9,7 @@ namespace Negocio
 {
     public class MarcaNegocio
     {
+        #region Listar
         public List<Marca> listar()
         {
             List<Marca> lista = new List<Marca>();
@@ -16,7 +17,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ListarMarcas");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -37,12 +38,14 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
 
+        #region CRUD
         public void agregar(Marca nueva)
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_AltaMarca");
-            datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
@@ -62,7 +65,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_ModificarMarca");
-            datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Id", existente.Id);
@@ -83,7 +86,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_BajaMarca");
-            datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Id", id);
@@ -98,14 +101,16 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
 
+        #region Búsqueda
         public bool buscarMarca(string descripcion)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearConsulta("SP_BuscarMarcaPorDescripcion");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.setearParametro("@Descripcion", descripcion);
                 datos.ejecutarLectura();
                 return datos.Lector.Read();
@@ -119,6 +124,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
+        #endregion
     }
 }
