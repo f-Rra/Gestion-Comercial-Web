@@ -12,6 +12,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
 {
     public partial class NuevaVenta : System.Web.UI.Page
     {
+        #region Propiedades
         public List<Articulo> ListaArticulos { get; set; }
         
         public List<DetalleVenta> Carrito 
@@ -29,7 +30,9 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 Session["Carrito"] = value;
             }
         }
+        #endregion
 
+        #region Page Events
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -38,13 +41,15 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 ActualizarCarrito();
             }
         }
+        #endregion
+
+        #region Artículos
 
         private void CargarArticulos()
         {
             try
             {
                 ArticuloNegocio negocio = new ArticuloNegocio();
-                // Solo cargamos los artículos que tienen stock disponible para la venta
                 ListaArticulos = negocio.listar().Where(x => x.Stock > 0).ToList();
                 Session["ListaArticulos"] = ListaArticulos;
                 gvArticulos.DataSource = ListaArticulos;
@@ -60,6 +65,12 @@ namespace Gestion_Comercial_Web.Pages.Ventas
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             FiltrarArticulos();
+        }
+
+        protected void btnMostrarTodos_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Text = "";
+            CargarArticulos();
         }
 
         private void FiltrarArticulos()
@@ -80,12 +91,6 @@ namespace Gestion_Comercial_Web.Pages.Ventas
             }
         }
 
-        protected void btnMostrarTodos_Click(object sender, EventArgs e)
-        {
-            txtBuscar.Text = "";
-            CargarArticulos();
-        }
-
         protected void gvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvArticulos.PageIndex = e.NewPageIndex;
@@ -99,6 +104,9 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 e.Row.Attributes["onclick"] = string.Format("onRowClick(this, {0})", e.Row.RowIndex);
             }
         }
+        #endregion
+
+        #region Carrito
 
         protected void btnAgregarSeleccion_Click(object sender, EventArgs e)
         {
@@ -115,7 +123,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                         AgregarAlCarrito(idArticulo);
                     }
                 }
-                hfSelectedIndices.Value = ""; // Limpiar seleccion
+                hfSelectedIndices.Value = "";
                 ActualizarCarrito();
             }
         }
@@ -224,6 +232,9 @@ namespace Gestion_Comercial_Web.Pages.Ventas
             Session["Carrito"] = null;
             ActualizarCarrito();
         }
+        #endregion
+
+        #region Venta
 
         protected void btnFinalizarVenta_Click(object sender, EventArgs e)
         {
@@ -239,7 +250,12 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 Venta nuevaVenta = new Venta();
                 nuevaVenta.NumeroVenta = nuevaVenta.GenerarNumeroVenta();
                 nuevaVenta.Fecha = DateTime.Now;
-                nuevaVenta.Vendedor = "Admin"; 
+                
+                if (Helpers.SessionManager.EstaLogueado)
+                    nuevaVenta.Vendedor = Helpers.SessionManager.UsuarioActual.NombreUsuario;
+                else
+                    nuevaVenta.Vendedor = "Admin";
+
                 nuevaVenta.Cliente = "Consumidor Final";
                 nuevaVenta.Detalles = Carrito;
                 nuevaVenta.CalcularTotal();
@@ -256,9 +272,11 @@ namespace Gestion_Comercial_Web.Pages.Ventas
             }
             catch (Exception ex)
             {
-                string errorScript = "showNotification('Error', 'No se pudo completar la operación. Revisa el stock.', true);";
+                string msg = ex.Message.Replace("'", "").Replace("\n", " ");
+                string errorScript = "showNotification('Error en la Venta', '" + msg + "', true);";
                 ClientScript.RegisterStartupScript(this.GetType(), "ErrorSale", errorScript, true);
             }
         }
+        #endregion
     }
 }

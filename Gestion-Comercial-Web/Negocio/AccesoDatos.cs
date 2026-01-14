@@ -14,6 +14,7 @@ namespace Negocio
         private SqlCommand comando;
         private SqlDataReader lector;
         private string ruta = ConfigurationManager.ConnectionStrings["GestionComercialDB"].ConnectionString;
+        private SqlTransaction transaccion;
 
         public SqlDataReader Lector
         {
@@ -24,6 +25,23 @@ namespace Negocio
         {
             conexion = new SqlConnection(ruta);
             comando = new SqlCommand();
+        }
+
+        public void abrirTransaccion()
+        {
+            conexion.Open();
+            transaccion = conexion.BeginTransaction();
+            comando.Transaction = transaccion;
+        }
+
+        public void commitTransaccion()
+        {
+            transaccion.Commit();
+        }
+
+        public void rollbackTransaccion()
+        {
+            transaccion.Rollback();
         }
 
         public void setearConsulta(string consulta)
@@ -42,7 +60,8 @@ namespace Negocio
 
             try
             {
-                conexion.Open();
+                if(conexion.State != System.Data.ConnectionState.Open)
+                    conexion.Open();
                 lector = comando.ExecuteReader();
             }
             catch (Exception ex)
@@ -56,7 +75,8 @@ namespace Negocio
             comando.Connection = conexion;
             try
             {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open)
+                    conexion.Open();
                 comando.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -65,7 +85,10 @@ namespace Negocio
             }
             finally
             {
-                conexion.Close();
+                if (transaccion == null)
+                {
+                   conexion.Close();
+                }
                 comando.Parameters.Clear();
             }
         }
@@ -79,7 +102,12 @@ namespace Negocio
         {
             if (lector != null)
                 lector.Close();
-            conexion.Close();
+            
+            if (transaccion == null)
+            {
+                conexion.Close();
+            }
         }
+
     }
 }

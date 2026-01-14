@@ -10,16 +10,14 @@ namespace Gestion_Comercial_Web
         {
             if (!IsPostBack)
             {
-                // Validación de sesión deshabilitada temporalmente
-                /*
-                if (!SessionManager.EstaLogueado)
+                if (SessionManager.EstaLogueado)
                 {
-                    Response.Redirect("~/Login.aspx");
-                    return;
+                    lblUsuario.Text = SessionManager.UsuarioActual.NombreUsuario;
                 }
-
-                lblUsuario.Text = SessionManager.UsuarioActual.NombreUsuario;
-                */
+                else
+                {
+                    lblUsuario.Text = "Invitado";
+                }
             }
         }
 
