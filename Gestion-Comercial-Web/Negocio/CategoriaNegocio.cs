@@ -9,6 +9,7 @@ namespace Negocio
 {
     public class CategoriaNegocio
     {
+        #region Listar
         public List<Categoria> listar()
         {
             List<Categoria> lista = new List<Categoria>();
@@ -17,7 +18,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ListarCategorias");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -37,12 +38,14 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
 
+        #region CRUD
         public void agregar(Categoria nueva)
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_AltaCategoria");
-            datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
@@ -62,7 +65,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_ModificarCategoria");
-            datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Id", existente.Id);
@@ -83,7 +86,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_BajaCategoria");
-            datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Id", id);
@@ -98,7 +101,9 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
 
+        #region Validaciones
         public bool buscarCategoria(string descripcion)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -124,5 +129,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
     }
 }

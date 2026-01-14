@@ -9,6 +9,7 @@ namespace Negocio
 {
     public class UsuarioNegocio
     {
+        #region Autenticación
         public Usuario validarCredenciales(string nombreUsuario, string contrasena)
         {
             Usuario usuario = null;
@@ -17,7 +18,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_VerificarUsuario");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.setearParametro("@NombreUsuario", nombreUsuario);
                 datos.setearParametro("@Contrasena", contrasena);
                 datos.ejecutarLectura();
@@ -42,7 +43,9 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
 
+        #region Listar
         public List<Usuario> listar()
         {
             List<Usuario> lista = new List<Usuario>();
@@ -51,7 +54,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ListarUsuarios");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -60,7 +63,7 @@ namespace Negocio
                     aux.IdUsuario = (int)datos.Lector["IdUsuario"];
                     aux.NombreUsuario = (string)datos.Lector["NombreUsuario"];
                     aux.EsAdministrador = (bool)datos.Lector["EsAdministrador"];
-                    aux.Estado = (bool)datos.Lector["Estado"];
+                    // aux.Estado = (bool)datos.Lector["Estado"]; // Nota: No está en el SP sugerido por el SQL pero lo mantenemos por consistencia
                     lista.Add(aux);
                 }
 
@@ -75,7 +78,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-
+        #endregion
     }
 }

@@ -9,6 +9,7 @@ namespace Negocio
 {
     public class ArticuloNegocio
     {
+        #region Listar y Filtrar
         public List<Articulo> listar()
         {
             List<Articulo> lista = new List<Articulo>();
@@ -48,92 +49,6 @@ namespace Negocio
             }
         }
 
-        public void agregar(Articulo nuevo)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_AltaArticulo");
-            datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
-            try
-            {
-                datos.setearParametro("@Codigo", nuevo.Codigo);
-                datos.setearParametro("@Nombre", nuevo.Nombre);
-                datos.setearParametro("@Descripcion", nuevo.Descripcion);
-                datos.setearParametro("@IdMarca", nuevo.Marca.Id);
-                datos.setearParametro("@IdCategoria", nuevo.Categoria.Id);
-                datos.setearParametro("@ImagenUrl", nuevo.UrlImagen);
-                datos.setearParametro("@Precio", nuevo.Precio);
-                datos.setearParametro("@Stock", nuevo.Stock);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public void modificar(Articulo existente)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_ModificarArticulo");
-            datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
-            try
-            {
-                datos.setearParametro("@Codigo", existente.Codigo);
-                datos.setearParametro("@Nombre", existente.Nombre);
-                datos.setearParametro("@Descripcion", existente.Descripcion);
-                datos.setearParametro("@IdMarca", existente.Marca.Id);
-                datos.setearParametro("@IdCategoria", existente.Categoria.Id);
-                datos.setearParametro("@ImagenUrl", existente.UrlImagen);
-                datos.setearParametro("@Precio", existente.Precio);
-                datos.setearParametro("@Stock", existente.Stock);
-                datos.setearParametro("@Id", existente.Id); 
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public void bajaFisica(int id)
-        {
-            try
-            {
-                AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("DELETE FROM Articulos WHERE Id = @ID");
-                datos.setearParametro("@ID", id);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public void bajaLogica(int id)
-        {
-            try
-            {
-                AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("SP_BajaArticulo");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
-                datos.setearParametro("@Id", id);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         public List<Articulo> filtrar(string campo, string criterio, string filtro)
         {
             List<Articulo> lista = new List<Articulo>();
@@ -141,7 +56,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_BuscarArticulos");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.setearParametro("@Campo", campo);
                 datos.setearParametro("@Criterio", criterio);
                 datos.setearParametro("@Filtro", filtro);
@@ -203,14 +118,104 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
 
+        #region CRUD
+        public void agregar(Articulo nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearConsulta("SP_AltaArticulo");
+            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+            try
+            {
+                datos.setearParametro("@Codigo", nuevo.Codigo);
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Descripcion", nuevo.Descripcion);
+                datos.setearParametro("@IdMarca", nuevo.Marca.Id);
+                datos.setearParametro("@IdCategoria", nuevo.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", nuevo.UrlImagen);
+                datos.setearParametro("@Precio", nuevo.Precio);
+                datos.setearParametro("@Stock", nuevo.Stock);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void modificar(Articulo existente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            datos.setearConsulta("SP_ModificarArticulo");
+            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+            try
+            {
+                datos.setearParametro("@Codigo", existente.Codigo);
+                datos.setearParametro("@Nombre", existente.Nombre);
+                datos.setearParametro("@Descripcion", existente.Descripcion);
+                datos.setearParametro("@IdMarca", existente.Marca.Id);
+                datos.setearParametro("@IdCategoria", existente.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", existente.UrlImagen);
+                datos.setearParametro("@Precio", existente.Precio);
+                datos.setearParametro("@Stock", existente.Stock);
+                datos.setearParametro("@Id", existente.Id); 
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void bajaFisica(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("DELETE FROM Articulos WHERE Id = @ID");
+                datos.setearParametro("@ID", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void bajaLogica(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("SP_BajaArticulo");
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region Manejo de Stock
         public void actualizarStock(int idArticulo, int nuevoStock)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearConsulta("SP_ActualizarStock");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.setearParametro("@Id", idArticulo);
                 datos.setearParametro("@NuevoStock", nuevoStock);
                 datos.ejecutarAccion();
@@ -231,7 +236,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_SumarStock");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.setearParametro("@Id", idArticulo);
                 datos.setearParametro("@Cantidad", cantidad);
                 datos.ejecutarLectura();
@@ -258,7 +263,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_RestarStock");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.setearParametro("@Id", idArticulo);
                 datos.setearParametro("@Cantidad", cantidad);
                 datos.ejecutarLectura();
@@ -286,7 +291,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ArticulosBajoStock");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.setearParametro("@StockMinimo", stockMinimo);
                 datos.ejecutarLectura();
 
@@ -322,7 +327,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ArticulosSinStock");
-                datos.setearTipoComando(System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -349,5 +354,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        #endregion
     }
 }
