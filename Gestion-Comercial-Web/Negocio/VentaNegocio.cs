@@ -37,12 +37,14 @@ namespace Negocio
             
             try
             {
-                // Primero registrar la venta principal
+                datos.abrirTransaccion();
+
+                // 1. Registrar la venta principal
                 datos.setearConsulta("SP_RegistrarVenta");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@NumeroVenta", venta.NumeroVenta);
                 datos.setearParametro("@Vendedor", venta.Vendedor);
-                datos.setearParametro("@Cliente", venta.Cliente ?? "");
+                datos.setearParametro("@Cliente", venta.Cliente ?? "Consumidor Final");
                 datos.setearParametro("@Total", venta.Total);
                 
                 datos.ejecutarLectura();
@@ -50,47 +52,43 @@ namespace Negocio
                 {
                     idVenta = Convert.ToInt32(datos.Lector[0]);
                 }
-                datos.cerrarConexion();
+                
+                // IMPORTANTE: Cerrar el lector para poder ejecutar el siguiente comando
+                datos.Lector.Close();
 
-                // Validar que se obtuvo el ID de venta
                 if (idVenta == 0)
-                {
-                    throw new Exception("No se pudo obtener el ID de la venta registrada");
-                }
+                    throw new Exception("No se pudo obtener el ID de la venta");
 
-                // Luego registrar cada detalle de venta
+                // 2. Registrar cada detalle
                 foreach (var detalle in venta.Detalles)
                 {
-                    AccesoDatos datosDetalle = new AccesoDatos();
-                    try 
-                    {
-                        datosDetalle.setearConsulta("SP_RegistrarDetalleVenta");
-                        datosDetalle.setearTipoComando(CommandType.StoredProcedure);
-                        datosDetalle.setearParametro("@IdVenta", idVenta);
-                        datosDetalle.setearParametro("@IdArticulo", detalle.IdArticulo);
-                        datosDetalle.setearParametro("@Cantidad", detalle.Cantidad);
-                        datosDetalle.setearParametro("@PrecioUnitario", detalle.PrecioUnitario);
-                        datosDetalle.setearParametro("@Subtotal", detalle.Subtotal);
-                        datosDetalle.ejecutarAccion();
-                    }
-                    finally
-                    {
-                        datosDetalle.cerrarConexion();
-                    }
+                    // Limpiamos los parámetros del comando anterior antes de setear los nuevos
+                    // NOTA: En AccesoDatos ya se hace Clear en ejecutarAccion, 
+                    // pero aquí usamos ejecutarLectura arriba, así que hay que limpiar.
+                    datos.setearConsulta("SP_RegistrarDetalleVenta");
+                    datos.setearTipoComando(CommandType.StoredProcedure);
+                    datos.setearParametro("@IdVenta", idVenta);
+                    datos.setearParametro("@IdArticulo", detalle.IdArticulo);
+                    datos.setearParametro("@Cantidad", detalle.Cantidad);
+                    datos.setearParametro("@PrecioUnitario", detalle.PrecioUnitario);
+                    datos.setearParametro("@Subtotal", detalle.Subtotal);
+                    
+                    datos.ejecutarAccion();
                 }
+
+                datos.commitTransaccion();
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al registrar la venta: " + ex.Message, ex);
+                datos.rollbackTransaccion();
+                throw new Exception("Venta cancelada: " + ex.Message, ex);
             }
             finally
             {
-                if (datos != null)
-                {
-                    datos.cerrarConexion();
-                }
+                datos.cerrarConexion();
             }
         }
+
 
         public DataTable obtenerVentasPorVendedor(string vendedor)
         {
