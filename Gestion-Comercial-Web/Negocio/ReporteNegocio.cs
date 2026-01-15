@@ -52,9 +52,65 @@ namespace Negocio
             try
             {
                 datos.setearConsulta(@"SELECT 
-                    Codigo, Nombre, Descripcion, Marca, Categoria, Precio, Stock
+                    Codigo AS [Código], 
+                    Nombre AS [Artículo], 
+                    Descripcion AS [Descripción], 
+                    Marca, 
+                    Categoria AS [Categoría], 
+                    Precio, 
+                    Stock AS [Stock Actual]
                 FROM vw_ArticulosCompletos 
                 ORDER BY Nombre");
+                datos.ejecutarLectura();
+                tabla.Load(datos.Lector);
+                return tabla;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public DataTable obtenerInventarioPorCategoria()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            DataTable tabla = new DataTable();
+            try
+            {
+                datos.setearConsulta(@"SELECT 
+                    Categoria AS [Categoría], 
+                    CantidadArticulos AS [Total Artículos]
+                FROM vw_InventarioPorCategoria 
+                ORDER BY CantidadArticulos DESC");
+                datos.ejecutarLectura();
+                tabla.Load(datos.Lector);
+                return tabla;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public DataTable obtenerInventarioPorMarca()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            DataTable tabla = new DataTable();
+            try
+            {
+                datos.setearConsulta(@"SELECT 
+                    Marca, 
+                    CantidadArticulos AS [Total Artículos]
+                FROM vw_InventarioPorMarca 
+                ORDER BY CantidadArticulos DESC");
                 datos.ejecutarLectura();
                 tabla.Load(datos.Lector);
                 return tabla;
@@ -75,8 +131,15 @@ namespace Negocio
             DataTable tabla = new DataTable();
             try
             {
-                datos.setearConsulta("SP_ArticulosBajoStock");
-                datos.setearTipoComando(CommandType.StoredProcedure);
+                datos.setearConsulta(@"SELECT 
+                    Codigo AS [Código], 
+                    Nombre AS [Artículo], 
+                    Marca, 
+                    Categoria AS [Categoría], 
+                    Stock AS [Stock Disponible]
+                FROM vw_ArticulosCompletos
+                WHERE Stock <= @StockMinimo AND Stock > 0
+                ORDER BY Stock ASC");
                 datos.setearParametro("@StockMinimo", stockMinimo);
                 datos.ejecutarLectura();
                 tabla.Load(datos.Lector);
@@ -98,8 +161,15 @@ namespace Negocio
             DataTable tabla = new DataTable();
             try
             {
-                datos.setearConsulta("SP_ArticulosSinStock");
-                datos.setearTipoComando(CommandType.StoredProcedure);
+                datos.setearConsulta(@"SELECT 
+                    Codigo AS [Código], 
+                    Nombre AS [Artículo], 
+                    Marca, 
+                    Categoria AS [Categoría], 
+                    Stock AS [Stock Actual]
+                FROM vw_ArticulosCompletos
+                WHERE Stock = 0
+                ORDER BY Nombre");
                 datos.ejecutarLectura();
                 tabla.Load(datos.Lector);
                 return tabla;
@@ -123,8 +193,46 @@ namespace Negocio
             try
             {
                 datos.setearConsulta(@"SELECT 
-                    v.Id, v.NumeroVenta, v.Fecha, v.Vendedor, v.Cliente, v.Total, v.Estado
+                    NumeroVenta AS [N° Venta], 
+                    Fecha, 
+                    Vendedor, 
+                    Cliente, 
+                    Total AS [Monto Total]
+                FROM VENTAS
+                WHERE Fecha >= @FechaInicio AND Fecha <= @FechaFin
+                ORDER BY Fecha DESC");
+                datos.setearParametro("@FechaInicio", fechaInicio);
+                datos.setearParametro("@FechaFin", fechaFin);
+                datos.ejecutarLectura();
+                tabla.Load(datos.Lector);
+                return tabla;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public DataTable obtenerVentasDetalladas(DateTime fechaInicio, DateTime fechaFin)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            DataTable tabla = new DataTable();
+            try
+            {
+                datos.setearConsulta(@"SELECT 
+                    v.NumeroVenta AS [N° Venta], 
+                    v.Fecha, 
+                    a.Nombre AS [Artículo], 
+                    dv.Cantidad, 
+                    dv.PrecioUnitario AS [Precio Unit.], 
+                    dv.Subtotal
                 FROM VENTAS v
+                INNER JOIN DETALLE_VENTAS dv ON v.Id = dv.IdVenta
+                INNER JOIN ARTICULOS a ON dv.IdArticulo = a.Id
                 WHERE v.Fecha >= @FechaInicio AND v.Fecha <= @FechaFin
                 ORDER BY v.Fecha DESC");
                 datos.setearParametro("@FechaInicio", fechaInicio);
@@ -150,14 +258,13 @@ namespace Negocio
             try
             {
                 datos.setearConsulta(@"SELECT 
-                    CAST(v.Fecha AS DATE) as Fecha,
-                    COUNT(*) as CantidadVentas,
-                    SUM(v.Total) as TotalVentas,
-                    AVG(v.Total) as PromedioVenta,
-                    COUNT(DISTINCT v.Vendedor) as VendedoresActivos
-                FROM VENTAS v
-                WHERE v.Fecha >= @FechaInicio AND v.Fecha <= @FechaFin
-                GROUP BY CAST(v.Fecha AS DATE)
+                    CAST(Fecha AS DATE) AS [Fecha],
+                    COUNT(*) AS [Cant. Ventas],
+                    SUM(Total) AS [Recaudación Total],
+                    AVG(Total) AS [Ticket Promedio]
+                FROM VENTAS
+                WHERE Fecha >= @FechaInicio AND Fecha <= @FechaFin
+                GROUP BY CAST(Fecha AS DATE)
                 ORDER BY Fecha DESC");
                 datos.setearParametro("@FechaInicio", fechaInicio);
                 datos.setearParametro("@FechaFin", fechaFin);
@@ -184,14 +291,14 @@ namespace Negocio
             try
             {
                 datos.setearConsulta(@"SELECT 
-                    v.Vendedor,
-                    COUNT(*) as CantidadVentas,
-                    SUM(v.Total) as TotalVentas,
-                    AVG(v.Total) as PromedioVenta
-                FROM VENTAS v
-                WHERE v.Fecha >= @FechaInicio AND v.Fecha <= @FechaFin
-                GROUP BY v.Vendedor
-                ORDER BY TotalVentas DESC");
+                    Vendedor,
+                    COUNT(*) AS [Ventas Realizadas],
+                    SUM(Total) AS [Total Facturado],
+                    AVG(Total) AS [Promedio por Venta]
+                FROM VENTAS
+                WHERE Fecha >= @FechaInicio AND Fecha <= @FechaFin
+                GROUP BY Vendedor
+                ORDER BY [Total Facturado] DESC");
                 datos.setearParametro("@FechaInicio", fechaInicio);
                 datos.setearParametro("@FechaFin", fechaFin);
                 datos.ejecutarLectura();
@@ -214,20 +321,78 @@ namespace Negocio
             DataTable tabla = new DataTable();
             try
             {
-                datos.setearConsulta(@"SELECT 
-                    a.Nombre,
-                    m.Descripcion as Marca,
-                    SUM(dv.Cantidad) as CantidadVendida,
-                    SUM(dv.Subtotal) as TotalVentas
+                datos.setearConsulta(@"SELECT TOP 10
+                    a.Nombre AS [Artículo],
+                    m.Descripcion AS Marca,
+                    SUM(dv.Cantidad) AS [Unid. Vendidas],
+                    SUM(dv.Subtotal) AS [Total Generado]
                 FROM DETALLE_VENTAS dv
                 INNER JOIN VENTAS v ON dv.IdVenta = v.Id
                 INNER JOIN ARTICULOS a ON dv.IdArticulo = a.Id
                 INNER JOIN MARCAS m ON a.IdMarca = m.Id
                 WHERE v.Fecha >= @FechaInicio AND v.Fecha <= @FechaFin
                 GROUP BY a.Nombre, m.Descripcion
-                ORDER BY CantidadVendida DESC");
+                ORDER BY [Unid. Vendidas] DESC");
                 datos.setearParametro("@FechaInicio", fechaInicio);
                 datos.setearParametro("@FechaFin", fechaFin);
+                datos.ejecutarLectura();
+                tabla.Load(datos.Lector);
+                return tabla;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public DataTable obtenerEstadisticasStockPorCategoria()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            DataTable tabla = new DataTable();
+            try
+            {
+                datos.setearConsulta(@"SELECT 
+                    c.Descripcion AS [Categoría],
+                    COUNT(a.Id) AS [Variedad Art.],
+                    SUM(a.Stock) AS [Stock Total],
+                    COUNT(CASE WHEN a.Stock = 0 THEN 1 END) AS [Sin Stock]
+                FROM ARTICULOS a
+                INNER JOIN CATEGORIAS c ON a.IdCategoria = c.Id
+                GROUP BY c.Descripcion
+                ORDER BY [Stock Total] DESC");
+                datos.ejecutarLectura();
+                tabla.Load(datos.Lector);
+                return tabla;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public DataTable obtenerEstadisticasStockPorMarca()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            DataTable tabla = new DataTable();
+            try
+            {
+                datos.setearConsulta(@"SELECT 
+                    m.Descripcion AS Marca,
+                    COUNT(a.Id) AS [Variedad Art.],
+                    SUM(a.Stock) AS [Stock Total],
+                    COUNT(CASE WHEN a.Stock = 0 THEN 1 END) AS [Sin Stock]
+                FROM ARTICULOS a
+                INNER JOIN MARCAS m ON a.IdMarca = m.Id
+                GROUP BY m.Descripcion
+                ORDER BY [Stock Total] DESC");
                 datos.ejecutarLectura();
                 tabla.Load(datos.Lector);
                 return tabla;

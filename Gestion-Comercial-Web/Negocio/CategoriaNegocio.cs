@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+using System.Data;
 
 namespace Negocio
 {
@@ -18,7 +19,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ListarCategorias");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -45,7 +46,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_AltaCategoria");
-            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
@@ -65,7 +66,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_ModificarCategoria");
-            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Id", existente.Id);
@@ -86,7 +87,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_BajaCategoria");
-            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Id", id);

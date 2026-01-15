@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+using System.Data;
 
 namespace Negocio
 {
@@ -56,7 +57,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_BuscarArticulos");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Campo", campo);
                 datos.setearParametro("@Criterio", criterio);
                 datos.setearParametro("@Filtro", filtro);
@@ -125,7 +126,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_AltaArticulo");
-            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Codigo", nuevo.Codigo);
@@ -152,7 +153,7 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
             datos.setearConsulta("SP_ModificarArticulo");
-            datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+            datos.setearTipoComando(CommandType.StoredProcedure);
             try
             {
                 datos.setearParametro("@Codigo", existente.Codigo);
@@ -197,7 +198,7 @@ namespace Negocio
             {
                 AccesoDatos datos = new AccesoDatos();
                 datos.setearConsulta("SP_BajaArticulo");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
@@ -215,7 +216,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ActualizarStock");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", idArticulo);
                 datos.setearParametro("@NuevoStock", nuevoStock);
                 datos.ejecutarAccion();
@@ -236,7 +237,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_SumarStock");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", idArticulo);
                 datos.setearParametro("@Cantidad", cantidad);
                 datos.ejecutarLectura();
@@ -263,7 +264,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_RestarStock");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", idArticulo);
                 datos.setearParametro("@Cantidad", cantidad);
                 datos.ejecutarLectura();
@@ -291,7 +292,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ArticulosBajoStock");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@StockMinimo", stockMinimo);
                 datos.ejecutarLectura();
 
@@ -327,7 +328,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ArticulosSinStock");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
+using System.Data;
 
 namespace Negocio
 {
@@ -18,7 +19,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_VerificarUsuario");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@NombreUsuario", nombreUsuario);
                 datos.setearParametro("@Contrasena", contrasena);
                 datos.ejecutarLectura();
@@ -54,7 +55,7 @@ namespace Negocio
             try
             {
                 datos.setearConsulta("SP_ListarUsuarios");
-                datos.setearTipoComando(System.Data.System.Data.CommandType.StoredProcedure);
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
