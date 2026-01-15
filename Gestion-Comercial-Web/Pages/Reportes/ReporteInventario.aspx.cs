@@ -1,8 +1,13 @@
+#pragma warning disable IDE1006 // Naming Styles
 using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
 using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace Gestion_Comercial_Web.Pages.Reportes
 {
@@ -183,8 +188,107 @@ namespace Gestion_Comercial_Web.Pages.Reportes
         #region Exportar
         protected void btnExportarPDF_Click(object sender, EventArgs e)
         {
-            string script = "showNotification('Funcionalidad', 'La exportación a PDF se implementará en la siguiente fase.', false);";
-            ClientScript.RegisterStartupScript(this.GetType(), "ExportPDF", script, true);
+            if (gvReporte.Rows.Count == 0)
+            {
+                MostrarError("No hay datos para exportar.");
+                return;
+            }
+
+            try
+            {
+                string tituloReporte = lblTituloReporte.Text;
+                string nombreArchivo = "Reporte_" + tituloReporte.Replace(" ", "_") + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".pdf";
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    // Crear documento (A4, horizontal si tiene muchas columnas)
+                    Document doc = new Document(PageSize.A4.Rotate(), 10f, 10f, 10f, 0f);
+                    PdfWriter writer = PdfWriter.GetInstance(doc, ms);
+                    doc.Open();
+
+                    // Fuentes
+                    BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                    Font fontTitulo = new Font(bf, 18, Font.BOLD, BaseColor.DARK_GRAY);
+                    Font fontSubtitulo = new Font(bf, 12, Font.NORMAL, BaseColor.GRAY);
+                    Font fontHeader = new Font(bf, 10, Font.BOLD, BaseColor.WHITE);
+                    Font fontRows = new Font(bf, 9, Font.NORMAL, BaseColor.BLACK);
+
+                    // Título
+                    Paragraph pTitulo = new Paragraph(tituloReporte, fontTitulo);
+                    pTitulo.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(pTitulo);
+
+                    // Fecha y Usuario
+                    string usuario = Helpers.SessionManager.UsuarioActual != null ? Helpers.SessionManager.UsuarioActual.NombreUsuario : "Sistema";
+                    Paragraph pInfo = new Paragraph($"Generado el: {DateTime.Now:dd/MM/yyyy HH:mm} | Usuario: {usuario}", fontSubtitulo);
+                    pInfo.Alignment = Element.ALIGN_CENTER;
+                    pInfo.SpacingAfter = 20f;
+                    doc.Add(pInfo);
+
+                    // Crear Tabla PDF según GridView
+                    int columnasCount = gvReporte.HeaderRow.Cells.Count;
+                    PdfPTable pdfTable = new PdfPTable(columnasCount);
+                    pdfTable.WidthPercentage = 100;
+
+                    // Encabezados
+                    foreach (TableCell headerCell in gvReporte.HeaderRow.Cells)
+                    {
+                        string headerText = Server.HtmlDecode(headerCell.Text).Trim();
+                        PdfPCell cell = new PdfPCell(new Phrase(headerText, fontHeader));
+                        cell.BackgroundColor = new BaseColor(1, 46, 64); // #012E40 (Primary Dark)
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        cell.Padding = 5f;
+                        pdfTable.AddCell(cell);
+                    }
+
+                    // Filas
+                    foreach (GridViewRow gvRow in gvReporte.Rows)
+                    {
+                        foreach (TableCell tableCell in gvRow.Cells)
+                        {
+                            string cellText = Server.HtmlDecode(tableCell.Text).Trim();
+                            
+                            // Si el texto está vacío (por controles o templates), intentamos obtener el texto de los controles
+                            if (string.IsNullOrEmpty(cellText) && tableCell.Controls.Count > 0)
+                            {
+                                foreach (Control c in tableCell.Controls)
+                                {
+                                    if (c is Label) cellText = ((Label)c).Text;
+                                    else if (c is LiteralControl) cellText = ((LiteralControl)c).Text.Trim();
+                                }
+                            }
+
+                            PdfPCell cell = new PdfPCell(new Phrase(cellText, fontRows));
+                            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                            cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                            cell.Padding = 4f;
+                            pdfTable.AddCell(cell);
+                        }
+                    }
+
+                    doc.Add(pdfTable);
+                    doc.Close();
+
+                    byte[] bytes = ms.ToArray();
+                    ms.Close();
+
+                    // Limpiar respuesta y enviar PDF
+                    Response.Clear();
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("Content-Disposition", "attachment; filename=" + nombreArchivo);
+                    Response.Buffer = true;
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Response.BinaryWrite(bytes);
+                    Response.End();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Si falla Response.End (que lanza ThreadAbortException), lo ignoramos si es esa excepción específica
+                if (!(ex is System.Threading.ThreadAbortException))
+                    MostrarError("Error al exportar PDF: " + ex.Message);
+            }
         }
         #endregion
 
