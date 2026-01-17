@@ -1,106 +1,104 @@
 //------------------------------------------------------------------------------
-// <generado autom醫icamente>
-//     Este c骴igo fue generado por una herramienta.
+// <generado autom谩ticamente>
+//     Este c贸digo fue generado por una herramienta.
 //
-//     Los cambios en este archivo podr韆n causar un comportamiento incorrecto y se perder醤 si
-//     se vuelve a generar el c骴igo. 
-// </generado autom醫icamente>
+//     Los cambios en este archivo podr铆an causar un comportamiento incorrecto y se perder谩n si
+//     se vuelve a generar el c贸digo. 
+// </generado autom谩ticamente>
 //------------------------------------------------------------------------------
 
-namespace Gestion_Comercial_Web.Pages.Articulos
-{
-
-
-    public partial class DetallesArticulos
-    {
-
+namespace Gestion_Comercial_Web.Pages.Articulos {
+    
+    
+    public partial class DetallesArticulos {
+        
         /// <summary>
         /// Control txtIdArticulo.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIdArticulo;
-
+        
         /// <summary>
         /// Control txtNombre.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNombre;
-
+        
         /// <summary>
         /// Control txtCodigo.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCodigo;
-
+        
         /// <summary>
         /// Control txtPrecio.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPrecio;
-
+        
         /// <summary>
         /// Control ddlMarca.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMarca;
-
+        
         /// <summary>
         /// Control ddlCategoria.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategoria;
-
+        
         /// <summary>
         /// Control txtUrlImagen.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUrlImagen;
-
+        
         /// <summary>
         /// Control txtDescripcion.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
-
+        
         /// <summary>
         /// Control imgArticulo.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgArticulo;
-
+        
         /// <summary>
         /// Control btnVolver.
         /// </summary>
         /// <remarks>
-        /// Campo generado autom醫icamente.
-        /// Para modificarlo, mueva la declaraci髇 del campo del archivo del dise馻dor al archivo de c骴igo subyacente.
+        /// Campo generado autom谩ticamente.
+        /// Para modificarlo, mueva la declaraci贸n del campo del archivo del dise帽ador al archivo de c贸digo subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnVolver;
     }

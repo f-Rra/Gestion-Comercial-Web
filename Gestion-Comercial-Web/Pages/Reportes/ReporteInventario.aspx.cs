@@ -13,7 +13,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
 {
     public partial class ReporteInventario : Page
     {
-        private ReporteNegocio negocio = new ReporteNegocio();
+        private readonly ReporteNegocio negocio = new ReporteNegocio();
 
         #region Page Events
         protected void Page_Load(object sender, EventArgs e)
