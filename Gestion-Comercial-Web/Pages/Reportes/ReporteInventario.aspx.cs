@@ -39,7 +39,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                MostrarError("No se pudieron cargar los datos: " + ex.Message);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                MostrarError("Error: " + ex.Message);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
             }
             catch (Exception ex)
             {
-                MostrarError(ex.Message);
+                MostrarError("Error: " + ex.Message);
             }
         }
 
@@ -79,7 +79,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Artículos con Bajo Stock (<= 5)");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { MostrarError("Error: " + ex.Message); }
         }
 
         protected void btnInventarioCompleto_Click(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Inventario Completo");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { MostrarError("Error: " + ex.Message); }
         }
         #endregion
 
@@ -103,7 +103,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Estadísticas de Stock por Marca");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { MostrarError("Error: " + ex.Message); }
         }
 
         protected void btnStockPorCategorias_Click(object sender, EventArgs e)
@@ -129,7 +129,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Ventas Detalladas");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { MostrarError("Error: " + ex.Message); }
         }
 
         protected void btnMasVendidos_Click(object sender, EventArgs e)
@@ -298,11 +298,18 @@ namespace Gestion_Comercial_Web.Pages.Reportes
             lblTituloReporte.Text = titulo;
         }
 
+        private void MostrarExito(string mensaje)
+        {
+            string msg = mensaje.Replace("'", "").Replace("\n", " ");
+            string script = $"showNotification('¡Listo!', '{msg}', false);";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ExitoRepo", script, true);
+        }
+
         private void MostrarError(string mensaje)
         {
             string msg = mensaje.Replace("'", "").Replace("\n", " ");
-            string script = "showNotification('Error', '" + msg + "', true);";
-            ClientScript.RegisterStartupScript(this.GetType(), "ErrorRepo", script, true);
+            string script = $"showNotification('Error', '{msg}', true);";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorRepo", script, true);
         }
         #endregion
     }

@@ -350,16 +350,16 @@
                 </div>
             </div>
 
-            <!-- Notificación Flotante (Overlay) -->
+            <!-- Notificación Flotante (Overlay) Premium -->
             <div id="notificationOverlay" class="d-none"
-                style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; min-width: 300px;">
-                <div
-                    class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25">
+                style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+                <div class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
+                    style="min-width: 300px; max-width: 450px;">
                     <i id="notifIcon" class="fas fa-check-circle fa-3x mb-3 text-success"></i>
                     <h4 id="notifTitle" class="mb-2">¡Éxito!</h4>
-                    <p id="notifMessage" class="mb-0"></p>
-                    <button type="button" class="btn btn-outline-light mt-3 px-4"
-                        onclick="document.getElementById('notificationOverlay').classList.add('d-none')">Aceptar</button>
+                    <p id="notifMessage" class="mb-3"></p>
+                    <button type="button" class="btn bg-accent text-light fw-bold px-5"
+                        onclick="document.getElementById('notificationOverlay').classList.add('d-none'); document.getElementById('notificationOverlay').style.display = 'none';">Aceptar</button>
                 </div>
             </div>
 
@@ -382,6 +382,7 @@
                     }
 
                     overlay.classList.remove('d-none');
+                    overlay.style.display = 'flex';
                 }
             </script>
 
