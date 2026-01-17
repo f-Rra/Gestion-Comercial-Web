@@ -59,9 +59,9 @@ namespace Gestion_Comercial_Web.Pages.Articulos
                 foreach (GridViewRow row in gvArticulos.Rows)
                 {
                     if (row.RowIndex == gvArticulos.SelectedIndex)
-                        row.CssClass += " selected-row";
+                        row.CssClass = "selectable-row selected-row";
                     else
-                        row.CssClass = row.CssClass.Replace(" selected-row", "");
+                        row.CssClass = "selectable-row";
                 }
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                e.Row.Attributes["onclick"] = string.Format("onRowClick(this, {0})", e.Row.RowIndex);
+                e.Row.Attributes["onclick"] = string.Format("onRowClick('{0}', this, {1})", gvArticulos.UniqueID, e.Row.RowIndex);
                 
                 if (gvArticulos.SelectedIndex == e.Row.RowIndex)
                 {

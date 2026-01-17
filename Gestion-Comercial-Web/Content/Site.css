@@ -11,12 +11,14 @@
     --color-light: #F2E3D5;
 }
 
-/* ========================================
-   Estilos Globales
-   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
     background-color: var(--color-light);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--color-primary-dark);
+    margin: 0;
+    padding: 0;
 }
 
 /* ========================================
@@ -59,4 +61,166 @@ body.default-page {
 
 .text-primary-dark {
     color: var(--color-primary-dark) !important;
+}
+
+/* ========================================
+   Estilos de Tablas Principales
+   ======================================== */
+
+.gv-principal {
+    background-color: #ffffff !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    width: 100% !important;
+    border: none !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3) !important;
+    margin-bottom: 0 !important;
+}
+
+.gv-principal th {
+    background-color: var(--color-primary-dark) !important;
+    color: #ffffff !important;
+    padding: 18px 15px !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    border: none !important;
+    text-align: center !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.gv-principal td {
+    background-color: #ffffff !important;
+    color: #1a202c !important;
+    padding: 14px 15px !important;
+    border-bottom: 1px solid #edf2f7 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    font-size: 0.92rem !important;
+    transition: background-color 0.2s ease;
+}
+
+.gv-principal tr:last-child td {
+    border-bottom: none !important;
+}
+
+.gv-principal tr:hover td {
+    background-color: #f8fafc !important;
+}
+
+.currency-cell {
+    white-space: nowrap !important;
+    font-weight: 600 !important;
+    color: var(--color-primary-dark) !important;
+}
+
+.gv-principal .selected-row td,
+.gv-principal tr.selected-row td {
+    background-color: #ebf8ff !important;
+    color: var(--color-primary-dark) !important;
+    font-weight: 600 !important;
+}
+
+.gv-principal .selected-row td:first-child,
+.gv-principal tr.selected-row td:first-child {
+    border-left: 6px solid var(--color-accent) !important;
+}
+
+.gv-carrito {
+    font-size: 0.85rem !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.gv-carrito td {
+    padding: 10px 8px !important;
+}
+
+.gv-carrito th {
+    padding: 12px 8px !important;
+    font-size: 0.8rem !important;
+}
+
+.gv-carrito .btn-remove {
+    color: #e53e3e !important;
+    font-size: 1.1rem;
+    padding: 5px;
+    transition: all 0.2s;
+    text-decoration: none !important;
+}
+
+.gv-carrito .btn-remove:hover {
+    color: #c53030 !important;
+    transform: scale(1.2);
+}
+
+.paginacion table {
+    margin: 15px auto !important;
+    border-collapse: separate !important;
+    border-spacing: 8px !important;
+}
+
+.paginacion td {
+    padding: 0 !important;
+}
+
+.paginacion a,
+.paginacion span {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 38px !important;
+    height: 38px !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    border: 1px solid #e2e8f0 !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.paginacion a {
+    color: #4a5568 !important;
+    background-color: white !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.paginacion span {
+    background-color: var(--color-primary-dark) !important;
+    color: white !important;
+    border-color: var(--color-primary-dark) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.paginacion a:hover {
+    border-color: var(--color-accent) !important;
+    color: var(--color-accent) !important;
+    background-color: #f7fafc !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.estado-vacio {
+    padding: 30px 20px !important;
+    text-align: center !important;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3) !important;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.estado-vacio i {
+    font-size: 4rem !important;
+    color: #e2e8f0 !important;
+    margin-bottom: 1.5rem !important;
+    display: block;
+}
+
+.estado-vacio p {
+    font-weight: 600 !important;
+    color: #718096 !important;
+    font-size: 1.1rem !important;
+    margin: 0;
 }

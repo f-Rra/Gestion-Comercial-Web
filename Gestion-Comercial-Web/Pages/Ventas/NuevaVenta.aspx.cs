@@ -64,6 +64,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
+            gvArticulos.PageIndex = 0; // Reiniciar a la primera página al buscar
             FiltrarArticulos();
         }
 
@@ -75,19 +76,43 @@ namespace Gestion_Comercial_Web.Pages.Ventas
 
         private void FiltrarArticulos()
         {
-            string filtro = txtBuscar.Text.Trim().ToLower();
-            if (Session["ListaArticulos"] != null)
+            try
             {
-                List<Articulo> listaOriginal = (List<Articulo>)Session["ListaArticulos"];
-                List<Articulo> listaFiltrada = listaOriginal.Where(x => 
-                    x.Nombre.ToLower().Contains(filtro) || 
-                    x.Codigo.ToLower().Contains(filtro) ||
-                    x.Marca.Descripcion.ToLower().Contains(filtro) ||
-                    x.Categoria.Descripcion.ToLower().Contains(filtro)
-                ).ToList();
+                string filtro = txtBuscar.Text.Trim().ToLower();
                 
-                gvArticulos.DataSource = listaFiltrada;
-                gvArticulos.DataBind();
+                // Si la sesión expiró o se perdió, recargar
+                if (Session["ListaArticulos"] == null)
+                {
+                    CargarArticulos();
+                }
+
+                if (Session["ListaArticulos"] != null)
+                {
+                    List<Articulo> listaOriginal = (List<Articulo>)Session["ListaArticulos"];
+                    List<Articulo> listaFiltrada;
+
+                    if (string.IsNullOrEmpty(filtro))
+                    {
+                        listaFiltrada = listaOriginal;
+                    }
+                    else
+                    {
+                        listaFiltrada = listaOriginal.Where(x =>
+                            (x.Nombre != null && x.Nombre.ToLower().Contains(filtro)) ||
+                            (x.Codigo != null && x.Codigo.ToLower().Contains(filtro)) ||
+                            (x.Marca != null && x.Marca.Descripcion != null && x.Marca.Descripcion.ToLower().Contains(filtro)) ||
+                            (x.Categoria != null && x.Categoria.Descripcion != null && x.Categoria.Descripcion.ToLower().Contains(filtro))
+                        ).ToList();
+                    }
+
+                    gvArticulos.DataSource = listaFiltrada;
+                    gvArticulos.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log o manejo silencioso para no romper la experiencia de búsqueda
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -102,6 +127,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 e.Row.Attributes["onclick"] = string.Format("onRowClick(this, {0})", e.Row.RowIndex);
+                e.Row.Style["cursor"] = "pointer";
             }
         }
         #endregion
@@ -171,6 +197,19 @@ namespace Gestion_Comercial_Web.Pages.Ventas
             
             decimal total = Carrito.Sum(x => x.Subtotal);
             lblTotal.Text = total.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("es-AR"));
+
+            // Mostrar/Ocultar acciones según si hay items
+            phAccionesCarrito.Visible = Carrito.Count > 0;
+
+            // Ajustar altura dinámica: stretch cuando hay items, auto cuando está vacío
+            if (Carrito.Count > 0)
+            {
+                pnlDerecho.Attributes["class"] = "bg-body-secondary rounded-3 p-3 p-md-4 border shadow d-flex flex-column h-100";
+            }
+            else
+            {
+                pnlDerecho.Attributes["class"] = "bg-body-secondary rounded-3 p-3 p-md-4 border shadow d-flex flex-column";
+            }
         }
 
         public void gvCarrito_PageIndexChanging(object sender, GridViewPageEventArgs e)

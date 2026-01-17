@@ -78,6 +78,24 @@ namespace Gestion_Comercial_Web.Pages.Ventas
         protected global::System.Web.UI.WebControls.LinkButton btnQuitar;
 
         /// <summary>
+        /// Control pnlDerecho.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlDerecho;
+
+        /// <summary>
+        /// Control phAccionesCarrito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phAccionesCarrito;
+
+        /// <summary>
         /// Control btnLimpiar.
         /// </summary>
         /// <remarks>
