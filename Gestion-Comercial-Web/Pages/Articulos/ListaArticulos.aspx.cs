@@ -88,13 +88,13 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             if (gvArticulos.SelectedDataKey != null)
             {
                 string id = gvArticulos.SelectedDataKey.Value.ToString();
-                Response.Redirect("DetallesArticulos.aspx?id=" + id);
+                Response.Redirect("DetallesArticulos.aspx?id=" + id + "&modo=view");
             }
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("DetallesArticulos.aspx");
+            Response.Redirect("DetallesArticulos.aspx?modo=add");
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)
@@ -102,7 +102,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             if (gvArticulos.SelectedDataKey != null)
             {
                 string id = gvArticulos.SelectedDataKey.Value.ToString();
-                Response.Redirect("DetallesArticulos.aspx?id=" + id);
+                Response.Redirect("DetallesArticulos.aspx?id=" + id + "&modo=edit");
             }
         }
 
