@@ -1,17 +1,229 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Negocio;
+using Dominio;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Gestion_Comercial_Web.Pages.Articulos
 {
-    public partial class DetallesArticulos : System.Web.UI.Page
+    public partial class DetallesArticulos : Page
     {
+        #region Atributos
+        private readonly ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+        private readonly MarcaNegocio marcaNegocio = new MarcaNegocio();
+        private readonly CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+        #endregion
+
+        #region Eventos
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                CargarDesplegables();
+                ConfigurarModo();
+            }
         }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!ValidarFormulario()) return;
+
+                Articulo articulo = ObtenerDatosDeInterfaz();
+                string idStr = Request.QueryString["id"];
+
+                if (!string.IsNullOrEmpty(idStr))
+                {
+                    articulo.Id = int.Parse(idStr);
+                    articuloNegocio.modificar(articulo);
+                    MostrarNotificacion("¡Hecho!", "El artículo se ha modificado correctamente.", false);
+                }
+                else
+                {
+                    articuloNegocio.agregar(articulo);
+                    MostrarNotificacion("¡Registrado!", "El nuevo artículo ha sido agregado al catálogo.", false);
+                    txtIdArticulo.Text = articuloNegocio.ultimoID().ToString();
+                }
+
+                BloquearControles(true);
+                btnGuardar.Visible = false;
+                btnEditar.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                MostrarNotificacion("Error", "No se pudo guardar: " + ex.Message, true);
+            }
+        }
+
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            BloquearControles(false);
+            btnEditar.Visible = false;
+            btnGuardar.Visible = true;
+            lblTituloPrincipal.Text = "Editando Artículo";
+        }
+
+        public void btnRegresar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaArticulos.aspx");
+        }
+        #endregion
+
+        #region Métodos Auxiliares
+        private void ConfigurarModo()
+        {
+            string idStr = Request.QueryString["id"];
+            string modo = Request.QueryString["modo"];
+
+            if (!string.IsNullOrEmpty(idStr))
+            {
+                int id = int.Parse(idStr);
+                CargarArticulo(id);
+
+                if (modo == "view")
+                {
+                    BloquearControles(true);
+                    btnGuardar.Visible = false;
+                    btnEditar.Visible = true;
+                    lblTituloPrincipal.Text = "Detalles de Artículo";
+                }
+                else
+                {
+                    BloquearControles(false);
+                    btnGuardar.Visible = true;
+                    btnEditar.Visible = false;
+                    lblTituloPrincipal.Text = "Editar Artículo";
+                }
+            }
+            else
+            {
+                lblTituloPrincipal.Text = "Nuevo Artículo";
+                BloquearControles(false);
+                btnGuardar.Visible = true;
+                btnEditar.Visible = false;
+                btnGuardar.Text = "Agregar Artículo";
+                
+                // Pre-cargar el ID sugerido (Ultimo + 1)
+                try {
+                    txtIdArticulo.Text = (articuloNegocio.ultimoID() + 1).ToString();
+                } catch {
+                    txtIdArticulo.Text = "1";
+                }
+            }
+        }
+
+        private void CargarDesplegables()
+        {
+            try
+            {
+                ddlMarca.DataSource = marcaNegocio.listar();
+                ddlMarca.DataValueField = "Id";
+                ddlMarca.DataTextField = "Descripcion";
+                ddlMarca.DataBind();
+                ddlMarca.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Seleccione Marca...", "0"));
+
+                ddlCategoria.DataSource = categoriaNegocio.listar();
+                ddlCategoria.DataValueField = "Id";
+                ddlCategoria.DataTextField = "Descripcion";
+                ddlCategoria.DataBind();
+                ddlCategoria.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Seleccione Categoría...", "0"));
+            }
+            catch (Exception ex)
+            {
+                MostrarNotificacion("Error", "Error al cargar listas: " + ex.Message, true);
+            }
+        }
+
+        private void CargarArticulo(int id)
+        {
+            try
+            {
+                Articulo art = articuloNegocio.buscarPorId(id);
+                if (art != null)
+                {
+                    txtIdArticulo.Text = art.Id.ToString();
+                    txtCodigo.Text = art.Codigo;
+                    txtNombre.Text = art.Nombre;
+                    txtDescripcion.Text = art.Descripcion;
+                    txtPrecio.Text = art.Precio.ToString("F2");
+                    txtStock.Text = art.Stock.ToString();
+                    txtUrlImagen.Text = art.UrlImagen;
+                    
+                    if (art.Marca != null)
+                        ddlMarca.SelectedValue = art.Marca.Id.ToString();
+                    
+                    if (art.Categoria != null)
+                        ddlCategoria.SelectedValue = art.Categoria.Id.ToString();
+
+                    imgArticulo.ImageUrl = string.IsNullOrEmpty(art.UrlImagen) ? "~/Content/Images/not-available.png" : art.UrlImagen;
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarNotificacion("Error", "Error al cargar el artículo: " + ex.Message, true);
+            }
+        }
+
+        private void BloquearControles(bool bloqueo)
+        {
+            txtCodigo.ReadOnly = bloqueo;
+            txtNombre.ReadOnly = bloqueo;
+            txtDescripcion.ReadOnly = bloqueo;
+            txtPrecio.ReadOnly = bloqueo;
+            txtStock.ReadOnly = bloqueo;
+            txtUrlImagen.ReadOnly = bloqueo;
+            ddlMarca.Enabled = !bloqueo;
+            ddlCategoria.Enabled = !bloqueo;
+        }
+
+        private bool ValidarFormulario()
+        {
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                MostrarNotificacion("Validación", "El nombre es obligatorio.", true);
+                return false;
+            }
+
+            if (ddlMarca.SelectedValue == "0" || ddlCategoria.SelectedValue == "0")
+            {
+                MostrarNotificacion("Validación", "Debe seleccionar Marca y Categoría.", true);
+                return false;
+            }
+
+            if (!decimal.TryParse(txtPrecio.Text, out _))
+            {
+                MostrarNotificacion("Validación", "Precio inválido.", true);
+                return false;
+            }
+
+            return true;
+        }
+
+        private Articulo ObtenerDatosDeInterfaz()
+        {
+            Articulo aux = new Articulo();
+            aux.Codigo = txtCodigo.Text;
+            aux.Nombre = txtNombre.Text;
+            aux.Descripcion = txtDescripcion.Text;
+            aux.Precio = decimal.Parse(txtPrecio.Text);
+            aux.Stock = string.IsNullOrEmpty(txtStock.Text) ? 0 : int.Parse(txtStock.Text);
+            aux.UrlImagen = txtUrlImagen.Text;
+            
+            aux.Marca = new Marca();
+            aux.Marca.Id = int.Parse(ddlMarca.SelectedValue);
+            
+            aux.Categoria = new Categoria();
+            aux.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+
+            return aux;
+        }
+
+        private void MostrarNotificacion(string titulo, string mensaje, bool esError)
+        {
+            string script = $"showNotification('{titulo}', '{mensaje}', {esError.ToString().ToLower()});";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "NotificacionArticulo", script, true);
+        }
+        #endregion
     }
 }
