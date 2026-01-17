@@ -32,9 +32,10 @@
                         <!-- GridView -->
                         <div class="table-responsive flex-grow-1 mb-3" style="min-height: 320px; overflow-y: auto;">
                             <asp:GridView ID="gvStock" runat="server" AutoGenerateColumns="False"
-                                CssClass="table table-striped table-hover w-100"
-                                EmptyDataText="No hay artículos para mostrar" HeaderStyle-BackColor="#012E40"
-                                HeaderStyle-ForeColor="White" Style="background-color: var(--color-light);">
+                                CssClass="table table-hover w-100 gv-principal shadow-sm"
+                                EmptyDataText="No hay artículos para mostrar" GridLines="None">
+                                <HeaderStyle />
+                                <RowStyle CssClass="selectable-row" />
                                 <Columns>
                                     <asp:BoundField DataField="Codigo" HeaderText="Código" />
                                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />

@@ -4,83 +4,24 @@
 
     <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-        <style>
-            .selected-row {
-                background-color: rgba(0, 123, 255, 0.1) !important;
-                border-left: 4px solid var(--color-accent) !important;
-            }
-
-            .selectable-row {
-                cursor: pointer;
-                transition: all 0.2s;
-            }
-
-            .selectable-row:hover {
-                background-color: rgba(0, 0, 0, 0.05) !important;
-            }
-
-            .gv-white-bg {
-                background-color: white !important;
-            }
-
-            .table-responsive::-webkit-scrollbar {
-                width: 8px;
-            }
-
-            .table-responsive::-webkit-scrollbar-thumb {
-                background: var(--color-primary-dark);
-                border-radius: 4px;
-            }
-
-            /* Estilo para la paginación */
-            .pagination-container table {
-                margin: 20px auto 20px auto;
-            }
-
-            .pagination-container td {
-                padding: 0 2px;
-            }
-
-            .pagination-container a,
-            .pagination-container span {
-                display: block;
-                padding: 6px 12px;
-                border: 1px solid #dee2e6;
-                text-decoration: none;
-                color: var(--color-primary-dark);
-                background-color: #fff;
-                border-radius: 4px;
-            }
-
-            .pagination-container span {
-                background-color: var(--color-primary-dark);
-                color: #fff;
-                border-color: var(--color-primary-dark);
-            }
-
-            .pagination-container a:hover {
-                background-color: #e9ecef;
-            }
-
-            .table th,
-            .table td {
-                text-align: center;
-                vertical-align: middle;
-            }
-        </style>
 
         <script>
-            function onRowClick(row, index) {
-                // Seleccion simple: limpia los demas y marca el actual
-                const grid = document.getElementById('<%= gvArticulos.ClientID %>');
-                const rows = grid.getElementsByTagName('tr');
-                for (let i = 1; i < rows.length; i++) {
-                    rows[i].classList.remove('selected-row');
+            function onRowClick(gridUniqueId, row, index) {
+                try {
+                    var table = row.closest("table");
+                    if (table) {
+                        var rows = table.getElementsByTagName('tr');
+                        for (var i = 1; i < rows.length; i++) {
+                            rows[i].classList.remove('selected-row');
+                        }
+                    }
+                    row.classList.add('selected-row');
+                    if (window.__doPostBack) {
+                        __doPostBack(gridUniqueId, 'Select$' + index);
+                    }
+                } catch (e) {
+                    console.error("Error en selección:", e);
                 }
-                row.classList.add('selected-row');
-
-                // Disparamos el postback para que se actualice la vista previa en el servidor
-                __doPostBack('<%= gvArticulos.UniqueID %>', 'Select$' + index);
             }
         </script>
 
@@ -108,7 +49,7 @@
                         style="background-color: var(--color-background) !important; min-height: 450px;">
 
                         <!-- Filtros de búsqueda -->
-                        <div class="row mb-3 g-2">
+                        <div class="row mb-0 g-2">
                             <div class="col-12 col-md-3">
                                 <label class="form-label text-light fw-semibold small mb-1">Campo:</label>
                                 <asp:DropDownList ID="ddlCampo" runat="server" CssClass="form-select form-select-sm">
@@ -146,17 +87,17 @@
                         <hr style="border-color: var(--color-light); opacity: 0.3; filter: blur(0.5px);" />
 
                         <!-- GridView -->
-                        <div class="table-responsive mb-3" style="height: 320px; overflow-y: auto;">
+                        <div class="table-responsive">
                             <asp:GridView ID="gvArticulos" runat="server"
-                                CssClass="table table-hover w-100 gv-white-bg shadow-sm" GridLines="None"
+                                CssClass="table table-hover w-100 gv-principal shadow-sm" GridLines="None"
                                 AutoGenerateColumns="False" DataKeyNames="Id"
                                 OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged"
-                                OnRowDataBound="gvArticulos_RowDataBound_Fix" AllowPaging="true" PageSize="5"
+                                OnRowDataBound="gvArticulos_RowDataBound_Fix" AllowPaging="true" PageSize="7"
                                 OnPageIndexChanging="gvArticulos_PageIndexChanging"
                                 EmptyDataText="No hay artículos para mostrar">
-                                <PagerStyle CssClass="pagination-container py-3" />
-                                <HeaderStyle CssClass="bg-primary-dark text-light" />
-                                <RowStyle CssClass="text-dark selectable-row" />
+                                <PagerStyle CssClass="paginacion py-3" />
+                                <HeaderStyle />
+                                <RowStyle CssClass="selectable-row" />
                                 <Columns>
                                     <asp:BoundField DataField="Codigo" HeaderText="Código" />
                                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
@@ -175,9 +116,11 @@
                                     <asp:BoundField DataField="estadoStock" HeaderText="Estado" />
                                 </Columns>
                                 <EmptyDataTemplate>
-                                    <div class="text-center text-muted py-5">
-                                        <i class="fas fa-box-open fa-3x mb-3 d-block" style="opacity:0.3"></i>
-                                        <p class="mb-0">No se encontraron artículos con ese filtro</p>
+                                    <div class="text-center gv-white-bg py-5">
+                                        <i class="fas fa-inbox fa-3x mb-3 d-block"
+                                            style="color: var(--color-primary-dark);"></i>
+                                        <p class="mb-0 fw-semibold" style="color: var(--color-primary-dark);">No hay
+                                            artículos para mostrar</p>
                                     </div>
                                 </EmptyDataTemplate>
                             </asp:GridView>
@@ -257,7 +200,7 @@
             </div>
         </footer>
 
-        <!-- Modal de Confirmación Premium -->
+        <!-- Modal de Confirmación Personalizado -->
         <div id="confirmModal" class="d-none"
             style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 9999; display: flex; align-items: center; justify-content: center;">
             <div class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"

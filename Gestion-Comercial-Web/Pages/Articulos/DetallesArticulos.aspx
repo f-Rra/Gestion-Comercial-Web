@@ -115,7 +115,7 @@
             </div>
         </div>
 
-        <!-- Notificación Flotante (Overlay) Premium -->
+        <!-- Notificación Flotante (Overlay) Personalizada -->
         <div id="notificationOverlay" class="d-none"
             style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; align-items: center; justify-content: center;">
             <div class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"

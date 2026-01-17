@@ -245,12 +245,10 @@
                         <!-- GridView de Resultados -->
                         <div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
                             <asp:GridView ID="gvReporte" runat="server"
-                                CssClass="table table-hover w-100 shadow-sm mt-3" AutoGenerateColumns="True"
-                                EmptyDataText="No hay datos para mostrar" GridLines="None"
-                                HeaderStyle-CssClass="bg-primary-dark text-light text-center"
-                                HeaderStyle-VerticalAlign="Middle" RowStyle-CssClass="text-dark"
-                                RowStyle-VerticalAlign="Middle" RowStyle-HorizontalAlign="Center"
-                                Style="background-color: white; border-collapse: separate;">
+                                CssClass="table table-hover w-100 gv-principal shadow-sm mt-3"
+                                AutoGenerateColumns="True" EmptyDataText="No hay datos para mostrar" GridLines="None">
+                                <HeaderStyle />
+                                <RowStyle CssClass="selectable-row" />
                                 <EmptyDataTemplate>
                                     <div class="text-center text-muted py-4">
                                         <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
