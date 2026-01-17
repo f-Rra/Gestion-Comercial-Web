@@ -267,7 +267,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 CargarArticulos();
                 ActualizarCarrito();
 
-                string successScript = "showNotification('¡Venta Exitosa!', 'La venta se ha registrado correctamente y el stock fue actualizado.', false);";
+                string successScript = "showNotification('¡Hecho!', 'La venta se registró correctamente y el stock fue actualizado.', false);";
                 ClientScript.RegisterStartupScript(this.GetType(), "SuccessSale", successScript, true);
             }
             catch (Exception ex)

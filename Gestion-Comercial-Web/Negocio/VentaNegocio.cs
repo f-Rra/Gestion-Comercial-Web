@@ -37,6 +37,7 @@ namespace Negocio
                     throw new Exception("No se pudo obtener el ID de la venta");
 
                 // 2. Registrar cada detalle
+                datos.limpiarParametros();
                 foreach (var detalle in venta.Detalles)
                 {
                     datos.setearConsulta("SP_RegistrarDetalleVenta");
