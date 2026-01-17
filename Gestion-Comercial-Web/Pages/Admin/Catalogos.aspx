@@ -26,19 +26,7 @@
             }
         </script>
 
-        <!-- Jumbotron -->
-        <div class="container my-3">
-            <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
-                <div class="d-inline-block">
-                    <h1 style="color: var(--color-primary-dark);">Gestión de Catálogos</h1>
-                    <hr
-                        style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
-                </div>
-                <p class="lead mb-0">
-                    Administre las Categorías y Marcas del sistema en un solo lugar
-                </p>
-            </div>
-        </div>
+
 
         <div class="container-fluid pb-5">
             <div class="row g-4 justify-content-center">
@@ -48,7 +36,7 @@
                     <div class="bg-body-secondary rounded-3 p-3 p-md-4 border shadow h-100 d-flex flex-column"
                         style="background-color: var(--color-background) !important;">
                         <h4 class="mb-1 text-center fw-bold" style="color: var(--color-light);">
-                            <i class="fas fa-folder me-2 text-light"></i>Categorías
+                            <i class="fas fa-folder me-2 text-light-custom"></i>Categorías
                         </h4>
 
                         <!-- Línea separadora superior -->
@@ -67,7 +55,7 @@
                                                 OnTextChanged="txtBuscarCategoria_TextChanged">
                                             </asp:TextBox>
                                             <asp:LinkButton ID="btnBuscarCategoria" runat="server"
-                                                CssClass="btn bg-primary-dark text-light border-0"
+                                                CssClass="btn bg-primary-dark text-light-custom border-0"
                                                 OnClick="txtBuscarCategoria_TextChanged">
                                                 <i class="fas fa-search"></i>
                                             </asp:LinkButton>
@@ -79,7 +67,7 @@
                                                 Placeholder="Agregar categoría...">
                                             </asp:TextBox>
                                             <asp:LinkButton ID="btnAgregarCategoria" runat="server"
-                                                CssClass="btn bg-primary-dark text-light border-0"
+                                                CssClass="btn bg-primary-dark text-light-custom border-0"
                                                 OnClick="btnAgregarCategoria_Click">
                                                 <i class="fas fa-plus"></i>
                                             </asp:LinkButton>
@@ -132,7 +120,7 @@
                     <div class="bg-body-secondary rounded-3 p-3 p-md-4 border shadow h-100 d-flex flex-column"
                         style="background-color: var(--color-background) !important;">
                         <h4 class="mb-1 text-center fw-bold" style="color: var(--color-light);">
-                            <i class="fas fa-tag me-2 text-light"></i>Marcas
+                            <i class="fas fa-tag me-2 text-light-custom"></i>Marcas
                         </h4>
 
                         <!-- Línea separadora superior -->
@@ -150,7 +138,7 @@
                                                 Placeholder="Buscar marca..." AutoPostBack="true"
                                                 OnTextChanged="txtBuscarMarca_TextChanged"></asp:TextBox>
                                             <asp:LinkButton ID="btnBuscarMarca" runat="server"
-                                                CssClass="btn bg-primary-dark text-light border-0"
+                                                CssClass="btn bg-primary-dark text-light-custom border-0"
                                                 OnClick="txtBuscarMarca_TextChanged">
                                                 <i class="fas fa-search"></i>
                                             </asp:LinkButton>
@@ -161,7 +149,7 @@
                                             <asp:TextBox ID="txtNuevaMarca" runat="server" CssClass="form-control"
                                                 Placeholder="Agregar marca..."></asp:TextBox>
                                             <asp:LinkButton ID="btnAgregarMarca" runat="server"
-                                                CssClass="btn bg-primary-dark text-light border-0"
+                                                CssClass="btn bg-primary-dark text-light-custom border-0"
                                                 OnClick="btnAgregarMarca_Click">
                                                 <i class="fas fa-plus"></i>
                                             </asp:LinkButton>
@@ -223,7 +211,7 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
-                    <div class="modal-body p-4 bg-light">
+                    <div class="modal-body p-4 bg-light-custom">
                         <asp:UpdatePanel ID="upModal" runat="server">
                             <ContentTemplate>
                                 <asp:HiddenField ID="hfTipoEntidad" runat="server" /> <!-- Categoria o Marca -->
@@ -232,8 +220,7 @@
                                 <div class="mb-3">
                                     <label for="txtNombre" class="form-label fw-semibold">Nombre</label>
                                     <div class="input-group">
-                                        <span class="input-group-text bg-white"><i class="fas fa-pen"
-                                                style="color: var(--color-primary-dark);"></i></span>
+                                        <span class="input-group-text"><i class="fas fa-pen"></i></span>
                                         <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"
                                             placeholder="Ingrese el nombre..."></asp:TextBox>
                                     </div>
@@ -245,7 +232,7 @@
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
-                    <div class="modal-footer bg-light border-top-0">
+                    <div class="modal-footer bg-light-custom border-top-0">
                         <button type="button" class="btn btn-outline-secondary"
                             data-bs-dismiss="modal">Cancelar</button>
                         <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cambios"
@@ -256,39 +243,17 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="container-fluid">
-            <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-                <div class="col-md-6 d-flex align-items-center">
-                    <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> -
-                            Sistema de Gestión Comercial</span>
-                </div>
-                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li class="ms-3">
-                        <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-github" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                    <li class="ms-3">
-                        <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+
 
         <!-- Notificación Flotante (Overlay) Personalizada -->
         <div id="notificationOverlay" class="d-none"
             style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; align-items: center; justify-content: center;">
-            <div class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
+            <div class="bg-primary-dark text-light-custom p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
                 style="min-width: 300px; max-width: 450px;">
                 <i id="notifIcon" class="fas fa-check-circle fa-3x mb-3 text-success"></i>
                 <h4 id="notifTitle" class="mb-2">¡Éxito!</h4>
                 <p id="notifMessage" class="mb-3"></p>
-                <button type="button" class="btn bg-accent text-light fw-bold px-5"
+                <button type="button" class="btn bg-accent text-light-custom fw-bold px-5"
                     onclick="document.getElementById('notificationOverlay').classList.add('d-none'); document.getElementById('notificationOverlay').style.display = 'none';">Aceptar</button>
             </div>
         </div>
@@ -296,15 +261,15 @@
         <!-- Modal de Confirmación ABM -->
         <div id="confirmModalABM" class="d-none"
             style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-            <div class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
+            <div class="bg-primary-dark text-light-custom p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
                 style="max-width: 400px; width: 90%;">
                 <i class="fas fa-exclamation-triangle fa-3x mb-3 text-warning"></i>
                 <h4 class="mb-3">¿Estás seguro?</h4>
                 <p class="mb-4 opacity-75">Esta acción eliminará el elemento seleccionado de forma permanente.</p>
                 <div class="d-flex gap-2 justify-content-center">
-                    <button type="button" class="btn btn-outline-light px-4"
+                    <button type="button" class="btn btn-outline-light-custom px-4"
                         onclick="closeConfirmModal()">Cancelar</button>
-                    <button type="button" class="btn bg-accent text-light fw-bold px-4"
+                    <button type="button" class="btn bg-accent text-light-custom fw-bold px-4"
                         onclick="confirmDelete()">Eliminar</button>
                 </div>
             </div>
@@ -366,7 +331,7 @@
                     titleEl.className = 'text-danger mb-2';
                 } else {
                     iconEl.className = 'fas fa-check-circle fa-3x mb-3 text-success';
-                    titleEl.className = 'text-light mb-2';
+                    titleEl.className = 'text-light-custom mb-2';
                 }
 
                 overlay.classList.remove('d-none');

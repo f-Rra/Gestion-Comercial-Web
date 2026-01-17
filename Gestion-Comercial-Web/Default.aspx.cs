@@ -17,13 +17,11 @@ namespace Gestion_Comercial_Web
 
             if (!IsPostBack)
             {
+                ((SiteMaster)this.Master).PageTitle = "Panel de Administrador";
+                ((SiteMaster)this.Master).PageSubtitle = "Gestione todos los módulos del sistema desde aquí";
+
                 // Si es vendedor, redirigir directamente a Ventas
-                // TEMPORALMENTE COMENTADO: La página NuevaVenta.aspx no existe aún
-                //if (!SessionManager.EsAdministrador)
-                //{
-                //    Response.Redirect("~/Pages/Ventas/NuevaVenta.aspx");
-                //    return;
-                //}
+                // ...
             }
         }
     }

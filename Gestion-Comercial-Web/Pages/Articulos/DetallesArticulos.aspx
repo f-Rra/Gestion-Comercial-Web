@@ -2,21 +2,7 @@
     CodeFile="DetallesArticulos.aspx.cs" Inherits="Gestion_Comercial_Web.Pages.Articulos.DetallesArticulos" %>
 
     <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-        <!-- Jumbotron -->
-        <div class="container my-3">
-            <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
-                <div class="d-inline-block">
-                    <h1 style="color: var(--color-primary-dark);">
-                        <asp:Label ID="lblTituloPrincipal" runat="server" Text="Detalles del Artículo"></asp:Label>
-                    </h1>
-                    <hr
-                        style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
-                </div>
-                <p class="lead mb-0">
-                    Gestione la información técnica y comercial del artículo seleccionado
-                </p>
-            </div>
-        </div>
+
 
         <!-- Contenedor de Detalles del Artículo -->
         <div class="container my-4 border shadow rounded-3 p-4"
@@ -118,39 +104,17 @@
         <!-- Notificación Flotante (Overlay) Personalizada -->
         <div id="notificationOverlay" class="d-none"
             style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; align-items: center; justify-content: center;">
-            <div class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
+            <div class="bg-primary-dark text-light-custom p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
                 style="min-width: 300px; max-width: 450px;">
                 <i id="notifIcon" class="fas fa-check-circle fa-3x mb-3 text-success"></i>
                 <h4 id="notifTitle" class="mb-2">¡Éxito!</h4>
                 <p id="notifMessage" class="mb-3"></p>
-                <button type="button" class="btn bg-accent text-light fw-bold px-5"
+                <button type="button" class="btn bg-accent text-light-custom fw-bold px-5"
                     onclick="document.getElementById('notificationOverlay').classList.add('d-none'); document.getElementById('notificationOverlay').style.display = 'none';">Aceptar</button>
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="container-fluid">
-            <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-                <div class="col-md-6 d-flex align-items-center">
-                    <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> -
-                            Sistema de Gestión Comercial</span>
-                </div>
-                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li class="ms-3">
-                        <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-github" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                    <li class="ms-3">
-                        <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+
 
         <script>
             function updatePreview(url) {
@@ -172,7 +136,7 @@
                     titleEl.className = 'text-danger mb-2';
                 } else {
                     iconEl.className = 'fas fa-check-circle fa-3x mb-3 text-success';
-                    titleEl.className = 'text-light mb-2';
+                    titleEl.className = 'text-light-custom mb-2';
                 }
 
                 overlay.classList.remove('d-none');

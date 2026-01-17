@@ -55,20 +55,6 @@
 
             <asp:HiddenField ID="hfSelectedIndices" runat="server" />
 
-            <!-- Jumbotron -->
-            <div class="container my-3">
-                <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
-                    <div class="d-inline-block">
-                        <h1 style="color: var(--color-primary-dark);">Gestión de Ventas</h1>
-                        <hr
-                            style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
-                    </div>
-                    <p class="lead mb-0">
-                        Realice sus ventas de manera eficiente y sencilla
-                    </p>
-                </div>
-            </div>
-
             <!-- Grid principal -->
             <div class="container-fluid pb-3">
                 <div class="row g-3 align-items-stretch justify-content-center">
@@ -80,28 +66,28 @@
                             <!-- Fila de botones -->
                             <div class="row g-2 align-items-end">
                                 <div class="col">
-                                    <label class="text-light fw-semibold small mb-1 d-block ms-1">Artículos
+                                    <label class="text-light-custom fw-semibold small mb-1 d-block ms-1">Artículos
                                         Disponibles</label>
                                     <div class="input-group shadow-sm">
                                         <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control"
                                             placeholder="Buscar por nombre o marca..." AutoPostBack="true"
                                             OnTextChanged="btnBuscar_Click"></asp:TextBox>
                                         <asp:LinkButton ID="btnBuscar" runat="server" OnClick="btnBuscar_Click"
-                                            CssClass="btn bg-primary-dark text-light border-0">
+                                            CssClass="btn bg-primary-dark text-light-custom border-0">
                                             <i class="fas fa-search"></i>
                                         </asp:LinkButton>
                                     </div>
                                 </div>
                                 <div class="col-auto">
                                     <asp:LinkButton ID="btnMostrarTodos" runat="server" OnClick="btnMostrarTodos_Click"
-                                        CssClass="btn bg-primary-dark text-light border-0 shadow-sm">
+                                        CssClass="btn bg-primary-dark text-light-custom border-0 shadow-sm">
                                         Mostrar Todos
                                     </asp:LinkButton>
                                 </div>
                                 <div class="col-auto">
                                     <asp:LinkButton ID="btnAgregarSeleccion" runat="server"
                                         OnClick="btnAgregarSeleccion_Click"
-                                        CssClass="btn bg-accent text-light fw-semibold px-4 shadow-sm d-flex align-items-center"
+                                        CssClass="btn bg-accent text-light-custom fw-semibold px-4 shadow-sm d-flex align-items-center"
                                         style="height: 38px;">
                                         <i class="fas fa-plus me-2"></i>Agregar al Carrito
                                     </asp:LinkButton>
@@ -212,7 +198,7 @@
                                         <i class="fas fa-trash me-2"></i>Limpiar Carrito
                                     </asp:LinkButton>
 
-                                    <div class="bg-primary-dark text-light rounded-3 p-3 text-center shadow-sm">
+                                    <div class="bg-primary-dark text-light-custom rounded-3 p-3 text-center shadow-sm">
                                         <div class="small opacity-75 mb-1">Total a Pagar</div>
                                         <div class="fw-bold h4 mb-0">
                                             <asp:Label ID="lblTotal" runat="server" Text="$0.00"></asp:Label>
@@ -221,7 +207,7 @@
 
                                     <asp:LinkButton ID="btnProcesarVenta" runat="server"
                                         OnClick="btnFinalizarVenta_Click"
-                                        CssClass="btn bg-accent btn-lg text-light fw-bold w-100 shadow-sm border-0 py-3">
+                                        CssClass="btn bg-accent btn-lg text-light-custom fw-bold w-100 shadow-sm border-0 py-3">
                                         <i class="fas fa-cash-register me-2"></i>Finalizar Venta
                                     </asp:LinkButton>
                                 </div>
@@ -234,12 +220,12 @@
             <!-- Notificación Flotante (Overlay) Personalizada -->
             <div id="notificationOverlay" class="d-none"
                 style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; align-items: center; justify-content: center;">
-                <div class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
+                <div class="bg-primary-dark text-light-custom p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
                     style="min-width: 300px; max-width: 450px;">
                     <i id="notifIcon" class="fas fa-check-circle fa-3x mb-3 text-success"></i>
                     <h4 id="notifTitle" class="mb-2">¡Éxito!</h4>
                     <p id="notifMessage" class="mb-3"></p>
-                    <button type="button" class="btn bg-accent text-light fw-bold px-5"
+                    <button type="button" class="btn bg-accent text-light-custom fw-bold px-5"
                         onclick="document.getElementById('notificationOverlay').classList.add('d-none'); document.getElementById('notificationOverlay').style.display = 'none';">Aceptar</button>
                 </div>
             </div>
@@ -259,7 +245,7 @@
                         titleEl.className = 'text-danger mb-2';
                     } else {
                         iconEl.className = 'fas fa-check-circle fa-3x mb-3 text-success';
-                        titleEl.className = 'text-light mb-2';
+                        titleEl.className = 'text-light-custom mb-2';
                     }
 
                     overlay.classList.remove('d-none');
@@ -267,29 +253,6 @@
                 }
             </script>
 
-            <!-- Footer -->
-            <footer class="container-fluid">
-                <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-                    <div class="col-md-6 d-flex align-items-center">
-                        <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year
-                                %> -
-                                Sistema de Gestión Comercial</span>
-                    </div>
-                    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                        <li class="ms-3">
-                            <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub"
-                                style="color: var(--color-primary-dark);">
-                                <i class="fab fa-github" style="font-size: 24px;"></i>
-                            </a>
-                        </li>
-                        <li class="ms-3">
-                            <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn"
-                                style="color: var(--color-primary-dark);">
-                                <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </footer>
+
 
     </asp:Content>

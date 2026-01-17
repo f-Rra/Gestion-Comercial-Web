@@ -20,6 +20,9 @@ namespace Gestion_Comercial_Web.Pages.Reportes
         {
             if (!IsPostBack)
             {
+                ((SiteMaster)this.Master).PageTitle = "Reportes y Estadísticas";
+                ((SiteMaster)this.Master).PageSubtitle = "Genere informes detallados del inventario y analice estadísticas";
+
                 txtFechaDesde.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("yyyy-MM-dd");
                 txtFechaHasta.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 

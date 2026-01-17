@@ -3,32 +3,20 @@
 
     <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-        <!-- Jumbotron -->
-        <div class="container my-3">
-            <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
-                <div class="d-inline-block">
-                    <h1 style="color: var(--color-primary-dark);">Panel de Administrador</h1>
-                    <hr
-                        style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
-                </div>
-                <p class="lead mb-0">
-                    Gestione todos los módulos del sistema desde aquí
-                </p>
-            </div>
-        </div>
 
-        <div class="container mt-4">
+
+        <div class="container mt-4 mb-5">
             <!-- Grid de Cards de navegación -->
-            <div class="row gy-4 row-cols-1 row-cols-md-4 align-items-start">
+            <div class="row g-4 row-cols-1 row-cols-md-4 align-items-start">
 
                 <!-- Card 1: Artículos -->
                 <div class="col">
-                    <div class="card shadow-sm border-0 mb-3"
+                    <div class="card shadow-sm border-0 mb-4"
                         style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
                         <a href="~/Pages/Articulos/ListaArticulos.aspx" runat="server" class="text-decoration-none">
                             <div class="card-body text-center p-4">
-                                <i class="fas fa-box fa-4x mb-3" style="color: #F5EBE0;"></i>
-                                <h4 class="card-title fw-bold text-light">Artículos</h4>
+                                <i class="fas fa-box fa-4x mb-3" style="color: var(--color-light);"></i>
+                                <h4 class="card-title fw-bold text-light-custom">Artículos</h4>
                             </div>
                         </a>
                     </div>
@@ -60,12 +48,12 @@
 
                 <!-- Card 2: Catálogos -->
                 <div class="col">
-                    <div class="card shadow-sm border-0 mb-3"
+                    <div class="card shadow-sm border-0 mb-4"
                         style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
                         <a href="~/Pages/Admin/Catalogos.aspx" runat="server" class="text-decoration-none">
                             <div class="card-body text-center p-4">
-                                <i class="fas fa-layer-group fa-4x mb-3" style="color: #F0E5D8;"></i>
-                                <h4 class="card-title fw-bold text-light">Catálogos</h4>
+                                <i class="fas fa-layer-group fa-4x mb-3" style="color: var(--color-light);"></i>
+                                <h4 class="card-title fw-bold text-light-custom">Catálogos</h4>
                             </div>
                         </a>
                     </div>
@@ -97,12 +85,12 @@
 
                 <!-- Card 4: Stock -->
                 <div class="col">
-                    <div class="card shadow-sm border-0 mb-3"
+                    <div class="card shadow-sm border-0 mb-4"
                         style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
                         <a href="~/Pages/Stock/GestionStock.aspx" runat="server" class="text-decoration-none">
                             <div class="card-body text-center p-4">
-                                <i class="fas fa-boxes fa-4x mb-3" style="color: #F8F0E5;"></i>
-                                <h4 class="card-title fw-bold text-light">Stock</h4>
+                                <i class="fas fa-boxes fa-4x mb-3" style="color: var(--color-light);"></i>
+                                <h4 class="card-title fw-bold text-light-custom">Stock</h4>
                             </div>
                         </a>
                     </div>
@@ -134,12 +122,12 @@
 
                 <!-- Card 5: Reportes -->
                 <div class="col">
-                    <div class="card shadow-sm border-0 mb-3"
+                    <div class="card shadow-sm border-0 mb-4"
                         style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%); transition: all 0.3s;">
                         <a href="~/Pages/Reportes/ReporteInventario.aspx" runat="server" class="text-decoration-none">
                             <div class="card-body text-center p-4">
-                                <i class="fas fa-chart-bar fa-4x mb-3" style="color: #F2E3D5;"></i>
-                                <h4 class="card-title fw-bold text-light">Reportes</h4>
+                                <i class="fas fa-chart-bar fa-4x mb-3" style="color: var(--color-light);"></i>
+                                <h4 class="card-title fw-bold text-light-custom">Reportes</h4>
                             </div>
                         </a>
                     </div>
@@ -171,27 +159,7 @@
 
             </div>
 
-            <!-- Footer -->
-            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                <div class="col-md-6 d-flex align-items-center">
-                    <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> -
-                            Sistema de Gestión Comercial</span>
-                </div>
-                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li class="ms-3">
-                        <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-github" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                    <li class="ms-3">
-                        <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                </ul>
-            </footer>
+
         </div>
 
         <style>

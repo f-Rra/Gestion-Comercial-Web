@@ -25,19 +25,7 @@
             }
         </script>
 
-        <!-- Jumbotron -->
-        <div class="container my-3">
-            <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
-                <div class="d-inline-block">
-                    <h1 style="color: var(--color-primary-dark);">Gestión de Artículos</h1>
-                    <hr
-                        style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
-                </div>
-                <p class="lead mb-0">
-                    Administre el inventario de productos del sistema
-                </p>
-            </div>
-        </div>
+
 
         <!-- Grid principal: 3/4 izquierda - 1/4 derecha -->
         <div class="container-fluid pb-3">
@@ -51,7 +39,7 @@
                         <!-- Filtros de búsqueda -->
                         <div class="row mb-0 g-2">
                             <div class="col-12 col-md-3">
-                                <label class="form-label text-light fw-semibold small mb-1">Campo:</label>
+                                <label class="form-label text-light-custom fw-semibold small mb-1">Campo:</label>
                                 <asp:DropDownList ID="ddlCampo" runat="server" CssClass="form-select form-select-sm">
                                     <asp:ListItem Selected="True" Value="Nombre">Nombre</asp:ListItem>
                                     <asp:ListItem Value="Codigo">Código</asp:ListItem>
@@ -60,7 +48,7 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-12 col-md-3">
-                                <label class="form-label text-light fw-semibold small mb-1">Criterio:</label>
+                                <label class="form-label text-light-custom fw-semibold small mb-1">Criterio:</label>
                                 <asp:DropDownList ID="ddlCriterio" runat="server" CssClass="form-select form-select-sm">
                                     <asp:ListItem Selected="True" Value="Comienza">Comienza con</asp:ListItem>
                                     <asp:ListItem Value="Termina">Termina con</asp:ListItem>
@@ -68,7 +56,8 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-12 col-md-6">
-                                <label class="form-label text-light fw-semibold small mb-1">Búsqueda rápida:</label>
+                                <label class="form-label text-light-custom fw-semibold small mb-1">Búsqueda
+                                    rápida:</label>
                                 <div class="input-group input-group-sm">
                                     <asp:TextBox ID="txtFiltro" runat="server" CssClass="form-control"
                                         placeholder="Escriba para buscar..." AutoPostBack="true"
@@ -76,7 +65,7 @@
                                         onkeyup="if(this.value.length >= 2 || this.value.length == 0) { setTimeout(() => { __doPostBack('<%= txtFiltro.UniqueID %>', ''); }, 300); }">
                                     </asp:TextBox>
                                     <asp:LinkButton ID="btnBuscar" runat="server" OnClick="btnBuscar_Click"
-                                        CssClass="btn bg-primary-dark text-light border-0">
+                                        CssClass="btn bg-primary-dark text-light-custom border-0">
                                         <i class="fas fa-search"></i>
                                     </asp:LinkButton>
                                 </div>
@@ -176,42 +165,20 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="container-fluid">
-            <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-                <div class="col-md-6 d-flex align-items-center">
-                    <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> -
-                            Sistema de Gestión Comercial</span>
-                </div>
-                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li class="ms-3">
-                        <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-github" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                    <li class="ms-3">
-                        <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+
 
         <!-- Modal de Confirmación Personalizado -->
         <div id="confirmModal" class="d-none"
             style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-            <div class="bg-primary-dark text-light p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
+            <div class="bg-primary-dark text-light-custom p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
                 style="max-width: 400px; width: 90%;">
                 <i class="fas fa-exclamation-triangle fa-3x mb-3 text-warning"></i>
                 <h4 class="mb-3">¿Estás seguro?</h4>
                 <p class="mb-4 opacity-75">Esta acción eliminará el artículo de forma permanente del listado activo.</p>
                 <div class="d-flex gap-2 justify-content-center">
-                    <button type="button" class="btn btn-outline-light px-4"
+                    <button type="button" class="btn btn-outline-light-custom px-4"
                         onclick="closeConfirmModal()">Cancelar</button>
-                    <button type="button" class="btn bg-accent text-light fw-bold px-4"
+                    <button type="button" class="btn bg-accent text-light-custom fw-bold px-4"
                         onclick="confirmDelete()">Eliminar</button>
                 </div>
             </div>

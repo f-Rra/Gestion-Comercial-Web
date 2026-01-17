@@ -3,19 +3,7 @@
 
     <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-        <!-- Jumbotron -->
-        <div class="container my-3">
-            <div class="p-5 text-center bg-body-tertiary rounded-3 border shadow">
-                <div class="d-inline-block">
-                    <h1 style="color: var(--color-primary-dark);">Gestión de Stock</h1>
-                    <hr
-                        style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
-                </div>
-                <p class="lead mb-0">
-                    Gestione el inventario y movimientos de stock
-                </p>
-            </div>
-        </div>
+
 
         <!-- Grid principal: 3/4 izquierda - 1/4 derecha -->
         <div class="container-fluid pb-3">
@@ -46,9 +34,9 @@
                                     <asp:BoundField DataField="Estado" HeaderText="Estado" />
                                 </Columns>
                                 <EmptyDataTemplate>
-                                    <div class="text-center text-muted py-4">
-                                        <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
-                                        <p class="mb-0">No hay artículos para mostrar</p>
+                                    <div class="estado-vacio">
+                                        <i class="fas fa-inbox"></i>
+                                        <p>No hay artículos para mostrar</p>
                                     </div>
                                 </EmptyDataTemplate>
                             </asp:GridView>
@@ -142,28 +130,6 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="container-fluid">
-            <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-                <div class="col-md-6 d-flex align-items-center">
-                    <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> -
-                            Sistema de Gestión Comercial</span>
-                </div>
-                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li class="ms-3">
-                        <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-github" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                    <li class="ms-3">
-                        <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn"
-                            style="color: var(--color-primary-dark);">
-                            <i class="fab fa-linkedin" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
+
 
     </asp:Content>

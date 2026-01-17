@@ -21,6 +21,8 @@ namespace Gestion_Comercial_Web.Pages.Admin
         {
             if (!IsPostBack)
             {
+                ((SiteMaster)this.Master).PageTitle = "Gestión de Catálogos";
+                ((SiteMaster)this.Master).PageSubtitle = "Administre las Categorías y Marcas del sistema en un solo lugar";
                 CargarCategorias();
                 CargarMarcas();
             }

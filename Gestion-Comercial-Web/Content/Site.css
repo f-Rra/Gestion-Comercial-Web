@@ -21,6 +21,82 @@ body {
     padding: 0;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(1, 46, 64, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 10px;
+    border: 2px solid var(--color-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-dark);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-secondary) rgba(1, 46, 64, 0.05);
+}
+
+i:not(.text-danger):not(.text-success):not(.text-warning) {
+    color: inherit;
+}
+
+label {
+    color: var(--color-light) !important;
+}
+
+input:not([type="submit"]):not([type="button"]):not([type="reset"]),
+select,
+textarea,
+.form-control,
+.form-select {
+    background-color: var(--color-light) !important;
+    border-color: rgba(1, 46, 64, 0.2) !important;
+    color: var(--color-primary-dark) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--color-light) !important;
+    border-color: var(--color-accent) !important;
+    box-shadow: 0 0 0 0.25rem rgba(60, 166, 166, 0.25) !important;
+}
+
+.form-control::placeholder {
+    color: var(--color-primary-dark) !important;
+    opacity: 0.6;
+}
+
+.input-group-text {
+    background-color: var(--color-primary-dark) !important;
+    color: var(--color-light) !important;
+    border: none !important;
+}
+
+.btn i,
+.nav-link i,
+.navbar-brand i,
+.card-title i,
+.input-group-text i {
+    color: inherit !important;
+}
+
+.btn-close-white {
+    filter: invert(0.8) sepia(1) saturate(5) hue-rotate(345deg) brightness(1.2) !important;
+}
+
 /* ========================================
    Página de Login
    ======================================== */
@@ -35,7 +111,7 @@ body.login-page {
    ======================================== */
 
 body.default-page {
-    background: linear-gradient(135deg, var(--color-light) 0%, #ffffff 50%, var(--color-light) 100%);
+    background: linear-gradient(135deg, var(--color-light) 0%, var(--color-light) 50%, var(--color-light) 100%);
     min-height: 100vh;
 }
 
@@ -63,12 +139,26 @@ body.default-page {
     color: var(--color-primary-dark) !important;
 }
 
+.bg-light-custom {
+    background-color: var(--color-light) !important;
+}
+
+.btn-outline-light-custom {
+    color: var(--color-light) !important;
+    border-color: var(--color-light) !important;
+}
+
+.btn-outline-light-custom:hover {
+    background-color: var(--color-light) !important;
+    color: var(--color-primary-dark) !important;
+}
+
 /* ========================================
    Estilos de Tablas Principales
    ======================================== */
 
 .gv-principal {
-    background-color: #ffffff !important;
+    background-color: var(--color-light) !important;
     border-collapse: separate !important;
     border-spacing: 0 !important;
     width: 100% !important;
@@ -81,7 +171,7 @@ body.default-page {
 
 .gv-principal th {
     background-color: var(--color-primary-dark) !important;
-    color: #ffffff !important;
+    color: var(--color-light) !important;
     padding: 18px 15px !important;
     font-weight: 700 !important;
     font-size: 0.95rem !important;
@@ -92,10 +182,10 @@ body.default-page {
 }
 
 .gv-principal td {
-    background-color: #ffffff !important;
+    background-color: var(--color-light) !important;
     color: #1a202c !important;
     padding: 14px 15px !important;
-    border-bottom: 1px solid #edf2f7 !important;
+    border-bottom: 1px solid rgba(1, 46, 64, 0.15) !important;
     text-align: center !important;
     vertical-align: middle !important;
     font-size: 0.92rem !important;
@@ -176,19 +266,19 @@ body.default-page {
     border-radius: 8px !important;
     font-weight: 600 !important;
     font-size: 0.9rem !important;
-    border: 1px solid #e2e8f0 !important;
+    border: 1px solid rgba(1, 46, 64, 0.15) !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .paginacion a {
     color: #4a5568 !important;
-    background-color: white !important;
+    background-color: var(--color-light) !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 .paginacion span {
     background-color: var(--color-primary-dark) !important;
-    color: white !important;
+    color: var(--color-light) !important;
     border-color: var(--color-primary-dark) !important;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
@@ -204,7 +294,7 @@ body.default-page {
 .estado-vacio {
     padding: 30px 20px !important;
     text-align: center !important;
-    background: #fff;
+    background: var(--color-light);
     border-radius: 12px;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3) !important;
     margin: 5px 0;
@@ -213,14 +303,21 @@ body.default-page {
 
 .estado-vacio i {
     font-size: 4rem !important;
-    color: #e2e8f0 !important;
+    color: var(--color-primary-dark) !important;
+    opacity: 0.4;
     margin-bottom: 1.5rem !important;
     display: block;
 }
 
 .estado-vacio p {
     font-weight: 600 !important;
-    color: #718096 !important;
+    color: var(--color-primary-dark) !important;
+    opacity: 0.6;
     font-size: 1.1rem !important;
     margin: 0;
+}
+
+/* Footer Border Styling */
+footer .border-top {
+    border-top: 1px solid rgba(1, 46, 64, 0.2) !important;
 }

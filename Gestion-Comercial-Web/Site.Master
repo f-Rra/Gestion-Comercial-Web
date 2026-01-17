@@ -12,7 +12,7 @@
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <!-- Custom CSS - DEBE IR AL FINAL para sobrescribir Bootstrap -->
-    <link href="~/Content/Site.css?v=20260117b" rel="stylesheet" type="text/css" runat="server" />
+    <link href="~/Content/Site.css?v=20260117j" rel="stylesheet" type="text/css" runat="server" />
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -26,8 +26,8 @@
         <nav class="navbar navbar-expand-lg" style="background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-background) 50%, var(--color-secondary) 100%);">
             <div class="container-fluid">
                 <!-- Logo y Título -->
-                <a class="navbar-brand d-flex align-items-center text-light" href="~/Default.aspx" runat="server">
-                    <img src="~/Content/Images/logo_principal.png" alt="Logo" width="64" height="64" class="me-2" runat="server" />
+                <a class="navbar-brand d-flex align-items-center text-light-custom" href="~/Default.aspx" runat="server">
+                    <img src='<%= ResolveUrl("~/Content/Images/logo_principal.png") %>' alt="Logo" width="64" height="64" class="me-2" />
                     <span class="fs-2">Gestión Comercial</span>
                 </a>
 
@@ -38,11 +38,11 @@
                 <!-- Usuario y Botón Salir -->
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <div class="d-flex align-items-center">
-                        <span class="navbar-text me-3 fs-5 text-light">
+                        <span class="navbar-text me-3 fs-5 text-light-custom">
                             <i class="fas fa-user-circle"></i> 
                             <asp:Label ID="lblUsuario" runat="server" Text="Usuario"></asp:Label>
                         </span>
-                        <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="btn fs-5 text-light" 
+                        <asp:LinkButton ID="btnCerrarSesion" runat="server" CssClass="btn fs-5 text-light-custom" 
                                         style="background-color: var(--color-accent); border-color: var(--color-accent);" 
                                         OnClick="btnCerrarSesion_Click">
                             <i class="fas fa-sign-out-alt"></i> Salir
@@ -52,11 +52,47 @@
             </div>
         </nav>
 
+        <!-- Jumbotron Unificado -->
+        <div class="container my-3">
+            <div class="p-5 text-center bg-light-custom rounded-3 border shadow">
+                <div class="d-inline-block">
+                    <h1 style="color: var(--color-primary-dark);">
+                        <asp:Label ID="lblPageTitle" runat="server" Text=""></asp:Label>
+                    </h1>
+                    <hr style="border-color: var(--color-primary-dark); opacity: 0.3; margin: 0.5rem 0; filter: blur(0.5px);" />
+                </div>
+                <p class="lead mb-0">
+                    <asp:Label ID="lblPageSubtitle" runat="server" Text=""></asp:Label>
+                </p>
+            </div>
+        </div>
+
         <!-- Contenido de cada página -->
         <main>
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </main>
+
+        <!-- Footer Unificado -->
+        <footer class="container-fluid mt-5 pb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+                <div class="col-md-6 d-flex align-items-center">
+                    <span style="color: var(--color-primary-dark); font-weight: 500;">&copy; <%: DateTime.Now.Year %> - Sistema de Gestión Comercial</span>
+                </div>
+                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li class="ms-3">
+                        <a href="https://github.com/f-Rra" target="_blank" aria-label="GitHub" style="color: var(--color-primary-dark);">
+                            <i class="fab fa-github" style="font-size: 24px;"></i>
+                        </a>
+                    </li>
+                    <li class="ms-3">
+                        <a href="https://linkedin.com/in/f-rra" target="_blank" aria-label="LinkedIn" style="color: var(--color-primary-dark);">
+                            <i class="fab fa-linkedin" style="font-size: 24px;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
     </form>
 
     <!-- Bootstrap JS -->

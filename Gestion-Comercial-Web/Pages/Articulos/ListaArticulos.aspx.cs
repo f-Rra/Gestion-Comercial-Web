@@ -21,6 +21,8 @@ namespace Gestion_Comercial_Web.Pages.Articulos
         {
             if (!IsPostBack)
             {
+                ((SiteMaster)this.Master).PageTitle = "Gestión de Artículos";
+                ((SiteMaster)this.Master).PageSubtitle = "Administre el inventario de productos del sistema";
                 CargarArticulos();
             }
         }
