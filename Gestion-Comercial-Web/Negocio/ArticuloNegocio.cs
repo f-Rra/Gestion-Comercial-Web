@@ -10,7 +10,7 @@ namespace Negocio
 {
     public class ArticuloNegocio
     {
-        #region Listar y Filtrar
+        #region Consultas e IDs
         public List<Articulo> listar()
         {
             List<Articulo> lista = new List<Articulo>();
@@ -24,16 +24,16 @@ namespace Negocio
                 {
                     Articulo aux = new Articulo();
                     aux.Id = (int)datos.Lector["Id"]; 
-                    aux.Codigo = (string)datos.Lector["Codigo"];
-                    aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Codigo = datos.Lector["Codigo"] != DBNull.Value ? (string)datos.Lector["Codigo"] : "";
+                    aux.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "";
+                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : "";
                     aux.Marca = new Marca();
                     aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descripcion = (string)datos.Lector["Marca"];
+                    aux.Marca.Descripcion = datos.Lector["Marca"] != DBNull.Value ? (string)datos.Lector["Marca"] : "";
                     aux.Categoria = new Categoria();
                     aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-                    aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
-                    aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
+                    aux.Categoria.Descripcion = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : "";
+                    aux.UrlImagen = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "";
                     aux.Precio = (decimal)datos.Lector["Precio"];
                     aux.Stock = (int)datos.Lector["Stock"];
                     lista.Add(aux);
@@ -56,29 +56,51 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SP_BuscarArticulos");
-                datos.setearTipoComando(CommandType.StoredProcedure);
-                datos.setearParametro("@Campo", campo);
-                datos.setearParametro("@Criterio", criterio);
-                datos.setearParametro("@Filtro", filtro);
+                string consulta = "SELECT * FROM vw_ArticulosCompletos WHERE ";
+                string columna = "";
+
+                switch (campo)
+                {
+                    case "Nombre": columna = "Nombre"; break;
+                    case "Codigo": columna = "Codigo"; break;
+                    case "Categoria": columna = "Categoria"; break;
+                    case "Marca": columna = "Marca"; break;
+                    default: columna = "Nombre"; break;
+                }
+
+                switch (criterio)
+                {
+                    case "Comienza":
+                        consulta += columna + " LIKE @filtro + '%'";
+                        break;
+                    case "Termina":
+                        consulta += columna + " LIKE '%' + @filtro";
+                        break;
+                    default:
+                        consulta += columna + " LIKE '%' + @filtro + '%'";
+                        break;
+                }
+
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@filtro", filtro);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Articulo aux = new Articulo();
-                    aux.Id = Convert.ToInt32(datos.Lector["Id"]);
-                    aux.Codigo = datos.Lector["Codigo"].ToString();
-                    aux.Nombre = datos.Lector["Nombre"].ToString();
-                    aux.Descripcion = datos.Lector["Descripcion"].ToString();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Codigo = datos.Lector["Codigo"] != DBNull.Value ? (string)datos.Lector["Codigo"] : "";
+                    aux.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "";
+                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : "";
                     aux.Marca = new Marca();
-                    aux.Marca.Id = Convert.ToInt32(datos.Lector["IdMarca"]);
-                    aux.Marca.Descripcion = datos.Lector["Marca"].ToString();
+                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                    aux.Marca.Descripcion = datos.Lector["Marca"] != DBNull.Value ? (string)datos.Lector["Marca"] : "";
                     aux.Categoria = new Categoria();
-                    aux.Categoria.Id = Convert.ToInt32(datos.Lector["IdCategoria"]);
-                    aux.Categoria.Descripcion = datos.Lector["Categoria"].ToString();
-                    aux.UrlImagen = datos.Lector["ImagenUrl"].ToString();
-                    aux.Precio = Convert.ToDecimal(datos.Lector["Precio"]);
-                    aux.Stock = Convert.ToInt32(datos.Lector["Stock"]);
+                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    aux.Categoria.Descripcion = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : "";
+                    aux.UrlImagen = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "";
+                    aux.Precio = (decimal)datos.Lector["Precio"];
+                    aux.Stock = (int)datos.Lector["Stock"];
                     lista.Add(aux);
                 }
                 return lista;
@@ -119,9 +141,48 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public Articulo buscarPorId(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT * FROM vw_ArticulosCompletos WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Articulo aux = new Articulo();
+                    aux.Id = (int)datos.Lector["Id"]; 
+                    aux.Codigo = datos.Lector["Codigo"] != DBNull.Value ? (string)datos.Lector["Codigo"] : "";
+                    aux.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "";
+                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : "";
+                    aux.Marca = new Marca();
+                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                    aux.Marca.Descripcion = datos.Lector["Marca"] != DBNull.Value ? (string)datos.Lector["Marca"] : "";
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    aux.Categoria.Descripcion = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : "";
+                    aux.UrlImagen = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "";
+                    aux.Precio = (decimal)datos.Lector["Precio"];
+                    aux.Stock = (int)datos.Lector["Stock"];
+                    return aux;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         #endregion
 
-        #region CRUD
+        #region CRUD (Alta, Modificación, Baja)
         public void agregar(Articulo nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -209,7 +270,7 @@ namespace Negocio
         }
         #endregion
 
-        #region Manejo de Stock
+        #region Gestión de Stock e Inventario
         public void actualizarStock(int idArticulo, int nuevoStock)
         {
             AccesoDatos datos = new AccesoDatos();
