@@ -37,6 +37,9 @@ namespace Gestion_Comercial_Web.Pages.Ventas
         {
             if (!IsPostBack)
             {
+                ((SiteMaster)this.Master).PageTitle = "Gestión de Ventas";
+                ((SiteMaster)this.Master).PageSubtitle = "Realice sus ventas de manera eficiente y sencilla";
+
                 CargarArticulos();
                 ActualizarCarrito();
             }

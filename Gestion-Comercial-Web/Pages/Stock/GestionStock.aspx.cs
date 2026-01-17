@@ -11,7 +11,11 @@ namespace Gestion_Comercial_Web.Pages.Stock
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                ((SiteMaster)this.Master).PageTitle = "Gestión de Stock";
+                ((SiteMaster)this.Master).PageSubtitle = "Gestione el inventario y movimientos de stock";
+            }
         }
     }
 }

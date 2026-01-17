@@ -6,6 +6,9 @@ namespace Gestion_Comercial_Web
 {
     public partial class SiteMaster : MasterPage
     {
+        public string PageTitle { set { lblPageTitle.Text = value; } }
+        public string PageSubtitle { set { lblPageSubtitle.Text = value; } }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

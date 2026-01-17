@@ -19,6 +19,8 @@ namespace Gestion_Comercial_Web.Pages.Articulos
         {
             if (!IsPostBack)
             {
+                ((SiteMaster)this.Master).PageTitle = "Detalles del Artículo";
+                ((SiteMaster)this.Master).PageSubtitle = "Gestione la información técnica y comercial del artículo seleccionado";
                 CargarDesplegables();
                 ConfigurarModo();
             }
@@ -61,7 +63,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             BloquearControles(false);
             btnEditar.Visible = false;
             btnGuardar.Visible = true;
-            lblTituloPrincipal.Text = "Editando Artículo";
+            ((SiteMaster)this.Master).PageTitle = "Editando Artículo";
         }
 
         public void btnRegresar_Click(object sender, EventArgs e)
@@ -86,19 +88,19 @@ namespace Gestion_Comercial_Web.Pages.Articulos
                     BloquearControles(true);
                     btnGuardar.Visible = false;
                     btnEditar.Visible = true;
-                    lblTituloPrincipal.Text = "Detalles de Artículo";
+                    ((SiteMaster)this.Master).PageTitle = "Detalles de Artículo";
                 }
                 else
                 {
                     BloquearControles(false);
                     btnGuardar.Visible = true;
                     btnEditar.Visible = false;
-                    lblTituloPrincipal.Text = "Editar Artículo";
+                    ((SiteMaster)this.Master).PageTitle = "Editar Artículo";
                 }
             }
             else
             {
-                lblTituloPrincipal.Text = "Nuevo Artículo";
+                ((SiteMaster)this.Master).PageTitle = "Nuevo Artículo";
                 BloquearControles(false);
                 btnGuardar.Visible = true;
                 btnEditar.Visible = false;
