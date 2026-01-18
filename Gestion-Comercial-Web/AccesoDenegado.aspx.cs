@@ -13,5 +13,11 @@ namespace Gestion_Comercial_Web
         {
 
         }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Helpers.SessionManager.CerrarSesion();
+            Response.Redirect("~/Login.aspx");
+        }
     }
 }

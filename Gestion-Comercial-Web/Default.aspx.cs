@@ -12,16 +12,13 @@ namespace Gestion_Comercial_Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Validar que haya sesión activa
-            SessionManager.ValidarSesion();
+            // Validar que haya sesión activa y que sea administrador
+            SessionManager.ValidarAdministrador();
 
             if (!IsPostBack)
             {
                 ((SiteMaster)this.Master).PageTitle = "Panel de Administrador";
                 ((SiteMaster)this.Master).PageSubtitle = "Gestione todos los módulos del sistema desde aquí";
-
-                // Si es vendedor, redirigir directamente a Ventas
-                // ...
             }
         }
     }

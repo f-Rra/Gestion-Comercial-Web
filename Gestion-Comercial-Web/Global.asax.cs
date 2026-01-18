@@ -29,5 +29,27 @@ namespace Gestion_Comercial_Web
             // Limpieza cuando finaliza la sesión
             // (Solo funciona con InProc session state)
         }
+
+        void Application_Error(object sender, EventArgs e)
+        {
+            // Capturar el último error ocurrido
+            Exception exc = Server.GetLastError();
+
+            if (exc != null)
+            {
+                // Guardar el mensaje en sesión para mostrarlo en Error.aspx
+                // Usamos Session de forma segura
+                if (HttpContext.Current.Session != null)
+                {
+                    Session["error"] = exc.ToString();
+                }
+
+                // Limpiar el error para que no siga propagándose y muestre la pantalla amarilla
+                Server.ClearError();
+
+                // Redirigir a la página de error
+                Response.Redirect("~/Error.aspx");
+            }
+        }
     }
 }
