@@ -13,6 +13,16 @@ namespace Gestion_Comercial_Web.Pages.Stock
 
     public partial class GestionStock
     {
+
+        /// <summary>
+        /// Control hfSelectedIndex.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSelectedIndex;
+
         /// <summary>
         /// Control gvStock.
         /// </summary>
@@ -68,15 +78,6 @@ namespace Gestion_Comercial_Web.Pages.Stock
         protected global::System.Web.UI.WebControls.TextBox txtStockActual;
 
         /// <summary>
-        /// Control ddlOperacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlOperacion;
-
-        /// <summary>
         /// Control txtCantidad.
         /// </summary>
         /// <remarks>
@@ -84,6 +85,15 @@ namespace Gestion_Comercial_Web.Pages.Stock
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCantidad;
+
+        /// <summary>
+        /// Control ddlOperacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOperacion;
 
         /// <summary>
         /// Control btnEjecutar.
@@ -102,5 +112,14 @@ namespace Gestion_Comercial_Web.Pages.Stock
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnLimpiar;
+
+        /// <summary>
+        /// Control btnSeleccionar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnSeleccionar;
     }
 }
