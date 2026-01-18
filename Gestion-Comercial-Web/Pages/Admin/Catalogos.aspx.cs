@@ -41,7 +41,7 @@ namespace Gestion_Comercial_Web.Pages.Admin
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "No se pudieron cargar las categorías: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudieron cargar las categorías: " + ex.Message, true);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Gestion_Comercial_Web.Pages.Admin
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "No se pudieron cargar las marcas: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudieron cargar las marcas: " + ex.Message, true);
             }
         }
         #endregion
@@ -81,7 +81,7 @@ namespace Gestion_Comercial_Web.Pages.Admin
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "Error al buscar categoría: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al buscar categoría: " + ex.Message, true);
             }
         }
 
@@ -104,14 +104,14 @@ namespace Gestion_Comercial_Web.Pages.Admin
                 
                 if (string.IsNullOrWhiteSpace(nombre))
                 {
-                    MostrarNotificacion("Validación", "Debe ingresar un nombre para la categoría.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Debe ingresar un nombre para la categoría.", true);
                     return;
                 }
 
                 // Validar duplicados
                 if (categoriaNegocio.buscarCategoria(nombre))
                 {
-                    MostrarNotificacion("Validación", "Ya existe una categoría con ese nombre.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Ya existe una categoría con ese nombre.", true);
                     txtNuevaCategoria.Text = "";
                     return;
                 }
@@ -124,11 +124,11 @@ namespace Gestion_Comercial_Web.Pages.Admin
                 txtNuevaCategoria.Text = "";
                 CargarCategorias();
                 
-                MostrarNotificacion("¡Listo!", "La categoría se agregó correctamente.", false);
+                ((SiteMaster)this.Master).MostrarNotificacion("¡Listo!", "La categoría se agregó correctamente.", false);
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "No se pudo agregar la categoría: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudo agregar la categoría: " + ex.Message, true);
             }
         }
 
@@ -138,11 +138,11 @@ namespace Gestion_Comercial_Web.Pages.Admin
             {
                 if (gvCategorias.SelectedDataKey == null)
                 {
-                    MostrarNotificacion("Validación", "Debe seleccionar una categoría para editar.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Debe seleccionar una categoría para editar.", true);
                     return;
                 }
 
-                int id = (int)gvCategorias.SelectedDataKey.Value;
+                int id = Convert.ToInt32(gvCategorias.SelectedDataKey.Value);
                 GridViewRow row = gvCategorias.SelectedRow;
                 string descripcion = HttpUtility.HtmlDecode(row.Cells[1].Text);
 
@@ -155,7 +155,7 @@ namespace Gestion_Comercial_Web.Pages.Admin
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "Error al preparar la edición: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al preparar la edición: " + ex.Message, true);
             }
         }
 
@@ -165,19 +165,19 @@ namespace Gestion_Comercial_Web.Pages.Admin
             {
                 if (gvCategorias.SelectedDataKey == null)
                 {
-                    MostrarNotificacion("Validación", "Debe seleccionar una categoría para eliminar.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Debe seleccionar una categoría para eliminar.", true);
                     return;
                 }
 
-                int id = (int)gvCategorias.SelectedDataKey.Value;
+                int id = Convert.ToInt32(gvCategorias.SelectedDataKey.Value);
                 categoriaNegocio.eliminar(id);
                 
                 CargarCategorias();
-                MostrarNotificacion("¡Listo!", "La categoría se eliminó correctamente.", false);
+                ((SiteMaster)this.Master).MostrarNotificacion("¡Listo!", "La categoría se eliminó correctamente.", false);
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "No se pudo eliminar la categoría. Puede estar en uso: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudo eliminar la categoría. Puede estar en uso: " + ex.Message, true);
             }
         }
 
@@ -222,7 +222,7 @@ namespace Gestion_Comercial_Web.Pages.Admin
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "Error al buscar marca: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al buscar marca: " + ex.Message, true);
             }
         }
 
@@ -245,14 +245,14 @@ namespace Gestion_Comercial_Web.Pages.Admin
                 
                 if (string.IsNullOrWhiteSpace(nombre))
                 {
-                    MostrarNotificacion("Validación", "Debe ingresar un nombre para la marca.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Debe ingresar un nombre para la marca.", true);
                     return;
                 }
 
                 // Validar duplicados
                 if (marcaNegocio.buscarMarca(nombre))
                 {
-                    MostrarNotificacion("Validación", "Ya existe una marca con ese nombre.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Ya existe una marca con ese nombre.", true);
                     txtNuevaMarca.Text = "";
                     return;
                 }
@@ -265,11 +265,11 @@ namespace Gestion_Comercial_Web.Pages.Admin
                 txtNuevaMarca.Text = "";
                 CargarMarcas();
                 
-                MostrarNotificacion("¡Listo!", "La marca se agregó correctamente.", false);
+                ((SiteMaster)this.Master).MostrarNotificacion("¡Listo!", "La marca se agregó correctamente.", false);
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "No se pudo agregar la marca: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudo agregar la marca: " + ex.Message, true);
             }
         }
 
@@ -279,11 +279,11 @@ namespace Gestion_Comercial_Web.Pages.Admin
             {
                 if (gvMarcas.SelectedDataKey == null)
                 {
-                    MostrarNotificacion("Validación", "Debe seleccionar una marca para editar.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Debe seleccionar una marca para editar.", true);
                     return;
                 }
 
-                int id = (int)gvMarcas.SelectedDataKey.Value;
+                int id = Convert.ToInt32(gvMarcas.SelectedDataKey.Value);
                 GridViewRow row = gvMarcas.SelectedRow;
                 string descripcion = HttpUtility.HtmlDecode(row.Cells[1].Text);
 
@@ -296,7 +296,7 @@ namespace Gestion_Comercial_Web.Pages.Admin
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "Error al preparar la edición: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al preparar la edición: " + ex.Message, true);
             }
         }
 
@@ -306,19 +306,19 @@ namespace Gestion_Comercial_Web.Pages.Admin
             {
                 if (gvMarcas.SelectedDataKey == null)
                 {
-                    MostrarNotificacion("Validación", "Debe seleccionar una marca para eliminar.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Debe seleccionar una marca para eliminar.", true);
                     return;
                 }
 
-                int id = (int)gvMarcas.SelectedDataKey.Value;
+                int id = Convert.ToInt32(gvMarcas.SelectedDataKey.Value);
                 marcaNegocio.eliminar(id);
                 
                 CargarMarcas();
-                MostrarNotificacion("¡Listo!", "La marca se eliminó correctamente.", false);
+                ((SiteMaster)this.Master).MostrarNotificacion("¡Listo!", "La marca se eliminó correctamente.", false);
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "No se pudo eliminar la marca. Puede estar en uso: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudo eliminar la marca. Puede estar en uso: " + ex.Message, true);
             }
         }
 
@@ -348,12 +348,12 @@ namespace Gestion_Comercial_Web.Pages.Admin
             try
             {
                 string tipo = hfTipoEntidad.Value;
-                int id = int.Parse(hfIdEntidad.Value);
+                int id = Convert.ToInt32(hfIdEntidad.Value);
                 string nuevoNombre = txtNombre.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(nuevoNombre))
                 {
-                    MostrarNotificacion("Validación", "El nombre no puede estar vacío.", true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Validación", "El nombre no puede estar vacío.", true);
                     return;
                 }
 
@@ -365,7 +365,7 @@ namespace Gestion_Comercial_Web.Pages.Admin
                     
                     categoriaNegocio.modificar(cat);
                     CargarCategorias();
-                    MostrarNotificacion("¡Listo!", "La categoría se actualizó correctamente.", false);
+                    ((SiteMaster)this.Master).MostrarNotificacion("¡Listo!", "La categoría se actualizó correctamente.", false);
                 }
                 else if (tipo == "Marca")
                 {
@@ -375,7 +375,7 @@ namespace Gestion_Comercial_Web.Pages.Admin
                     
                     marcaNegocio.modificar(marca);
                     CargarMarcas();
-                    MostrarNotificacion("¡Listo!", "La marca se actualizó correctamente.", false);
+                    ((SiteMaster)this.Master).MostrarNotificacion("¡Listo!", "La marca se actualizó correctamente.", false);
                 }
 
                 // Limpiar y cerrar modal
@@ -385,17 +385,8 @@ namespace Gestion_Comercial_Web.Pages.Admin
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "No se pudo guardar: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudo guardar: " + ex.Message, true);
             }
-        }
-        #endregion
-
-        #region Métodos Auxiliares
-        private void MostrarNotificacion(string titulo, string mensaje, bool esError)
-        {
-            mensaje = mensaje.Replace("'", "\\'").Replace("\n", " ");
-            string script = $"showNotification('{titulo}', '{mensaje}', {esError.ToString().ToLower()});";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "NotifCatalogo", script, true);
         }
         #endregion
     }

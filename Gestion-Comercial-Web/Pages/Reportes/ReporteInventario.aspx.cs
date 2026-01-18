@@ -43,7 +43,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
             }
             catch (Exception ex)
             {
-                MostrarError("No se pudieron cargar los datos: " + ex.Message);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudieron cargar los datos: " + ex.Message, true);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
             }
             catch (Exception ex)
             {
-                MostrarError("Error: " + ex.Message);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
             }
             catch (Exception ex)
             {
-                MostrarError("Error: " + ex.Message);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Artículos con Bajo Stock (<= 5)");
             }
-            catch (Exception ex) { MostrarError("Error: " + ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
 
         protected void btnInventarioCompleto_Click(object sender, EventArgs e)
@@ -94,7 +94,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Inventario Completo");
             }
-            catch (Exception ex) { MostrarError("Error: " + ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
         #endregion
 
@@ -107,7 +107,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Estadísticas de Stock por Marca");
             }
-            catch (Exception ex) { MostrarError("Error: " + ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
 
         protected void btnStockPorCategorias_Click(object sender, EventArgs e)
@@ -118,7 +118,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Estadísticas de Stock por Categoría");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
         #endregion
 
@@ -127,65 +127,65 @@ namespace Gestion_Comercial_Web.Pages.Reportes
         {
             try
             {
-                DateTime desde = DateTime.Parse(txtFechaDesde.Text);
-                DateTime hasta = DateTime.Parse(txtFechaHasta.Text);
+                DateTime desde = Convert.ToDateTime(txtFechaDesde.Text);
+                DateTime hasta = Convert.ToDateTime(txtFechaHasta.Text);
                 gvReporte.DataSource = negocio.obtenerVentasDetalladas(desde, hasta);
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Ventas Detalladas");
             }
-            catch (Exception ex) { MostrarError("Error: " + ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
 
         protected void btnMasVendidos_Click(object sender, EventArgs e)
         {
             try
             {
-                DateTime desde = DateTime.Parse(txtFechaDesde.Text);
-                DateTime hasta = DateTime.Parse(txtFechaHasta.Text);
+                DateTime desde = Convert.ToDateTime(txtFechaDesde.Text);
+                DateTime hasta = Convert.ToDateTime(txtFechaHasta.Text);
                 gvReporte.DataSource = negocio.obtenerArticulosMasVendidos(desde, hasta);
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Productos Más Vendidos");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
 
         protected void btnTopVendedores_Click(object sender, EventArgs e)
         {
             try
             {
-                DateTime desde = DateTime.Parse(txtFechaDesde.Text);
-                DateTime hasta = DateTime.Parse(txtFechaHasta.Text);
+                DateTime desde = Convert.ToDateTime(txtFechaDesde.Text);
+                DateTime hasta = Convert.ToDateTime(txtFechaHasta.Text);
                 gvReporte.DataSource = negocio.obtenerTopVendedores(desde, hasta);
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Ranking de Vendedores");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
 
         protected void btnVentasPorFecha_Click(object sender, EventArgs e)
         {
             try
             {
-                DateTime desde = DateTime.Parse(txtFechaDesde.Text);
-                DateTime hasta = DateTime.Parse(txtFechaHasta.Text);
+                DateTime desde = Convert.ToDateTime(txtFechaDesde.Text);
+                DateTime hasta = Convert.ToDateTime(txtFechaHasta.Text);
                 gvReporte.DataSource = negocio.obtenerVentasPorFecha(desde, hasta);
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Historial de Ventas");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
 
         protected void btnResumenDiario_Click(object sender, EventArgs e)
         {
             try
             {
-                DateTime desde = DateTime.Parse(txtFechaDesde.Text);
-                DateTime hasta = DateTime.Parse(txtFechaHasta.Text);
+                DateTime desde = Convert.ToDateTime(txtFechaDesde.Text);
+                DateTime hasta = Convert.ToDateTime(txtFechaHasta.Text);
                 gvReporte.DataSource = negocio.obtenerResumenVentasDiarias(desde, hasta);
                 gvReporte.DataBind();
                 ActualizarTituloReporte("Resumen Diario de Ventas");
             }
-            catch (Exception ex) { MostrarError(ex.Message); }
+            catch (Exception ex) { ((SiteMaster)this.Master).MostrarNotificacion("Error", ex.Message, true); }
         }
         #endregion
 
@@ -194,7 +194,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
         {
             if (gvReporte.Rows.Count == 0)
             {
-                MostrarError("No hay datos para exportar.");
+                ((SiteMaster)this.Master).MostrarNotificacion("Información", "No hay datos para exportar.", true);
                 return;
             }
 
@@ -291,7 +291,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
             {
                 // Si falla Response.End (que lanza ThreadAbortException), lo ignoramos si es esa excepción específica
                 if (!(ex is System.Threading.ThreadAbortException))
-                    MostrarError("Error al exportar PDF: " + ex.Message);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al exportar PDF: " + ex.Message, true);
             }
         }
         #endregion
@@ -300,20 +300,6 @@ namespace Gestion_Comercial_Web.Pages.Reportes
         private void ActualizarTituloReporte(string titulo)
         {
             lblTituloReporte.Text = titulo;
-        }
-
-        private void MostrarExito(string mensaje)
-        {
-            string msg = mensaje.Replace("'", "").Replace("\n", " ");
-            string script = $"showNotification('¡Listo!', '{msg}', false);";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "ExitoRepo", script, true);
-        }
-
-        private void MostrarError(string mensaje)
-        {
-            string msg = mensaje.Replace("'", "").Replace("\n", " ");
-            string script = $"showNotification('Error', '{msg}', true);";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorRepo", script, true);
         }
         #endregion
     }

@@ -22,15 +22,12 @@ namespace Negocio
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
-                   Marca aux = new Marca();
-                    aux.Id = (int)datos.Lector["Id"];
-                    aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    lista.Add(aux);
+                    lista.Add(DataMapper.MapMarca(datos.Lector));
                 }
 
                 return lista;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -52,7 +49,7 @@ namespace Negocio
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -73,7 +70,7 @@ namespace Negocio
                 datos.setearParametro("@Descripcion", existente.Descripcion);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -93,7 +90,7 @@ namespace Negocio
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -116,7 +113,7 @@ namespace Negocio
                 datos.ejecutarLectura();
                 return datos.Lector.Read();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

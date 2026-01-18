@@ -52,7 +52,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
         {
             try
             {
-                int id = (int)gvArticulos.SelectedDataKey.Value;
+                int id = Convert.ToInt32(gvArticulos.SelectedDataKey.Value);
                 Articulo seleccionado = negocio.buscarPorId(id);
                 if (seleccionado != null)
                 {
@@ -69,7 +69,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al intentar seleccionar el artículo: " + ex.Message, true);
             }
         }
 
@@ -115,15 +115,15 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             {
                 if (gvArticulos.SelectedDataKey != null)
                 {
-                    int id = (int)gvArticulos.SelectedDataKey.Value;
+                    int id = Convert.ToInt32(gvArticulos.SelectedDataKey.Value);
                     negocio.bajaLogica(id);
                     CargarArticulos();
+                    ((SiteMaster)this.Master).MostrarNotificacion("¡Eliminado!", "El artículo ha sido dado de baja correctamente.", false);
                 }
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("~/Error.aspx");
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudo eliminar el artículo: " + ex.Message, true);
             }
         }
         #endregion
@@ -138,8 +138,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("~/Error.aspx");
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al cargar los artículos: " + ex.Message, true);
             }
         }
 
@@ -158,7 +157,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al aplicar el filtro: " + ex.Message, true);
             }
         }
         #endregion

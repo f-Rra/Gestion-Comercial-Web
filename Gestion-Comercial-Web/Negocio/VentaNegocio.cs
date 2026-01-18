@@ -77,7 +77,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -102,7 +102,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -125,11 +125,11 @@ namespace Negocio
                 
                 if (datos.Lector.Read())
                 {
-                    return (bool)datos.Lector["StockSuficiente"];
+                    return Convert.ToBoolean(datos.Lector["StockSuficiente"]);
                 }
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -154,7 +154,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

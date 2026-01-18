@@ -281,39 +281,6 @@
             }
         </style>
 
-        <div id="notificationOverlay" class="d-none"
-            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 10000; display: flex; align-items: center; justify-content: center;">
-            <div class="bg-primary-dark text-light-custom p-4 rounded-3 shadow-lg text-center border border-light border-opacity-25"
-                style="min-width: 300px; max-width: 450px;">
-                <i id="notifIcon" class="fas fa-check-circle fa-3x mb-3 text-success"></i>
-                <h4 id="notifTitle" class="mb-2">¡Éxito!</h4>
-                <p id="notifMessage" class="mb-3"></p>
-                <button type="button" class="btn bg-accent text-light-custom fw-bold px-5"
-                    onclick="document.getElementById('notificationOverlay').classList.add('d-none'); document.getElementById('notificationOverlay').style.display = 'none';">Aceptar</button>
-            </div>
-        </div>
-
-        <script>
-            function showNotification(title, message, isError) {
-                const overlay = document.getElementById('notificationOverlay');
-                const titleEl = document.getElementById('notifTitle');
-                const messageEl = document.getElementById('notifMessage');
-                const iconEl = document.getElementById('notifIcon');
-
-                titleEl.innerText = title;
-                messageEl.innerText = message;
-
-                if (isError) {
-                    iconEl.className = 'fas fa-exclamation-circle fa-3x mb-3 text-danger';
-                    titleEl.className = 'text-danger mb-2';
-                } else {
-                    iconEl.className = 'fas fa-check-circle fa-3x mb-3 text-success';
-                    titleEl.className = 'text-light-custom mb-2';
-                }
-
-                overlay.classList.remove('d-none');
-                overlay.style.display = 'flex';
-            }
-        </script>
+        <%-- Notificaciones ahora centralizadas en Site.Master --%>
 
     </asp:Content>

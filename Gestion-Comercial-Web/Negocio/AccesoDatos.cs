@@ -64,7 +64,7 @@ namespace Negocio
                     conexion.Open();
                 lector = comando.ExecuteReader();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -79,7 +79,7 @@ namespace Negocio
                     conexion.Open();
                 comando.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

@@ -49,8 +49,7 @@ namespace Gestion_Comercial_Web.Pages.Stock
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("~/Error.aspx", false);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudieron cargar los artículos: " + ex.Message, true);
             }
         }
 
@@ -101,15 +100,12 @@ namespace Gestion_Comercial_Web.Pages.Stock
 
                 if (listaFiltrada.Count == 0)
                 {
-                    string script = "showNotification('Información', 'No hay artículos con stock bajo.', false);";
-                    ClientScript.RegisterStartupScript(this.GetType(), "InfoStockBajo", script, true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Información", "No hay artículos con stock bajo.", false);
                 }
             }
             catch (Exception ex)
             {
-                string msg = ex.Message.Replace("'", "").Replace("\n", " ");
-                string errorScript = "showNotification('Error', '" + msg + "', true);";
-                ClientScript.RegisterStartupScript(this.GetType(), "ErrorFiltro", errorScript, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al filtrar: " + ex.Message, true);
             }
         }
 
@@ -132,15 +128,12 @@ namespace Gestion_Comercial_Web.Pages.Stock
 
                 if (listaFiltrada.Count == 0)
                 {
-                    string script = "showNotification('Información', 'No hay artículos sin stock.', false);";
-                    ClientScript.RegisterStartupScript(this.GetType(), "InfoSinStock", script, true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Información", "No hay artículos sin stock.", false);
                 }
             }
             catch (Exception ex)
             {
-                string msg = ex.Message.Replace("'", "").Replace("\n", " ");
-                string errorScript = "showNotification('Error', '" + msg + "', true);";
-                ClientScript.RegisterStartupScript(this.GetType(), "ErrorFiltro", errorScript, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al filtrar: " + ex.Message, true);
             }
         }
 
@@ -159,7 +152,7 @@ namespace Gestion_Comercial_Web.Pages.Stock
 
             if (!string.IsNullOrEmpty(indiceStr))
             {
-                int indice = int.Parse(indiceStr);
+                int indice = Convert.ToInt32(indiceStr);
 
                 if (indice >= 0 && indice < gvStock.DataKeys.Count)
                 {
@@ -169,8 +162,7 @@ namespace Gestion_Comercial_Web.Pages.Stock
             }
             else
             {
-                string script = "showNotification('Atención', 'Seleccione un artículo de la lista.', true);";
-                ClientScript.RegisterStartupScript(this.GetType(), "WarnSelect", script, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Atención", "Seleccione un artículo de la lista.", true);
             }
         }
 
@@ -200,9 +192,7 @@ namespace Gestion_Comercial_Web.Pages.Stock
             }
             catch (Exception ex)
             {
-                string msg = ex.Message.Replace("'", "").Replace("\n", " ");
-                string errorScript = "showNotification('Error', '" + msg + "', true);";
-                ClientScript.RegisterStartupScript(this.GetType(), "ErrorCargar", errorScript, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al cargar datos del artículo: " + ex.Message, true);
             }
         }
         #endregion
@@ -215,27 +205,24 @@ namespace Gestion_Comercial_Web.Pages.Stock
                 // Validaciones
                 if (ArticuloSeleccionadoId == 0)
                 {
-                    string script = "showNotification('Atención', 'Seleccione un artículo primero.', true);";
-                    ClientScript.RegisterStartupScript(this.GetType(), "WarnNoArticulo", script, true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Atención", "Seleccione un artículo primero.", true);
                     return;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtCantidad.Text))
                 {
-                    string script = "showNotification('Atención', 'Ingrese una cantidad válida.', true);";
-                    ClientScript.RegisterStartupScript(this.GetType(), "WarnCantidad", script, true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Atención", "Ingrese una cantidad válida.", true);
                     return;
                 }
 
                 int cantidad;
                 if (!int.TryParse(txtCantidad.Text, out cantidad) || cantidad <= 0)
                 {
-                    string script = "showNotification('Error', 'La cantidad debe ser un número mayor a cero.', true);";
-                    ClientScript.RegisterStartupScript(this.GetType(), "ErrorCantidad", script, true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Error", "La cantidad debe ser un número mayor a cero.", true);
                     return;
                 }
 
-                int stockActual = int.Parse(txtStockActual.Text);
+                int stockActual = Convert.ToInt32(txtStockActual.Text);
                 string operacion = ddlOperacion.SelectedValue;
                 ArticuloNegocio negocio = new ArticuloNegocio();
                 int nuevoStock = 0;
@@ -249,8 +236,7 @@ namespace Gestion_Comercial_Web.Pages.Stock
                 {
                     if (cantidad > stockActual)
                     {
-                        string script = "showNotification('Error', 'No puede restar más unidades del stock disponible.', true);";
-                        ClientScript.RegisterStartupScript(this.GetType(), "ErrorRestar", script, true);
+                        ((SiteMaster)this.Master).MostrarNotificacion("Error", "No puede restar más unidades del stock disponible.", true);
                         return;
                     }
                     nuevoStock = negocio.restarStock(ArticuloSeleccionadoId, cantidad);
@@ -260,19 +246,13 @@ namespace Gestion_Comercial_Web.Pages.Stock
                 txtStockActual.Text = nuevoStock.ToString();
                 CargarArticulos();
 
-                string successScript = string.Format(
-                    "showNotification('¡Hecho!', 'Stock actualizado correctamente. Nuevo stock: {0}', false);",
-                    nuevoStock
-                );
-                ClientScript.RegisterStartupScript(this.GetType(), "SuccessStock", successScript, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("¡Hecho!", string.Format("Stock actualizado correctamente. Nuevo stock: {0}", nuevoStock), false);
 
                 txtCantidad.Text = "";
             }
             catch (Exception ex)
             {
-                string msg = ex.Message.Replace("'", "").Replace("\n", " ");
-                string errorScript = "showNotification('Error', '" + msg + "', true);";
-                ClientScript.RegisterStartupScript(this.GetType(), "ErrorEjecutar", errorScript, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudo ejecutar la operación: " + ex.Message, true);
             }
         }
 

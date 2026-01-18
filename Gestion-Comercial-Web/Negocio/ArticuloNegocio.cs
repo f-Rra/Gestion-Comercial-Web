@@ -22,25 +22,11 @@ namespace Negocio
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
-                    Articulo aux = new Articulo();
-                    aux.Id = (int)datos.Lector["Id"]; 
-                    aux.Codigo = datos.Lector["Codigo"] != DBNull.Value ? (string)datos.Lector["Codigo"] : "";
-                    aux.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "";
-                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : "";
-                    aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descripcion = datos.Lector["Marca"] != DBNull.Value ? (string)datos.Lector["Marca"] : "";
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-                    aux.Categoria.Descripcion = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : "";
-                    aux.UrlImagen = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "";
-                    aux.Precio = (decimal)datos.Lector["Precio"];
-                    aux.Stock = (int)datos.Lector["Stock"];
-                    lista.Add(aux);
+                    lista.Add(DataMapper.MapArticulo(datos.Lector));
                 }
                 return lista;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -87,25 +73,11 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Articulo aux = new Articulo();
-                    aux.Id = (int)datos.Lector["Id"];
-                    aux.Codigo = datos.Lector["Codigo"] != DBNull.Value ? (string)datos.Lector["Codigo"] : "";
-                    aux.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "";
-                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : "";
-                    aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descripcion = datos.Lector["Marca"] != DBNull.Value ? (string)datos.Lector["Marca"] : "";
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-                    aux.Categoria.Descripcion = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : "";
-                    aux.UrlImagen = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "";
-                    aux.Precio = (decimal)datos.Lector["Precio"];
-                    aux.Stock = (int)datos.Lector["Stock"];
-                    lista.Add(aux);
+                    lista.Add(DataMapper.MapArticulo(datos.Lector));
                 }
                 return lista;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -132,7 +104,7 @@ namespace Negocio
                     throw new Exception("No se pudo obtener el ultimo ID");
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -153,25 +125,11 @@ namespace Negocio
 
                 if (datos.Lector.Read())
                 {
-                    Articulo aux = new Articulo();
-                    aux.Id = (int)datos.Lector["Id"]; 
-                    aux.Codigo = datos.Lector["Codigo"] != DBNull.Value ? (string)datos.Lector["Codigo"] : "";
-                    aux.Nombre = datos.Lector["Nombre"] != DBNull.Value ? (string)datos.Lector["Nombre"] : "";
-                    aux.Descripcion = datos.Lector["Descripcion"] != DBNull.Value ? (string)datos.Lector["Descripcion"] : "";
-                    aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descripcion = datos.Lector["Marca"] != DBNull.Value ? (string)datos.Lector["Marca"] : "";
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-                    aux.Categoria.Descripcion = datos.Lector["Categoria"] != DBNull.Value ? (string)datos.Lector["Categoria"] : "";
-                    aux.UrlImagen = datos.Lector["ImagenUrl"] != DBNull.Value ? (string)datos.Lector["ImagenUrl"] : "";
-                    aux.Precio = (decimal)datos.Lector["Precio"];
-                    aux.Stock = (int)datos.Lector["Stock"];
-                    return aux;
+                    return DataMapper.MapArticulo(datos.Lector);
                 }
                 return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -200,7 +158,7 @@ namespace Negocio
                 datos.setearParametro("@Stock", nuevo.Stock);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -228,7 +186,7 @@ namespace Negocio
                 datos.setearParametro("@Id", existente.Id); 
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -247,7 +205,7 @@ namespace Negocio
                 datos.setearParametro("@ID", id);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -267,7 +225,7 @@ namespace Negocio
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -290,7 +248,7 @@ namespace Negocio
                 datos.setearParametro("@NuevoStock", nuevoStock);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -313,11 +271,11 @@ namespace Negocio
                 
                 if (datos.Lector.Read())
                 {
-                    return (int)datos.Lector["Stock"];
+                    return Convert.ToInt32(datos.Lector["Stock"]);
                 }
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -340,11 +298,11 @@ namespace Negocio
                 
                 if (datos.Lector.Read())
                 {
-                    return (int)datos.Lector["Stock"];
+                    return Convert.ToInt32(datos.Lector["Stock"]);
                 }
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -380,7 +338,7 @@ namespace Negocio
                 }
                 return lista;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -415,7 +373,7 @@ namespace Negocio
                 }
                 return lista;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

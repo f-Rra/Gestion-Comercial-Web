@@ -62,7 +62,9 @@
                 margin-bottom: 1rem;
                 background: linear-gradient(to bottom, var(--color-light) 30%, var(--color-accent) 100%);
                 -webkit-background-clip: text;
+                background-clip: text;
                 -webkit-text-fill-color: transparent;
+                color: transparent;
                 opacity: 0.9;
             }
 

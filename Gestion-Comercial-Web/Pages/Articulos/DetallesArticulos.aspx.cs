@@ -38,14 +38,14 @@ namespace Gestion_Comercial_Web.Pages.Articulos
 
                 if (!string.IsNullOrEmpty(idStr))
                 {
-                    articulo.Id = int.Parse(idStr);
+                    articulo.Id = Convert.ToInt32(idStr);
                     articuloNegocio.modificar(articulo);
-                    MostrarNotificacion("¡Hecho!", "El artículo se ha modificado correctamente.", false);
+                    ((SiteMaster)this.Master).MostrarNotificacion("¡Hecho!", "El artículo se ha modificado correctamente.", false);
                 }
                 else
                 {
                     articuloNegocio.agregar(articulo);
-                    MostrarNotificacion("¡Registrado!", "El nuevo artículo ha sido agregado al catálogo.", false);
+                    ((SiteMaster)this.Master).MostrarNotificacion("¡Registrado!", "El nuevo artículo ha sido agregado al catálogo.", false);
                     txtIdArticulo.Text = articuloNegocio.ultimoID().ToString();
                 }
 
@@ -55,7 +55,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "No se pudo guardar: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "No se pudo guardar: " + ex.Message, true);
             }
         }
 
@@ -81,7 +81,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
 
             if (!string.IsNullOrEmpty(idStr))
             {
-                int id = int.Parse(idStr);
+                int id = Convert.ToInt32(idStr);
                 CargarArticulo(id);
 
                 if (modo == "view")
@@ -134,7 +134,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "Error al cargar listas: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al cargar listas: " + ex.Message, true);
             }
         }
 
@@ -164,7 +164,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             }
             catch (Exception ex)
             {
-                MostrarNotificacion("Error", "Error al cargar el artículo: " + ex.Message, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al cargar el artículo: " + ex.Message, true);
             }
         }
 
@@ -184,19 +184,19 @@ namespace Gestion_Comercial_Web.Pages.Articulos
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MostrarNotificacion("Validación", "El nombre es obligatorio.", true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Validación", "El nombre es obligatorio.", true);
                 return false;
             }
 
             if (ddlMarca.SelectedValue == "0" || ddlCategoria.SelectedValue == "0")
             {
-                MostrarNotificacion("Validación", "Debe seleccionar Marca y Categoría.", true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Debe seleccionar Marca y Categoría.", true);
                 return false;
             }
 
             if (!decimal.TryParse(txtPrecio.Text, out _))
             {
-                MostrarNotificacion("Validación", "Precio inválido.", true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Validación", "Precio inválido.", true);
                 return false;
             }
 
@@ -209,23 +209,17 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             aux.Codigo = txtCodigo.Text;
             aux.Nombre = txtNombre.Text;
             aux.Descripcion = txtDescripcion.Text;
-            aux.Precio = decimal.Parse(txtPrecio.Text);
-            aux.Stock = string.IsNullOrEmpty(txtStock.Text) ? 0 : int.Parse(txtStock.Text);
+            aux.Precio = Convert.ToDecimal(txtPrecio.Text);
+            aux.Stock = string.IsNullOrEmpty(txtStock.Text) ? 0 : Convert.ToInt32(txtStock.Text);
             aux.UrlImagen = txtUrlImagen.Text;
             
             aux.Marca = new Marca();
-            aux.Marca.Id = int.Parse(ddlMarca.SelectedValue);
+            aux.Marca.Id = Convert.ToInt32(ddlMarca.SelectedValue);
             
             aux.Categoria = new Categoria();
-            aux.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+            aux.Categoria.Id = Convert.ToInt32(ddlCategoria.SelectedValue);
 
             return aux;
-        }
-
-        private void MostrarNotificacion(string titulo, string mensaje, bool esError)
-        {
-            string script = $"showNotification('{titulo}', '{mensaje}', {esError.ToString().ToLower()});";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "NotificacionArticulo", script, true);
         }
         #endregion
     }

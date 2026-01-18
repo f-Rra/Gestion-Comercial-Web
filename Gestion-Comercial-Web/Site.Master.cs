@@ -29,5 +29,11 @@ namespace Gestion_Comercial_Web
             SessionManager.CerrarSesion();
             Response.Redirect("~/Login.aspx");
         }
+
+        public void MostrarNotificacion(string titulo, string mensaje, bool esError)
+        {
+            string script = $"showNotification('{titulo}', '{mensaje}', {esError.ToString().ToLower()});";
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "notificacionGlobal", script, true);
+        }
     }
 }

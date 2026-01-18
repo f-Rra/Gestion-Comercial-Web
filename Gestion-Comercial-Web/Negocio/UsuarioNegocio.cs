@@ -26,16 +26,12 @@ namespace Negocio
 
                 if (datos.Lector.Read())
                 {
-                    usuario = new Usuario();
-                    usuario.IdUsuario = (int)datos.Lector["IdUsuario"];
-                    usuario.NombreUsuario = (string)datos.Lector["NombreUsuario"];
-                    usuario.EsAdministrador = (bool)datos.Lector["EsAdministrador"];
-                    usuario.Estado = (bool)datos.Lector["Estado"];
+                    usuario = DataMapper.MapUsuario(datos.Lector);
                 }
 
                 return usuario;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -60,17 +56,12 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Usuario aux = new Usuario();
-                    aux.IdUsuario = (int)datos.Lector["IdUsuario"];
-                    aux.NombreUsuario = (string)datos.Lector["NombreUsuario"];
-                    aux.EsAdministrador = (bool)datos.Lector["EsAdministrador"];
-                    // aux.Estado = (bool)datos.Lector["Estado"]; // Nota: No está en el SP sugerido por el SQL pero lo mantenemos por consistencia
-                    lista.Add(aux);
+                    lista.Add(DataMapper.MapUsuario(datos.Lector));
                 }
 
                 return lista;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

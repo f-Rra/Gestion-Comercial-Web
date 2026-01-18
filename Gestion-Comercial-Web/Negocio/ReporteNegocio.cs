@@ -35,7 +35,7 @@ namespace Negocio
 
                 return dataSet;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -65,7 +65,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -90,7 +90,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -115,7 +115,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -145,7 +145,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -174,7 +174,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -207,7 +207,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -241,7 +241,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -272,7 +272,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -305,7 +305,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -339,7 +339,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -368,7 +368,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -397,7 +397,7 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

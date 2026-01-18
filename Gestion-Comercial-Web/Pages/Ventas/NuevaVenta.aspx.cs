@@ -61,8 +61,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("~/Error.aspx", false);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error", "Error al cargar artículos: " + ex.Message, true);
             }
         }
 
@@ -172,8 +171,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 {
                     if (itemExistente.Cantidad + 1 > seleccionado.Stock)
                     {
-                        string script = "showNotification('Stock Insuficiente', 'No puedes agregar más unidades de " + seleccionado.Nombre + ".', true);";
-                        ClientScript.RegisterStartupScript(this.GetType(), "WarnStock", script, true);
+                        ((SiteMaster)this.Master).MostrarNotificacion("Stock Insuficiente", "No puedes agregar más unidades de " + seleccionado.Nombre + ".", true);
                         return;
                     }
                     itemExistente.Cantidad++;
@@ -252,8 +250,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 {
                     if (cantidad > item.StockDisponible)
                     {
-                        string script = "showNotification('Stock Insuficiente', 'La cantidad ingresada supera el stock disponible (" + item.StockDisponible + ").', true);";
-                        ClientScript.RegisterStartupScript(this.GetType(), "WarnQty", script, true);
+                        ((SiteMaster)this.Master).MostrarNotificacion("Stock Insuficiente", "La cantidad ingresada supera el stock disponible (" + item.StockDisponible + ").", true);
                         txt.Text = item.Cantidad.ToString(); 
                         return;
                     }
@@ -285,8 +282,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
             {
                 if (Carrito.Count == 0)
                 {
-                    string script = "showNotification('Atención', 'El carrito está vacío', true);";
-                    ClientScript.RegisterStartupScript(this.GetType(), "WarnCart", script, true);
+                    ((SiteMaster)this.Master).MostrarNotificacion("Atención", "El carrito está vacío", true);
                     return;
                 }
 
@@ -310,8 +306,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 {
                     if (!negocio.validarStockDisponible(item.IdArticulo, item.Cantidad))
                     {
-                        string stockScript = $"showNotification('Stock Agotado', 'El artículo \"{item.NombreArticulo}\" ya no tiene stock suficiente para completar la operación. Por favor reconsidere su carrito.', true);";
-                        ClientScript.RegisterStartupScript(this.GetType(), "WarnStockFinal", stockScript, true);
+                        ((SiteMaster)this.Master).MostrarNotificacion("Stock Agotado", $"El artículo \"{item.NombreArticulo}\" ya no tiene stock suficiente para completar la operación. Por favor reconsidere su carrito.", true);
                         return;
                     }
                 }
@@ -322,14 +317,11 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 CargarArticulos();
                 ActualizarCarrito();
 
-                string successScript = "showNotification('¡Hecho!', 'La venta se registró correctamente y el stock fue actualizado.', false);";
-                ClientScript.RegisterStartupScript(this.GetType(), "SuccessSale", successScript, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("¡Hecho!", "La venta se registró correctamente y el stock fue actualizado.", false);
             }
             catch (Exception ex)
             {
-                string msg = ex.Message.Replace("'", "").Replace("\n", " ");
-                string errorScript = "showNotification('Error en la Venta', '" + msg + "', true);";
-                ClientScript.RegisterStartupScript(this.GetType(), "ErrorSale", errorScript, true);
+                ((SiteMaster)this.Master).MostrarNotificacion("Error en la Venta", ex.Message, true);
             }
         }
         #endregion

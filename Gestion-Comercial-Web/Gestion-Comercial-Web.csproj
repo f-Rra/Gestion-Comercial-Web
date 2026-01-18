@@ -249,6 +249,7 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Negocio\AccesoDatos.cs" />
+    <Compile Include="Negocio\DataMapper.cs" />
     <Compile Include="Negocio\ArticuloNegocio.cs" />
     <Compile Include="Negocio\CategoriaNegocio.cs" />
     <Compile Include="Negocio\MarcaNegocio.cs" />
