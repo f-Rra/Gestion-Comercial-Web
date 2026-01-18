@@ -18,6 +18,7 @@ namespace Gestion_Comercial_Web.Pages.Reportes
         #region Page Events
         protected void Page_Load(object sender, EventArgs e)
         {
+            Helpers.SessionManager.ValidarAdministrador();
             if (!IsPostBack)
             {
                 ((SiteMaster)this.Master).PageTitle = "Reportes y Estadísticas";

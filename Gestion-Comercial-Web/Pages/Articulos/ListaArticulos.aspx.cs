@@ -19,6 +19,7 @@ namespace Gestion_Comercial_Web.Pages.Articulos
         #region Eventos
         protected void Page_Load(object sender, EventArgs e)
         {
+            Helpers.SessionManager.ValidarAdministrador();
             if (!IsPostBack)
             {
                 ((SiteMaster)this.Master).PageTitle = "Gestión de Artículos";

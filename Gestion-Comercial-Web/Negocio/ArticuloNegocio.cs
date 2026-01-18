@@ -42,7 +42,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -107,7 +107,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -134,7 +134,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -173,7 +173,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -202,7 +202,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -230,7 +230,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -240,24 +240,28 @@ namespace Negocio
 
         public void bajaFisica(int id)
         {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                AccesoDatos datos = new AccesoDatos();
                 datos.setearConsulta("DELETE FROM Articulos WHERE Id = @ID");
                 datos.setearParametro("@ID", id);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 
         public void bajaLogica(int id)
         {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                AccesoDatos datos = new AccesoDatos();
                 datos.setearConsulta("SP_BajaArticulo");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", id);
@@ -265,7 +269,11 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
         #endregion
@@ -284,7 +292,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -311,7 +319,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -338,7 +346,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -374,7 +382,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {
@@ -409,7 +417,7 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
             finally
             {

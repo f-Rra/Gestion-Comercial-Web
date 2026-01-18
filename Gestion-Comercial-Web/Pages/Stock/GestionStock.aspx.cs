@@ -24,6 +24,7 @@ namespace Gestion_Comercial_Web.Pages.Stock
         #region Page Events
         protected void Page_Load(object sender, EventArgs e)
         {
+            Helpers.SessionManager.ValidarAdministrador();
             if (!IsPostBack)
             {
                 ((SiteMaster)this.Master).PageTitle = "Gestión de Stock";

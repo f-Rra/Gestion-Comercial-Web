@@ -35,6 +35,7 @@ namespace Gestion_Comercial_Web.Pages.Ventas
         #region Page Events
         protected void Page_Load(object sender, EventArgs e)
         {
+            Helpers.SessionManager.ValidarSesion();
             if (!IsPostBack)
             {
                 ((SiteMaster)this.Master).PageTitle = "Gestión de Ventas";
@@ -296,13 +297,25 @@ namespace Gestion_Comercial_Web.Pages.Ventas
                 if (Helpers.SessionManager.EstaLogueado)
                     nuevaVenta.Vendedor = Helpers.SessionManager.UsuarioActual.NombreUsuario;
                 else
-                    nuevaVenta.Vendedor = "Admin";
+                    throw new Exception("Debe iniciar sesión para registrar una venta.");
 
                 nuevaVenta.Cliente = "Consumidor Final";
                 nuevaVenta.Detalles = Carrito;
                 nuevaVenta.CalcularTotal();
 
                 VentaNegocio negocio = new VentaNegocio();
+
+                // Doble validación de stock al finalizar para evitar discrepancias
+                foreach (var item in Carrito)
+                {
+                    if (!negocio.validarStockDisponible(item.IdArticulo, item.Cantidad))
+                    {
+                        string stockScript = $"showNotification('Stock Agotado', 'El artículo \"{item.NombreArticulo}\" ya no tiene stock suficiente para completar la operación. Por favor reconsidere su carrito.', true);";
+                        ClientScript.RegisterStartupScript(this.GetType(), "WarnStockFinal", stockScript, true);
+                        return;
+                    }
+                }
+
                 negocio.registrarVenta(nuevaVenta);
 
                 Session["Carrito"] = null;
