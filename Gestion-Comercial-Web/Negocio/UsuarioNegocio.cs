@@ -13,10 +13,7 @@ namespace Negocio
         #region Autenticación
         public Usuario validarCredenciales(string nombreUsuario, string contrasena)
         {
-            Usuario usuario = null;
-            AccesoDatos datos = new AccesoDatos();
-
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_VerificarUsuario");
                 datos.setearTipoComando(CommandType.StoredProcedure);
@@ -26,18 +23,10 @@ namespace Negocio
 
                 if (datos.Lector.Read())
                 {
-                    usuario = DataMapper.MapUsuario(datos.Lector);
+                    return DataMapper.MapUsuario(datos.Lector);
                 }
 
-                return usuario;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
+                return null;
             }
         }
         #endregion
@@ -46,9 +35,7 @@ namespace Negocio
         public List<Usuario> listar()
         {
             List<Usuario> lista = new List<Usuario>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_ListarUsuarios");
                 datos.setearTipoComando(CommandType.StoredProcedure);
@@ -60,14 +47,6 @@ namespace Negocio
                 }
 
                 return lista;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion

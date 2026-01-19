@@ -14,9 +14,7 @@ namespace Negocio
         public List<Categoria> listar()
         {
             List<Categoria> lista = new List<Categoria>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_ListarCategorias");
                 datos.setearTipoComando(CommandType.StoredProcedure);
@@ -27,76 +25,41 @@ namespace Negocio
                 }
                 return lista;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
         #endregion
 
         #region CRUD
         public void agregar(Categoria nueva)
         {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_AltaCategoria");
-            datos.setearTipoComando(CommandType.StoredProcedure);
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                datos.setearConsulta("SP_AltaCategoria");
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.ejecutarAccion();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
 
         public void modificar(Categoria existente)
         {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_ModificarCategoria");
-            datos.setearTipoComando(CommandType.StoredProcedure);
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                datos.setearConsulta("SP_ModificarCategoria");
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", existente.Id);
                 datos.setearParametro("@Descripcion", existente.Descripcion);
                 datos.ejecutarAccion();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
 
         public void eliminar(int id)
         {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_BajaCategoria");
-            datos.setearTipoComando(CommandType.StoredProcedure);
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                datos.setearConsulta("SP_BajaCategoria");
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion
@@ -104,27 +67,18 @@ namespace Negocio
         #region Validaciones
         public bool buscarCategoria(string descripcion)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SELECT COUNT(*) FROM Categorias WHERE Descripcion = @Descripcion");
                 datos.setearParametro("@Descripcion", descripcion);
                 datos.ejecutarLectura();
-                
+
                 if (datos.Lector.Read())
                 {
                     return Convert.ToInt32(datos.Lector[0]) > 0;
                 }
-                
+
                 return false;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion

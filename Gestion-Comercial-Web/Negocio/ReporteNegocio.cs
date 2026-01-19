@@ -13,20 +13,20 @@ namespace Negocio
         #region Inventario
         public DataSet obtenerReporteInventarioGeneral()
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataSet dataSet = new DataSet();
-            string[] nombresTablas = { 
-                "Estadisticas", "CabeceraCat", "InventarioCat", "CabeceraMarca", "InventarioMarca" 
+            using (AccesoDatos datos = new AccesoDatos())
+            {
+                DataSet dataSet = new DataSet();
+                string[] nombresTablas = {
+                "Estadisticas", "CabeceraCat", "InventarioCat", "CabeceraMarca", "InventarioMarca"
             };
 
-            try
-            {
                 datos.setearConsulta("SP_ReporteInventarioGeneral");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.ejecutarLectura();
 
                 int i = 0;
-                do {
+                do
+                {
                     DataTable tabla = new DataTable(nombresTablas[i]);
                     tabla.Load(datos.Lector);
                     dataSet.Tables.Add(tabla);
@@ -35,22 +35,13 @@ namespace Negocio
 
                 return dataSet;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerInventarioCompleto()
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     Codigo AS [Código], 
                     Nombre AS [Artículo], 
@@ -65,22 +56,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerInventarioPorCategoria()
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     Categoria AS [Categoría], 
                     CantidadArticulos AS [Total Artículos]
@@ -90,22 +72,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerInventarioPorMarca()
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     Marca, 
                     CantidadArticulos AS [Total Artículos]
@@ -115,22 +88,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerArticulosBajoStock(int stockMinimo = 5)
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     Codigo AS [Código], 
                     Nombre AS [Artículo], 
@@ -145,22 +109,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerArticulosSinStock()
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     Codigo AS [Código], 
                     Nombre AS [Artículo], 
@@ -174,24 +129,15 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
         #endregion
 
         #region Ventas
         public DataTable obtenerVentasPorFecha(DateTime fechaInicio, DateTime fechaFin)
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     NumeroVenta AS [N° Venta], 
                     Fecha, 
@@ -207,22 +153,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerVentasDetalladas(DateTime fechaInicio, DateTime fechaFin)
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     v.NumeroVenta AS [N° Venta], 
                     v.Fecha, 
@@ -241,22 +178,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerResumenVentasDiarias(DateTime fechaInicio, DateTime fechaFin)
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     CAST(Fecha AS DATE) AS [Fecha],
                     COUNT(*) AS [Cant. Ventas],
@@ -272,24 +200,15 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
         #endregion
 
         #region Rankings y Estadísticas
         public DataTable obtenerTopVendedores(DateTime fechaInicio, DateTime fechaFin)
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     Vendedor,
                     COUNT(*) AS [Ventas Realizadas],
@@ -305,22 +224,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerArticulosMasVendidos(DateTime fechaInicio, DateTime fechaFin)
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT TOP 10
                     a.Nombre AS [Artículo],
                     m.Descripcion AS Marca,
@@ -339,22 +249,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerEstadisticasStockPorCategoria()
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     c.Descripcion AS [Categoría],
                     COUNT(a.Id) AS [Variedad Art.],
@@ -368,22 +269,13 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public DataTable obtenerEstadisticasStockPorMarca()
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta(@"SELECT 
                     m.Descripcion AS Marca,
                     COUNT(a.Id) AS [Variedad Art.],
@@ -396,14 +288,6 @@ namespace Negocio
                 datos.ejecutarLectura();
                 tabla.Load(datos.Lector);
                 return tabla;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion

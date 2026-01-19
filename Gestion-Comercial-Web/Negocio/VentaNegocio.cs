@@ -10,66 +10,62 @@ namespace Negocio
         #region Ventas
         public void registrarVenta(Venta venta)
         {
-            AccesoDatos datos = new AccesoDatos();
-            int idVenta = 0;
-            
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
-                datos.abrirTransaccion();
-
-                // 1. Registrar la venta principal
-                datos.setearConsulta("SP_RegistrarVenta");
-                datos.setearTipoComando(CommandType.StoredProcedure);
-                datos.setearParametro("@NumeroVenta", venta.NumeroVenta);
-                datos.setearParametro("@Vendedor", venta.Vendedor);
-                datos.setearParametro("@Cliente", venta.Cliente ?? "Consumidor Final");
-                datos.setearParametro("@Total", venta.Total);
-                
-                datos.ejecutarLectura();
-                if(datos.Lector.Read())
+                int idVenta = 0;
+                try
                 {
-                    idVenta = Convert.ToInt32(datos.Lector[0]);
-                }
-                
-                datos.Lector.Close();
+                    datos.abrirTransaccion();
 
-                if (idVenta == 0)
-                    throw new Exception("No se pudo obtener el ID de la venta");
-
-                // 2. Registrar cada detalle
-                datos.limpiarParametros();
-                foreach (var detalle in venta.Detalles)
-                {
-                    datos.setearConsulta("SP_RegistrarDetalleVenta");
+                    // 1. Registrar la venta principal
+                    datos.setearConsulta("SP_RegistrarVenta");
                     datos.setearTipoComando(CommandType.StoredProcedure);
-                    datos.setearParametro("@IdVenta", idVenta);
-                    datos.setearParametro("@IdArticulo", detalle.IdArticulo);
-                    datos.setearParametro("@Cantidad", detalle.Cantidad);
-                    datos.setearParametro("@PrecioUnitario", detalle.PrecioUnitario);
-                    datos.setearParametro("@Subtotal", detalle.Subtotal);
-                    
-                    datos.ejecutarAccion();
-                }
+                    datos.setearParametro("@NumeroVenta", venta.NumeroVenta);
+                    datos.setearParametro("@Vendedor", venta.Vendedor);
+                    datos.setearParametro("@Cliente", venta.Cliente ?? "Consumidor Final");
+                    datos.setearParametro("@Total", venta.Total);
 
-                datos.commitTransaccion();
-            }
-            catch (Exception ex)
-            {
-                datos.rollbackTransaccion();
-                throw new Exception("Venta cancelada: " + ex.Message, ex);
-            }
-            finally
-            {
-                datos.cerrarConexion();
+                    datos.ejecutarLectura();
+                    if (datos.Lector.Read())
+                    {
+                        idVenta = Convert.ToInt32(datos.Lector[0]);
+                    }
+
+                    datos.Lector.Close();
+
+                    if (idVenta == 0)
+                        throw new Exception("No se pudo obtener el ID de la venta");
+
+                    // 2. Registrar cada detalle
+                    foreach (var detalle in venta.Detalles)
+                    {
+                        datos.limpiarParametros();
+                        datos.setearConsulta("SP_RegistrarDetalleVenta");
+                        datos.setearTipoComando(CommandType.StoredProcedure);
+                        datos.setearParametro("@IdVenta", idVenta);
+                        datos.setearParametro("@IdArticulo", detalle.IdArticulo);
+                        datos.setearParametro("@Cantidad", detalle.Cantidad);
+                        datos.setearParametro("@PrecioUnitario", detalle.PrecioUnitario);
+                        datos.setearParametro("@Subtotal", detalle.Subtotal);
+
+                        datos.ejecutarAccion();
+                    }
+
+                    datos.commitTransaccion();
+                }
+                catch (Exception ex)
+                {
+                    datos.rollbackTransaccion();
+                    throw new Exception("Venta cancelada: " + ex.Message, ex);
+                }
             }
         }
 
         public DataTable obtenerVentasPorVendedor(string vendedor)
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta("SP_ObtenerVentasPorVendedor");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Vendedor", vendedor);
@@ -77,24 +73,15 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
         #endregion
 
         #region Carrito y Stock
         public DataTable buscarArticulosParaVenta(string filtro = "")
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta("SP_BuscarArticulosParaVenta");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Filtro", filtro ?? "");
@@ -102,40 +89,23 @@ namespace Negocio
                 tabla.Load(datos.Lector);
                 return tabla;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public bool validarStockDisponible(int idArticulo, int cantidadSolicitada)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_ValidarStockDisponible");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@IdArticulo", idArticulo);
                 datos.setearParametro("@CantidadSolicitada", cantidadSolicitada);
                 datos.ejecutarLectura();
-                
+
                 if (datos.Lector.Read())
                 {
                     return Convert.ToBoolean(datos.Lector["StockSuficiente"]);
                 }
                 return false;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion
@@ -143,24 +113,15 @@ namespace Negocio
         #region Detalles
         public DataTable obtenerDetallesVenta(int idVenta)
         {
-            AccesoDatos datos = new AccesoDatos();
-            DataTable tabla = new DataTable();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                DataTable tabla = new DataTable();
                 datos.setearConsulta("SP_ObtenerDetallesVenta");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@IdVenta", idVenta);
                 datos.ejecutarLectura();
                 tabla.Load(datos.Lector);
                 return tabla;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion

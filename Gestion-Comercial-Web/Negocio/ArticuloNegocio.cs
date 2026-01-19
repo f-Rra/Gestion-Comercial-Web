@@ -14,11 +14,9 @@ namespace Negocio
         public List<Articulo> listar()
         {
             List<Articulo> lista = new List<Articulo>();
-            AccesoDatos datos = new AccesoDatos();
-            String consulta = "SELECT * FROM vw_ArticulosCompletos";
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
-                datos.setearConsulta(consulta);
+                datos.setearConsulta("SELECT * FROM vw_ArticulosCompletos");
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -26,21 +24,12 @@ namespace Negocio
                 }
                 return lista;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public List<Articulo> filtrar(string campo, string criterio, string filtro)
         {
             List<Articulo> lista = new List<Articulo>();
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 string consulta = "SELECT * FROM vw_ArticulosCompletos WHERE ";
                 string columna = "";
@@ -77,23 +66,13 @@ namespace Negocio
                 }
                 return lista;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public int ultimoID()
         {
-            AccesoDatos datos = new AccesoDatos();
-            String consulta = "SELECT MAX(Id) AS UltimoID FROM Articulos";
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
-                datos.setearConsulta(consulta);
+                datos.setearConsulta("SELECT MAX(Id) AS UltimoID FROM Articulos");
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
                 {
@@ -104,20 +83,11 @@ namespace Negocio
                     throw new Exception("No se pudo obtener el ultimo ID");
                 }
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public Articulo buscarPorId(int id)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SELECT * FROM vw_ArticulosCompletos WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
@@ -129,25 +99,16 @@ namespace Negocio
                 }
                 return null;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
         #endregion
 
         #region CRUD (Alta, Modificación, Baja)
         public void agregar(Articulo nuevo)
         {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_AltaArticulo");
-            datos.setearTipoComando(CommandType.StoredProcedure);
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                datos.setearConsulta("SP_AltaArticulo");
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Codigo", nuevo.Codigo);
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Descripcion", nuevo.Descripcion);
@@ -158,23 +119,14 @@ namespace Negocio
                 datos.setearParametro("@Stock", nuevo.Stock);
                 datos.ejecutarAccion();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public void modificar(Articulo existente)
         {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_ModificarArticulo");
-            datos.setearTipoComando(CommandType.StoredProcedure);
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                datos.setearConsulta("SP_ModificarArticulo");
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Codigo", existente.Codigo);
                 datos.setearParametro("@Nombre", existente.Nombre);
                 datos.setearParametro("@Descripcion", existente.Descripcion);
@@ -183,55 +135,29 @@ namespace Negocio
                 datos.setearParametro("@ImagenUrl", existente.UrlImagen);
                 datos.setearParametro("@Precio", existente.Precio);
                 datos.setearParametro("@Stock", existente.Stock);
-                datos.setearParametro("@Id", existente.Id); 
+                datos.setearParametro("@Id", existente.Id);
                 datos.ejecutarAccion();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
 
         public void bajaFisica(int id)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("DELETE FROM Articulos WHERE Id = @ID");
                 datos.setearParametro("@ID", id);
                 datos.ejecutarAccion();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public void bajaLogica(int id)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_BajaArticulo");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion
@@ -239,8 +165,7 @@ namespace Negocio
         #region Gestión de Stock e Inventario
         public void actualizarStock(int idArticulo, int nuevoStock)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_ActualizarStock");
                 datos.setearTipoComando(CommandType.StoredProcedure);
@@ -248,75 +173,48 @@ namespace Negocio
                 datos.setearParametro("@NuevoStock", nuevoStock);
                 datos.ejecutarAccion();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public int sumarStock(int idArticulo, int cantidad)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_SumarStock");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", idArticulo);
                 datos.setearParametro("@Cantidad", cantidad);
                 datos.ejecutarLectura();
-                
+
                 if (datos.Lector.Read())
                 {
                     return Convert.ToInt32(datos.Lector["Stock"]);
                 }
                 return 0;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public int restarStock(int idArticulo, int cantidad)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_RestarStock");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", idArticulo);
                 datos.setearParametro("@Cantidad", cantidad);
                 datos.ejecutarLectura();
-                
+
                 if (datos.Lector.Read())
                 {
                     return Convert.ToInt32(datos.Lector["Stock"]);
                 }
                 return 0;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
         }
 
         public List<Articulo> obtenerArticulosBajoStock(int stockMinimo = 5)
         {
             List<Articulo> lista = new List<Articulo>();
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_ArticulosBajoStock");
                 datos.setearTipoComando(CommandType.StoredProcedure);
@@ -325,34 +223,16 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Articulo aux = new Articulo();
-                    aux.Id = Convert.ToInt32(datos.Lector["Id"]);
-                    aux.Codigo = datos.Lector["Codigo"].ToString();
-                    aux.Nombre = datos.Lector["Nombre"].ToString();
-                    aux.Marca = new Marca();
-                    aux.Marca.Descripcion = datos.Lector["Marca"].ToString();
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.Descripcion = datos.Lector["Categoria"].ToString();
-                    aux.Stock = Convert.ToInt32(datos.Lector["Stock"]);
-                    lista.Add(aux);
+                    lista.Add(DataMapper.MapArticulo(datos.Lector));
                 }
                 return lista;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
 
         public List<Articulo> obtenerArticulosSinStock()
         {
             List<Articulo> lista = new List<Articulo>();
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_ArticulosSinStock");
                 datos.setearTipoComando(CommandType.StoredProcedure);
@@ -360,26 +240,9 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Articulo aux = new Articulo();
-                    aux.Id = Convert.ToInt32(datos.Lector["Id"]);
-                    aux.Codigo = datos.Lector["Codigo"].ToString();
-                    aux.Nombre = datos.Lector["Nombre"].ToString();
-                    aux.Marca = new Marca();
-                    aux.Marca.Descripcion = datos.Lector["Marca"].ToString();
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.Descripcion = datos.Lector["Categoria"].ToString();
-                    aux.Stock = Convert.ToInt32(datos.Lector["Stock"]);
-                    lista.Add(aux);
+                    lista.Add(DataMapper.MapArticulo(datos.Lector));
                 }
                 return lista;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion

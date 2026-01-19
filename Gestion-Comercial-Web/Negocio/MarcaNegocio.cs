@@ -14,8 +14,7 @@ namespace Negocio
         public List<Marca> listar()
         {
             List<Marca> lista = new List<Marca>();
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_ListarMarcas");
                 datos.setearTipoComando(CommandType.StoredProcedure);
@@ -24,16 +23,7 @@ namespace Negocio
                 {
                     lista.Add(DataMapper.MapMarca(datos.Lector));
                 }
-
                 return lista;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion
@@ -41,62 +31,35 @@ namespace Negocio
         #region CRUD
         public void agregar(Marca nueva)
         {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_AltaMarca");
-            datos.setearTipoComando(CommandType.StoredProcedure);
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                datos.setearConsulta("SP_AltaMarca");
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Descripcion", nueva.Descripcion);
                 datos.ejecutarAccion();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
 
         public void modificar(Marca existente)
         {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_ModificarMarca");
-            datos.setearTipoComando(CommandType.StoredProcedure);
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                datos.setearConsulta("SP_ModificarMarca");
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", existente.Id);
                 datos.setearParametro("@Descripcion", existente.Descripcion);
                 datos.ejecutarAccion();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
 
         public void eliminar(int id)
         {
-            AccesoDatos datos = new AccesoDatos();
-            datos.setearConsulta("SP_BajaMarca");
-            datos.setearTipoComando(CommandType.StoredProcedure);
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
+                datos.setearConsulta("SP_BajaMarca");
+                datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion
@@ -104,22 +67,13 @@ namespace Negocio
         #region Búsqueda
         public bool buscarMarca(string descripcion)
         {
-            AccesoDatos datos = new AccesoDatos();
-            try
+            using (AccesoDatos datos = new AccesoDatos())
             {
                 datos.setearConsulta("SP_BuscarMarcaPorDescripcion");
                 datos.setearTipoComando(CommandType.StoredProcedure);
                 datos.setearParametro("@Descripcion", descripcion);
                 datos.ejecutarLectura();
                 return datos.Lector.Read();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         #endregion
