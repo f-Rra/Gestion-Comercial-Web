@@ -8,7 +8,7 @@ using System.Configuration;
 
 namespace Negocio
 {
-    class AccesoDatos
+    class AccesoDatos : IDisposable
     {
         private SqlConnection conexion;
         private SqlCommand comando;
@@ -29,19 +29,22 @@ namespace Negocio
 
         public void abrirTransaccion()
         {
-            conexion.Open();
+            if (conexion.State != System.Data.ConnectionState.Open)
+                conexion.Open();
             transaccion = conexion.BeginTransaction();
             comando.Transaction = transaccion;
         }
 
         public void commitTransaccion()
         {
-            transaccion.Commit();
+            if (transaccion != null)
+                transaccion.Commit();
         }
 
         public void rollbackTransaccion()
         {
-            transaccion.Rollback();
+            if (transaccion != null)
+                transaccion.Rollback();
         }
 
         public void setearConsulta(string consulta)
@@ -49,6 +52,7 @@ namespace Negocio
             comando.CommandType = System.Data.CommandType.Text;
             comando.CommandText = consulta;
         }
+
         public void setearTipoComando(System.Data.CommandType tipo)
         {
             comando.CommandType = tipo;
@@ -57,10 +61,9 @@ namespace Negocio
         public void ejecutarLectura()
         {
             comando.Connection = conexion;
-
             try
             {
-                if(conexion.State != System.Data.ConnectionState.Open)
+                if (conexion.State != System.Data.ConnectionState.Open)
                     conexion.Open();
                 lector = comando.ExecuteReader();
             }
@@ -87,7 +90,7 @@ namespace Negocio
             {
                 if (transaccion == null)
                 {
-                   conexion.Close();
+                    conexion.Close();
                 }
                 comando.Parameters.Clear();
             }
@@ -95,7 +98,7 @@ namespace Negocio
 
         public void setearParametro(string nombre, object valor)
         {
-            comando.Parameters.AddWithValue(nombre, valor);
+            comando.Parameters.AddWithValue(nombre, valor ?? DBNull.Value);
         }
 
         public void limpiarParametros()
@@ -105,14 +108,23 @@ namespace Negocio
 
         public void cerrarConexion()
         {
-            if (lector != null)
+            if (lector != null && !lector.IsClosed)
                 lector.Close();
-            
-            if (transaccion == null)
+
+            if (conexion != null && conexion.State == System.Data.ConnectionState.Open && transaccion == null)
             {
                 conexion.Close();
             }
         }
 
+        public void Dispose()
+        {
+            cerrarConexion();
+            if (comando != null)
+                comando.Dispose();
+            if (conexion != null)
+                conexion.Dispose();
+        }
     }
 }
+
