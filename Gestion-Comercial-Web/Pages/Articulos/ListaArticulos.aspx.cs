@@ -91,13 +91,15 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             if (gvArticulos.SelectedDataKey != null)
             {
                 string id = gvArticulos.SelectedDataKey.Value.ToString();
-                Response.Redirect("DetallesArticulos.aspx?id=" + id + "&modo=view");
+                Response.Redirect("DetallesArticulos.aspx?id=" + id + "&modo=view", false);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("DetallesArticulos.aspx?modo=add");
+            Response.Redirect("DetallesArticulos.aspx?modo=add", false);
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)
@@ -105,7 +107,8 @@ namespace Gestion_Comercial_Web.Pages.Articulos
             if (gvArticulos.SelectedDataKey != null)
             {
                 string id = gvArticulos.SelectedDataKey.Value.ToString();
-                Response.Redirect("DetallesArticulos.aspx?id=" + id + "&modo=edit");
+                Response.Redirect("DetallesArticulos.aspx?id=" + id + "&modo=edit", false);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 

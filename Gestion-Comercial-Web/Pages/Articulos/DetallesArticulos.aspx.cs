@@ -69,7 +69,8 @@ namespace Gestion_Comercial_Web.Pages.Articulos
 
         public void btnRegresar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ListaArticulos.aspx");
+            Response.Redirect("ListaArticulos.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
         }
         #endregion
 

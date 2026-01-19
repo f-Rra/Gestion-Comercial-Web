@@ -15,7 +15,8 @@ namespace Gestion_Comercial_Web
             {
                 if (SessionManager.EstaLogueado)
                 {
-                    Response.Redirect("Default.aspx");
+                    Response.Redirect("Default.aspx", false);
+                    Context.ApplicationInstance.CompleteRequest();
                 }
             }
         }

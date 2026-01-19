@@ -48,7 +48,8 @@ namespace Gestion_Comercial_Web
                 Server.ClearError();
 
                 // Redirigir a la página de error
-                Response.Redirect("~/Error.aspx");
+                Response.Redirect("~/Error.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
     }
