@@ -4,15 +4,17 @@
 
 ---
 
-Evolución web del Sistema de Gestión Comercial original, con interfaz moderna y lógica de negocio robusta.
+Migración a plataforma web del Sistema de Gestión Comercial original, modernizando la experiencia de usuario mientras se mantiene la robustez de la lógica de negocio establecida.
 
----
+
 
 ![.NET Framework](https://img.shields.io/badge/.NET%20Framework-4.8.1-blue)
 ![C#](https://img.shields.io/badge/C%23-7.3-green)
 ![ASP.NET WebForms](https://img.shields.io/badge/Framework-ASP.NET%20WebForms-lightblue)
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-2016+-red)
 ![Bootstrap 5](https://img.shields.io/badge/UI-Bootstrap%205-purple)
+
+---
 
 ## Descripción
 
@@ -180,17 +182,17 @@ Gestion-Comercial-Web/
 ### Migración de Windows Forms a Web
 
 **Capas reutilizadas del sistema original:**
-- ✅ Entidades de dominio (sin modificaciones)
-- ✅ Lógica de negocio (adaptaciones menores para web)
-- ✅ Stored Procedures y Triggers SQL
-- ✅ Estructura de base de datos
+-  Entidades de dominio (sin modificaciones)
+-  Lógica de negocio (adaptaciones menores para web)
+-  Stored Procedures y Triggers SQL
+-  Estructura de base de datos
 
 **Desarrollos nuevos para la versión web:**
-- 🆕 Capa de presentación completa en ASP.NET WebForms
-- 🆕 Gestión de estado con Session y ViewState
-- 🆕 Interfaz responsiva con Bootstrap 5
-- 🆕 Sistema de navegación web con Master Pages
-- 🆕 Validaciones del lado del cliente con JavaScript
+-  Capa de presentación completa en ASP.NET WebForms
+-  Gestión de estado con Session y ViewState
+-  Interfaz responsiva con Bootstrap 5
+-  Sistema de navegación web con Master Pages
+-  Validaciones del lado del cliente con JavaScript
 
 ---
 

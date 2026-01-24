@@ -87,14 +87,4 @@ Para saber dónde estás parado, pasate por el módulo de **Reportes**:
 - **No se ve la imagen del producto**: Revisá que la dirección (URL) de la imagen sirva y se pueda ver en internet.
 
 ---
-
-## 8. Soporte Técnico
-
-Si tenés algún quilombo técnico o necesitás una mano con algo más, avisale al administrador:
-
-**Facundo Herrera**
-- [Facundo.herrera@alumnos.frgp.utn.edu.ar](mailto:Facundo.herrera@alumnos.frgp.utn.edu.ar)
-- *Desarrollado para la UTN-FRGP*
-
----
 © 2026 SGC-Web - Sistema de Gestión Comercial
