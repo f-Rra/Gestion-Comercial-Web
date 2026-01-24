@@ -1,142 +1,217 @@
 <div align="center">
-  <h1>SGC-Web: Sistema de Gestión Comercial</h1>
-  <p><i>Plataforma empresarial de alto rendimiento para el control de inventarios y gestión de ventas.</i></p>
+  <img src="header.png" alt="SGC-Web Header">
 </div>
 
 ---
 
-**SGC-Web** es una solución integral diseñada para optimizar los procesos operativos de comercios y empresas. Desarrollada sobre el ecosistema de **ASP.NET**, la plataforma ofrece una experiencia robusta, segura y escalable, permitiendo la administración centralizada de stock, productos y transacciones comerciales desde cualquier dispositivo.
+Evolución web del Sistema de Gestión Comercial original, con interfaz moderna y lógica de negocio robusta.
+
+---
 
 ![.NET Framework](https://img.shields.io/badge/.NET%20Framework-4.8.1-blue)
 ![C#](https://img.shields.io/badge/C%23-7.3-green)
 ![ASP.NET WebForms](https://img.shields.io/badge/Framework-ASP.NET%20WebForms-lightblue)
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-2016+-red)
 ![Bootstrap 5](https://img.shields.io/badge/UI-Bootstrap%205-purple)
-![Maintenance](https://img.shields.io/badge/Maintained-Yes-brightgreen)
+
+## Descripción
+
+**SGC-Web** es la evolución web del Sistema de Gestión Comercial original desarrollado en Windows Forms. Este proyecto representa una **migración arquitectónica completa** hacia tecnología web, reutilizando las capas de Dominio y Negocio del sistema original, mientras se desarrolla una nueva capa de presentación web moderna y responsiva.
+
+La plataforma permite administrar inventarios, procesar ventas y generar reportes operativos desde cualquier dispositivo con navegador web, manteniendo la misma integridad transaccional y seguridad del sistema original.
 
 ---
 
-## ✨ Características Destacadas
+## Características Principales
 
-- **Arquitectura de 3 Capas Profesional**: Separación estricta de responsabilidades entre la Capa de Presentación, Lógica de Negocio y Acceso a Datos.
-- **Interfaz "Premium Unified"**: Diseño consistente basado en una Master Page, utilizando Bootstrap 5 para garantizar una experiencia 100% responsiva.
-- **Seguridad de Grado Empresarial**: Implementación de **Forms Authentication** y protección contra SQL Injection mediante consultas parametrizadas.
-- **Gestión de Estados Eficiente**: Aprovechamiento de `Session` para el carrito de compras y `ViewState` para la persistencia de datos en el cliente.
-- **Persistencia Robusta**: Lógica de datos delegada en Stored Procedures y Triggers SQL para asegurar integridad y rendimiento.
+### Migración Tecnológica
+- **Reutilización de código**: Capas de Dominio y Negocio del sistema WinForms original
+- **Nueva capa de presentación**: Desarrollo desde cero con ASP.NET WebForms
+- **Misma base de datos**: Aprovechamiento de procedimientos almacenados, triggers y lógica SQL existente
+- **Adaptación de estado**: Migración de gestión de estado desktop a Session/ViewState web
 
----
+### Arquitectura
+- **Patrón de 3 capas**: Separación clara entre Presentación, Negocio y Acceso a Datos
+- **Master Pages**: Diseño consistente en toda la aplicación
+- **Gestión de recursos**: Implementación de `IDisposable` para conexiones y comandos SQL
+- **Mappers**: Conversión eficiente de `SqlDataReader` a objetos de dominio
 
-## 🔐 Control de Acceso y Roles
+### Seguridad y Autenticación
+- **Forms Authentication**: Sistema de login con roles diferenciados (Admin/Vendedor)
+- **Protección SQL Injection**: Consultas parametrizadas en toda la aplicación
+- **Autorización por rol**: Restricción de acceso a módulos según permisos
+- **Validaciones en múltiples capas**: Cliente, servidor y base de datos
 
-El sistema implementa una matriz de permisos granular para asegurar la integridad de la operación:
+### Gestión de Datos
+- **Stored Procedures**: 100% de operaciones CRUD delegadas a la base de datos
+- **Triggers automáticos**: Control de stock en tiempo real tras cada venta
+- **Transacciones atómicas**: Uso de `SqlTransaction` para garantizar consistencia
+- **Integridad referencial**: Baja lógica para preservar historial de operaciones
 
-| Funcionalidad | Vendedor | Administrador |
-| :--- | :---: | :---: |
-| Generación de Ventas | ✅ | ✅ |
-| Consulta de Stock y Precios | ✅ | ✅ |
-| Alta y Modificación de Artículos | ❌ | ✅ |
-| Gestión de Marcas y Categorías | ❌ | ✅ |
-| Ajustes de Inventario | ❌ | ✅ |
-| Reportes Estadísticos y Auditoría | ❌ | ✅ |
-
----
-
-## 🛠️ Módulos del Sistema
-
-### 📦 Gestión de Catálogo y Stock
-- **Control de Inventario**: Módulo especializado para ajustes manuales de stock con validaciones de disponibilidad.
-- **Filtros Inteligentes**: Buscador dinámico por descripción, marca, categoría o rangos de precios.
-- **Baja Lógica**: Sistema de estados para desactivar entidades sin romper la integridad referencial histórica.
-
-### 🛒 Sistema de Ventas (Point of Sale)
-- **Carrito de Compras Dinámico**: Gestión fluída de ítems en sesión con persistencia durante la navegación.
-- **Transacciones Atómicas**: Registro seguro de venta y detalle utilizando `SqlTransaction` para garantizar que el descuento de stock y el registro ocurran simultáneamente.
-- **Notificaciones**: Feedback visual inmediato ante falta de stock o confirmaciones de venta exitosas.
-
-### 📊 Inteligencia de Negocio
-- **Reportes de Inventario**: Vista detallada de existencias cargada mediante vistas SQL optimizadas (`vw_ArticulosCompletos`).
-- **Dashboard Estadístico**: Análisis de participación por marcas y categorías para la toma de decisiones.
+### Interfaz de Usuario
+- **Diseño responsivo**: Bootstrap 5 para adaptación móvil y desktop
+- **Experiencia fluida**: Navegación optimizada y feedback visual inmediato
+- **Accesibilidad**: Controles intuitivos y mensajes de error descriptivos
+- **Iconografía moderna**: Integración de Font Awesome
 
 ---
 
-## 🏗️ Estructura del Proyecto
+## Módulos del Sistema
+
+### Gestión de Catálogo
+- Listado completo de artículos con imágenes
+- Filtros dinámicos por descripción, marca, categoría y precio
+- Operaciones ABML completas (Alta, Baja, Modificación, Lectura)
+- Vista detallada de productos con información técnica
+
+### Gestión de Marcas y Categorías
+- Administración de clasificadores de productos
+- Sistema de validaciones para evitar duplicados
+- Baja lógica para mantener integridad histórica
+- Interfaz simplificada para alta velocidad de operación
+
+### Control de Stock
+- Ajustes manuales de inventario con validaciones
+- Historial de movimientos de stock
+- Alertas de stock bajo
+- Reportes de existencias por categoría/marca
+
+### Sistema de Ventas
+- Carrito de compras persistente en sesión
+- Actualización dinámica de cantidades
+- Validación de stock en tiempo real
+- Confirmación de venta con descuento automático de inventario
+- Generación de comprobantes
+
+### Reportes y Estadísticas
+- Dashboard con métricas operativas
+- Análisis de participación por marca y categoría
+- Reportes de inventario valorizado
+- Exportación de datos para análisis externo
+
+---
+
+## Estructura del Proyecto
 
 ```
 Gestion-Comercial-Web/
-├── Dominio/                  # Capa de Entidades (Clases POCO)
+├── Dominio/                    # Entidades de negocio (POCO)
 │   ├── Articulo.cs
 │   ├── Categoria.cs
 │   ├── Marca.cs
+│   ├── Usuario.cs
 │   └── Venta.cs
-├── Negocio/                  # Capa de Lógica de Negocio y Acceso a Datos
-│   ├── AccesoDatos.cs        # Gestión de conexión, transacciones y Dispose
-│   ├── ArticuloNegocio.cs    # Lógica específica de productos
-│   ├── VentaNegocio.cs       # Procesamiento y lógica de ventas
-│   └── Mappers/              # Conversión de SqlDataReader a Objetos
-├── Pages/                    # Capa de Presentación (WebForms)
-│   ├── Admin/                # Gestión de Marcas y Categorías
-│   ├── Articulos/            # Listados y gestión de productos
-│   ├── Reportes/             # Módulo de estadísticas
-│   ├── Stock/                # Gestión de inventario
-│   └── Ventas/               # Interfaz de facturación y carrito
-├── Content/                  # Estilos (Bootstrap 5, Site.css personalizado)
-├── Scripts/                  # Lógica de cliente (JavaScript/jQuery)
-├── Site.Master               # Plantilla base y Layout responsivo
-├── Login.aspx                # Acceso securizado al sistema
-└── Web.config                # Configuración de BD y Autenticación
+│
+├── Negocio/                    # Lógica de negocio y acceso a datos
+│   ├── AccesoDatos.cs             # Gestión centralizada de BD
+│   ├── ArticuloNegocio.cs
+│   ├── CategoriaNegocio.cs
+│   ├── MarcaNegocio.cs
+│   ├── UsuarioNegocio.cs
+│   ├── VentaNegocio.cs
+│   └── Mappers/                # Conversión DataReader → Objetos
+│       ├── ArticuloMapper.cs
+│       └── VentaMapper.cs
+│
+├── Pages/                      # Capa de presentación web
+│   ├── Admin/                  # Módulo administrativo
+│   │   ├── Categorias.aspx
+│   │   └── Marcas.aspx
+│   ├── Articulos/              # Gestión de productos
+│   │   ├── Lista.aspx
+│   │   ├── Detalle.aspx
+│   │   └── FormularioArticulo.aspx
+│   ├── Stock/                  # Control de inventario
+│   │   └── GestionStock.aspx
+│   ├── Ventas/                 # Proceso de venta
+│   │   ├── Carrito.aspx
+│   │   └── ConfirmacionVenta.aspx
+│   └── Reportes/               # Estadísticas
+│       └── Dashboard.aspx
+│
+├── Content/                    # Recursos estáticos
+│   ├── bootstrap.min.css
+│   ├── Site.css                   # Estilos personalizados
+│   └── images/
+│
+├── Scripts/                    # JavaScript/jQuery
+│   ├── bootstrap.bundle.min.js
+│   └── site.js
+│
+├── Site.Master                    # Plantilla maestra
+├── Site.Master.cs
+├── Login.aspx                     # Página de autenticación
+├── Default.aspx                   # Página de inicio
+└── Web.config                     # Configuración de la aplicación
 ```
 
 ---
 
-## � Detalles de Implementación (Tech Stack)
+## Tecnologías Utilizadas
 
-- **Backend (C#)**: Uso de patrones de diseño para el mapeo de datos y gestión de recursos eficientes.
-- **Persistencia (SQL Server)**: El 100% de la lógica reside en Stored Procedures. Los **Triggers** automatizan el control de stock tras cada venta.
-- **Frontend**: Uso integral de **Master Pages** para consistencia visual y **Bootstrap 5** para la adaptabilidad.
-- **Manejo de Errores**: Sistema unificado de notificaciones y manejo global de excepciones.
+### Backend
+- **.NET Framework 4.8.1** - Plataforma de desarrollo
+- **C# 7.3** - Lenguaje de programación
+- **ASP.NET WebForms** - Framework web
+- **ADO.NET** - Acceso a datos
 
----
+### Frontend
+- **Bootstrap 5** - Framework CSS responsivo
+- **JavaScript/jQuery** - Interactividad del cliente
+- **Font Awesome** - Iconografía
+- **CSS3** - Estilos personalizados
 
-## �️ Roadmap / Próximas Mejoras
+### Base de Datos
+- **SQL Server 2016+** - Motor de base de datos
+- **Stored Procedures** - Lógica de datos encapsulada
+- **Triggers** - Automatización de procesos
+- **Views** - Vistas optimizadas para reportes
 
-- [ ] Exportación de reportes a Excel y PDF enriquecidos.
-- [ ] Implementación de gráficos estadísticos dinámicos (Charts.js).
-- [ ] Gestión de perfiles de usuario y auditoría de cambios.
-- [ ] Envío automático de comprobantes de venta por Email.
-
----
-
-## ⚙️ Instalación
-
-1. **Clonar**: `git clone https://github.com/f-Rra/Gestion-Comercial-Web.git`
-2. **Base de Datos**: Ejecutar los scripts SQL incluidos para el esquema y procedimientos.
-3. **Conexión**: Configurar el `Web.config` con los datos de tu servidor SQL local.
-4. **Ejecutar**: Abrir en Visual Studio 2022 y ejecutar con F5 (IIS Express).
-
----
-
-## �️ Herramientas y Tecnologías
-
-### Desarrollo y Entorno
-- **IDE**: Visual Studio 2022 Community.
-- **Base de Datos**: SQL Server Management Studio (SSMS).
-- **Control de Versiones**: Git & GitHub.
-- **Frameworks**: .NET Framework 4.8.1, ASP.NET WebForms.
-- **UI/UX**: Bootstrap 5, Font Awesome, CSS3, JavaScript/jQuery.
-
-### Nota sobre el uso de IA
-Para el desarrollo de este proyecto, se contó con la asistencia de herramientas de **IA Generativa** (GitHub Copilot / Claude), específicamente aplicada en:
-- **Diseño Front-end**: Asistencia en la maquetación y estilizado de interfaces para lograr una estética moderna y responsiva.
-- **Refactorización**: Sugerencias para la optimización de código y mejores prácticas de arquitectura.
-- **Documentación**: Colaboración en la redacción técnica y estructuración del presente README.
-
-> **Importante**: Toda la lógica de negocio, arquitectura del sistema, diseño de base de datos y funcionalidades principales fueron conceptualizadas y desarrolladas íntegramente por el autor.
+### Herramientas de Desarrollo
+- **Visual Studio 2022** - IDE principal
+- **SQL Server Management Studio (SSMS)** - Administración de BD
+- **Git & GitHub** - Control de versiones
+- **IIS Express** - Servidor de desarrollo
 
 ---
 
-## �👨‍💻 Autor
+## Decisiones de Diseño
 
-**Herrera Facundo**
-- Estudiante de Tecnicatura Universitaria en Programación (UTN-FRGP)
-- LinkedIn: [Facundo Herrera](https://www.linkedin.com/in/facundo-herrera-38448722a/)
-- GitHub: [@f-Rra](https://github.com/f-Rra)
+### Migración de Windows Forms a Web
+
+**Capas reutilizadas del sistema original:**
+- ✅ Entidades de dominio (sin modificaciones)
+- ✅ Lógica de negocio (adaptaciones menores para web)
+- ✅ Stored Procedures y Triggers SQL
+- ✅ Estructura de base de datos
+
+**Desarrollos nuevos para la versión web:**
+- 🆕 Capa de presentación completa en ASP.NET WebForms
+- 🆕 Gestión de estado con Session y ViewState
+- 🆕 Interfaz responsiva con Bootstrap 5
+- 🆕 Sistema de navegación web con Master Pages
+- 🆕 Validaciones del lado del cliente con JavaScript
+
+---
+
+## Asistencia de IA en el Desarrollo
+
+Este proyecto fue desarrollado con asistencia de herramientas de **IA Generativa** (GitHub Copilot y Claude AI), aplicadas específicamente en:
+
+- Diseño Frontend: Maquetación responsiva y selección de paleta de colores moderna
+- Refactorización: Sugerencias de optimización y mejores prácticas de código
+- Debugging: Identificación de problemas y propuestas de solución
+- Documentación: Estructuración y redacción técnica de este README
+
+> **Nota**: La lógica de negocio, arquitectura y decisiones de diseño fueron desarrolladas íntegramente por el autor, utilizando IA como herramienta de soporte y aceleración del desarrollo.
+
+---
+
+## Autor
+
+**Facundo Herrera**
+- Estudiante de Tecnicatura Universitaria en Programación
+- Universidad Tecnológica Nacional - Facultad Regional General Pacheco (UTN-FRGP)
+- Email: Facundo.herrera@alumnos.frgp.utn.edu.ar
+
+---
